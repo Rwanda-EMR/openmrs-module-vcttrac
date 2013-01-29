@@ -1,0 +1,47 @@
+@CHARSET "ISO-8859-1";
+
+/***********************
+* author: Yvgak
+************************/
+
+.pp_div {
+	border: 1px solid gray;
+	background: whitesmoke;
+	margin: 5px;
+	padding: 2px 2px 3px 2px;
+	overflow-y: auto;
+	z-index: 10;
+	width: 500px;
+	max-height: 300px;
+	overflow: auto;
+	text-align: left;
+}
+
+.pp_hdr {
+	color: #ffffff;
+	font-weight: bold;
+	-moz-border-radius: 2px;
+	background: #8FABC7;
+	margin: 1px;
+	padding: 2px;
+}
+
+.pp_close {
+	background-color: lightpink;
+	border: 1px solid gray;
+	cursor: pointer;
+	float: right;
+	font-size: 0.6em;
+	margin: 2px;
+	padding: 1px;
+	text-align: center;
+}
+
+.pp_close:hover {
+	background-color: #FB9D8B;
+}
+
+.searchRow:hover {
+	background: #F0E68C;
+	cursor: pointer;
+}

@@ -1,0 +1,222 @@
+@CHARSET "ISO-8859-1";
+
+/***********************
+* author: Yvgak
+************************/
+
+.menuGroup {
+	color: white;
+	font-size: 1.3em;
+	font-weight: bold;
+	background-color: #8FABC7;
+	width: 400px;
+	padding: 3px 5px 3px 5px;
+	margin-top: 20px;
+	margin-bottom: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius: 2px;
+}
+
+.menuLink {
+	color: #8FABC7;
+	background-color: white;
+	border: 1px solid #8FABC7;
+	-moz-border-radius: 3px;
+	cursor: pointer;
+	width: 190px;
+	min-height: 20px;
+	padding: 2px auto 1px;
+	margin-top: 2px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menuLink:hover {
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+}
+
+.menuLinkSelected {
+	background-color: #CCCCCC;
+}
+
+.menuLinkA {
+	color: #8FABC7;
+	background-color: #CCCCCC;
+	border: 1px solid #8FABC7;
+	-moz-border-radius: 3px;
+	cursor: pointer;
+	width: 190px;
+	height: 20px;
+	padding: 2px auto 1px;
+	margin-top: -6px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menuLinkA:hover {
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+}
+
+.menuLinkGroup {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+}
+
+.menuLinkGroup table {
+	margin: auto;
+}
+
+.left {
+	float: left;
+	width: 15%;
+}
+
+.right {
+	float: right;
+	width: 85%;
+}
+
+.highLight{
+	background-color: #ddd;
+	margin-right: 5px!important;
+}
+
+.clientCode {
+	margin-top: 1px;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	color: #8FABC7;
+	cursor: pointer;
+	border-top: 1px solid #8FABC7;
+	border-right: 2px solid #8FABC7;
+	border-bottom: 2px solid #8FABC7;
+	border-left: 1px solid #8FABC7;
+	padding: 2px 3px 1px 3px;
+	-moz-border-radius: 3px;
+}
+
+.hdClientSummary {
+	border: 1px solid black;
+	-moz-border-radius: 3px;
+	margin: auto;
+	width: 750px;
+	padding: 4px 3px;
+	margin-top: 4px;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.hdDashboard:hover{
+	color: #8FABC7;
+	cursor: pointer;
+}
+
+.obsDetailsDiv {
+	padding: 3px 6px;
+	display: block;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.resultDiv {
+	font-size: 8px;
+	color: #8FABC7;
+	border: 1px solid #8FABC7;
+	border-bottom-width: 2px;
+	border-right-width: 2px;
+	padding: 2px;
+	margin-top: 2px;
+	-moz-border-radius: 2px;
+}
+
+.obsValuePositive {
+	border: 1px solid red;
+	padding: 1px 3px 1px 3px;
+	color: red;
+	background: #E2EDF4;
+	-moz-border-radius: 2px;
+	font-weight: bold;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.obsValue {
+	border: 1px solid silver;
+	padding: 1px 3px 1px 3px;
+	color: #06263C;
+	background: #E2EDF4;
+	-moz-border-radius: 2px;
+	font-weight: bold;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.generatedClientInfo {
+	width: 98%;
+	border-bottom: 1px solid #8FABC7;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.displayHelp {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+input[type=text]:focus{
+	background-color: #ABCDEF;
+}
+
+input[readonly=readonly],input[readonly=readonly]:focus{
+	background-color: #ebebeb;
+}
+
+/***********Configuration***********/
+.configDescription,.configDefaultValue,.configComment {
+	vertical-align: top;
+}
+
+.configDescription {
+	font-weight: bold;
+	min-width: 55% !important;
+	max-width: 55% !important;
+	overflow: hidden !important;
+	margin-right: 3px;
+	padding-right: 5px;
+}
+
+.configSelect {
+	min-width: 35% !important;
+	max-width: 35% !important;
+	overflow: hidden !important;
+}
+
+.configDefaultValue {
+	font-style: italic;
+}
+
+.configComment {
+	font-family: Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif
+		;
+	font-size: 0.9em;
+	font-weight: normal;
+	font-style: italic;
+	padding-left: 10px;
+}
+
+.configTable {
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.even {
+	background-color: whitesmoke;
+}
+/***********End Configuration***********/

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.2//EN" "http://resources.openmrs.org/doctype/config-1.2.dtd">
+
+<module configVersion="1.2">
+
+	<!-- Base Module Properties -->
+	<id>vcttrac</id>
+	<name>Rwanda VCT</name>
+	<version>0.2.5.1</version>
+	<package>org.openmrs.module.@MODULE_ID@</package>
+	<author>Rwanda MoH</author>
+	<description>
+		VCT Module, management of clients in the process of counseling and testing HIV 
+	</description>
+
+	<require_modules>
+		<require_module version="0.1.1">org.openmrs.module.mohtracportal</require_module>
+	</require_modules>
+
+	<activator>@MODULE_PACKAGE@.VCTModuleActivator</activator>
+
+	<!--
+		<updateURL>https://dev.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL>
+	-->
+	<!-- /Base Module Properties -->
+
+	<require_version>1.6.2.12911</require_version>
+
+	<!-- Extensions -->
+	<extension>
+		<point>org.openmrs.tracmodule.list</point>
+		<class>@MODULE_PACKAGE@.extension.html.AdminList</class>
+	</extension>
+
+	<privilege>
+		<name>View VCT</name>
+		<description>Allow user to view VCT module</description> 
+	</privilege>
+	
+	<privilege>
+		<name>View VCT Home Page</name>
+		<description>Allow user to view VCT Home Page</description> 
+	</privilege>
+
+	<privilege>
+		<name>Manage VCT configurations</name>
+		<description>Allow user to edit VCT Configurations</description> 
+	</privilege>
+	
+	<privilege>
+		<name>View VCT Overview</name>
+		<description>Able to view VCT graphics and indicators</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Manage VCT Report customizations</name>
+		<description>Able to view VCT Report customizations</description> 
+	</privilege>
+
+	<privilege>
+		<name>View VCT Client Dashboard</name>
+		<description>Allow user to view VCT Client dashboard</description> 
+	</privilege>
+	
+	<privilege>
+		<name>View VCT Client result</name>
+		<description>Able to view HIV result of a client in VCT</description> 
+	</privilege>
+
+	<privilege>
+		<name>Manage VCT/PIT Clients registration</name>
+		<description>Allow user to add/edit VCT/PIT client</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Manage Counseling of VCT/PIT Clients</name>
+		<description>Allow user to view Counseling Page</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Manage VCT Clients program enrollment</name>
+		<description>Able to enroll VCT clients in HIV program</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Add VCT Client test result</name>
+		<description>Able to add HIV Test result of a client in VCT</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Edit VCT Client test result</name>
+		<description>Able to edit HIV Test result of a client in VCT</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Edit VCT HIV Test Code</name>
+		<description>Able to edit HIV Test code of a client in VCT</description> 
+	</privilege>
+
+	<!-- <privilege>
+		<name>Registration of PIT Client</name>
+		<description>Allow user to register new PIT Client</description> 
+	</privilege>
+
+	<privilege>
+		<name>Create new Client</name>
+		<description>Allow user to create new VCT/PIT Client</description> 
+	</privilege>
+	
+	<privilege>
+		<name>Can enter a result of a lab test</name>
+		<description>Allow user to enter the result of a patient lab test</description> 
+	</privilege> -->
+
+
+	<!-- Required Global Properties -->
+		<globalProperty>
+			<property>@MODULE_ID@.configured</property>
+			<defaultValue>false</defaultValue> 
+			<description> If this value is FALSE, that means the module has not been 
+				configured while it has, set to TRUE after the configuration.</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.relationshiptype.partners</property>
+			<defaultValue></defaultValue> 
+			<description> The person relation type for partners</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.vctProgramConstruct</property>
+			<defaultValue></defaultValue> 
+			<description> VCT Program Construct concept id</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.whyDidYouGetTested</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "Why did you get tested for HIV"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.programThatOrderedTest</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "The program/department that ordered a test to be done"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.hivTestingDone</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "Has the patient been tested for HIV?"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.numberOfCondomTaken</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "The number of condoms taken"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.vpc.clinicalImpressionComment</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "Free text for non coded clinical impressions"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.htc.hivTestConstruct</property>
+			<defaultValue></defaultValue> 
+			<description> HIV test construct concept id</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.htc.resultOfHivTest</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "Result of PCR or rapid test"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.htc.dateResultOfHivTestReceived</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "Question asking the date on which result of HIV test was received"</description> 
+		</globalProperty>
+		
+		<globalProperty>
+			<property>@MODULE_ID@.htc.hivTestDate</property>
+			<defaultValue></defaultValue> 
+			<description> The concept id for "DATE OF HIV TEST"</description> 
+		</globalProperty>
+		
+	<!-- /Required Global Properties -->
+
+	<dwr>
+		<allow>
+			<create creator="new" javascript="VCT_DWRUtil">
+				<param name="class" value="org.openmrs.module.vcttrac.web.dwr.DwrUtil"/>
+				<include method="getPatientListInTable"/>
+			</create>
+			<convert converter="bean" match="org.openmrs.web.dwr.PersonListItem"/>
+		</allow>	
+	</dwr>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with @MODULE_ID@.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+
+	<!-- Mapping files -->
+	<mappingFiles>
+		VCTClient.hbm.xml
+	</mappingFiles>
+	<!-- /Mapping files -->
+
+</module>
+

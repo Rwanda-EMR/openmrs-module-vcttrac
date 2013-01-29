@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Beans to add to the current Application context definition -->
+  
+<beans>
+	
+    <bean id="vctModuleUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="interceptors">
+		<list>
+			<ref bean="localeChangeInterceptor" />
+		</list>
+	</property>
+    <property name="order">
+    	<value>2</value>
+    </property>
+    	<property name="mappings">
+            <props>	          
+               <prop key="module/@MODULE_ID@/vctHome.htm">homeController</prop>
+               <prop key="module/@MODULE_ID@/vctClientDashboard.form">clientDashboardController</prop>
+	           <prop key="module/@MODULE_ID@/preCounseling.form">vctPreCounselingFormController</prop>
+	           <prop key="module/@MODULE_ID@/counseling.form">vctCounselingFormController</prop>
+	           <prop key="module/@MODULE_ID@/saveCounseling.htm">vctSaveCounselingViewController</prop>
+	           <prop key="module/@MODULE_ID@/vctRegistration.form">startCounselingController</prop>
+	           <prop key="module/@MODULE_ID@/getClientCode.htm">myController</prop>
+	           <prop key="module/@MODULE_ID@/getClientInfo.htm">clientInfoController</prop>
+	           <prop key="module/@MODULE_ID@/getClientCodeForResult.htm">autoCompleteForResultController</prop>
+	           <prop key="module/@MODULE_ID@/vctClientResults.form">resultController</prop>
+	           <prop key="module/@MODULE_ID@/vctResultReception.form">receptionOfResultController</prop>
+			   <prop key="module/@MODULE_ID@/vctStatistics.htm">vctStatisticsController</prop>			   
+               <prop key="module/@MODULE_ID@/vctConfigurations.htm">configurationController</prop>
+			   <prop key="module/@MODULE_ID@/chart.htm">vctChartController</prop>
+               <prop key="module/@MODULE_ID@/vctClientSearch.htm">vctClientSearchController</prop>
+               <prop key="module/@MODULE_ID@/vctClientTest.list">clientTestFormController</prop>
+               <prop key="module/@MODULE_ID@/hivProgramEnrollment.list">vctProgramEnrollmentController</prop>
+               <prop key="module/@MODULE_ID@/vctOverview.htm">vctOverviewController</prop>
+               <prop key="module/@MODULE_ID@/vctTracnetIndecators.list">vctTracnetIndicatorsController</prop>
+               <prop key="module/@MODULE_ID@/vctClients.list">vctClientsListingController</prop>
+               <prop key="module/@MODULE_ID@/vctPreRegistrationCheckup.htm">vctPreRegistrationController</prop>
+               <prop key="module/@MODULE_ID@/vctTodayGraphicalStatistic.htm">vctGraphicalStatisticPerDayController</prop>
+	        </props>
+		</property>
+    </bean>
+    
+	<bean id="vctVersusPitChartView" class="@MODULE_PACKAGE@.web.view.chart.VCTVersusPITChartView" />
+	<bean id="registrationEvolutionPerDayChartView" class="@MODULE_PACKAGE@.web.view.chart.EvolutionOfClientRegisteredPerDay" />
+	<bean id="vctBarChartView" class="@MODULE_PACKAGE@.web.view.chart.VCTCreateBarChartView" />
+	<bean id="vctPieChartView" class="@MODULE_PACKAGE@.web.view.chart.VCTCreatePieChartView" />
+	
+	<bean id="vctChartController" class="@MODULE_PACKAGE@.web.controller.ChartStatsQueryController">
+		<property name="chartViews">
+			<map>
+				<entry key="vctResultOfHivTest"><ref bean="vctVersusPitChartView" /></entry>
+				<entry key="registrationEvolutionPerDay"><ref bean="registrationEvolutionPerDayChartView" /></entry>
+				<entry key="barChartView"><ref bean="vctBarChartView" /></entry>
+				<entry key="pieChartView"><ref bean="vctPieChartView" /></entry>
+			</map>
+		</property>
+	</bean>
+	
+    <!-- Controllers -->
+    <bean id="vctGraphicalStatisticPerDayController" class="@MODULE_PACKAGE@.web.controller.VCTGraphicalStatisticPerDayController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/graphicStatisticPerDay</value></property>
+    </bean>
+    
+    <bean id="vctProgramEnrollmentController" class="@MODULE_PACKAGE@.web.controller.VCTProgramEnrollmentController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctEnrollment</value></property>
+    </bean>
+    
+    <bean id="vctPreRegistrationController" class="@MODULE_PACKAGE@.web.controller.VCTPreRegistrationCheckupController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctPreRegistrationCheckup</value></property>
+    </bean>
+    
+    <bean id="vctClientsListingController" class="@MODULE_PACKAGE@.web.controller.VCTClientListingController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctClientListing</value></property>
+    </bean>
+    
+    <bean id="vctTracnetIndicatorsController" class="@MODULE_PACKAGE@.web.controller.VCTTracnetIndicatorsController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctTracnetIndicators</value></property>
+    </bean>
+    
+    <bean id="vctOverviewController" class="@MODULE_PACKAGE@.web.controller.VCTOverviewController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctOverview</value></property>
+    </bean>
+    
+    <bean id="clientTestFormController" class="@MODULE_PACKAGE@.web.controller.VCTClientViewController">
+    	<property name="viewName"><value>/module/@MODULE_ID@/vctClientInfoFrm</value></property>
+    </bean>
+    
+    <bean id="vctClientSearchController" class="@MODULE_PACKAGE@.web.controller.VCTClientSearchController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctClientSearchForm</value></property>
+    </bean>
+    
+    <bean id="homeController" class="@MODULE_PACKAGE@.web.controller.VCTHomePageController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctHomePage</value></property>
+    </bean>
+    
+    <bean id="configurationController" class="@MODULE_PACKAGE@.web.controller.VCTConfigurationsController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctConfiguration</value></property>
+    </bean>
+    
+    <bean id="vctStatisticsController" class="@MODULE_PACKAGE@.web.controller.VCTStatisticsController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctStatisticsForm</value></property>
+    </bean>
+    
+    <bean id="clientDashboardController" class="@MODULE_PACKAGE@.web.controller.VCTClientDashboardFormController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctClientDashboardForm</value></property>
+    </bean>
+    
+    <bean id="clientInfoController" class="@MODULE_PACKAGE@.web.controller.AutoCompleteClientInfoController">
+		<property name="viewName"><value>/module/@MODULE_ID@/getClientInfo</value></property>
+    </bean>
+    
+    <bean id="myController" class="@MODULE_PACKAGE@.web.controller.MyController">
+		<property name="viewName"><value>/module/@MODULE_ID@/getClientCode</value></property>
+    </bean>
+    
+    <bean id="autoCompleteForResultController" class="@MODULE_PACKAGE@.web.controller.AutoCompleteCodeForReceptionController">
+		<property name="viewName"><value>/module/@MODULE_ID@/autoCompleteClientCodeForResult</value></property>
+    </bean>
+    
+    <bean id="receptionOfResultController" class="@MODULE_PACKAGE@.web.controller.VCTReceptionOfResultController">
+		<property name="viewName"><value>/module/@MODULE_ID@/receptionResultat</value></property>
+    </bean>
+    
+    <bean id="resultController" class="@MODULE_PACKAGE@.web.controller.VCTAutoCompleteListController">
+		<!-- <property name="viewName"><value>/module/@MODULE_ID@/clientHivResultForm</value></property> -->
+		<property name="formView"><value>/module/@MODULE_ID@/clientHivResultForm</value></property>
+		<property name="successView"><value>/module/@MODULE_ID@/vctClientResults.form</value></property>
+		<property name="commandName"><value>result</value></property>
+		<property name="commandClass" value="@MODULE_PACKAGE@.VCTClientResult"></property>
+		<property name="validator">
+			<ref bean="clientResultValidator" />
+		</property>
+    </bean>
+    
+    <bean id="startCounselingController" class="@MODULE_PACKAGE@.web.controller.VCTRegistrationFormController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctRegistrationForm</value></property>
+    </bean>
+    
+    <bean id="vctPreCounselingFormController" class="@MODULE_PACKAGE@.web.controller.VCTPreCounselingFormController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctPreCounseling</value></property>
+    </bean>
+    
+    <bean id="vctCounselingFormController" class="@MODULE_PACKAGE@.web.controller.VCTCounselingFormController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctCounselingForm</value></property>
+    </bean>
+    
+    <bean id="vctSaveCounselingViewController" class="@MODULE_PACKAGE@.web.controller.VCTSaveCounselingViewController">
+		<property name="viewName"><value>/module/@MODULE_ID@/vctSaveCounselingView</value></property>
+    </bean>
+    
+    <!-- /Controllers -->
+    
+    <!-- validators -->
+	
+	<bean id="clientResultValidator" class="@MODULE_PACKAGE@.validator.VCTClientResultValidator" />
+	
+	<!-- /validators -->
+    
+    <bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.vcttrac.service.VCTModuleService</value>
+				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean class="org.openmrs.module.vcttrac.impl.VCTModuleServiceImpl">
+							<property name="vctDAO">
+								<bean class="org.openmrs.module.vcttrac.db.hibernate.VCTModuleDAOImpl">
+									<property name="sessionFactory">
+										<ref bean="sessionFactory" />
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor" />
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+		
+	</bean>
+	
+    <!-- ========================= other beans ========================= -->
+    
+    <bean class="@MODULE_PACKAGE@.util.ContextProvider" />
+    
+</beans>

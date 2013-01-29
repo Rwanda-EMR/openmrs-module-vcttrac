@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>VCT tag library</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>vcttag</short-name>
+	<uri>http://openmrs.org/module/vct</uri>
+	
+	<function>
+		<description>Get a person name by personId</description>
+		<name>personName</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getPersonNames(java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a location name by locationId</description>
+		<name>locationName</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getLocationName(java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a concept name by conceptId</description>
+		<name>conceptName</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getConceptName(java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a concept name by conceptId string</description>
+		<name>conceptNameByIdAsString</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getConceptNameByIdAsString(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a relationshiptype name by relationshiptypeId</description>
+		<name>relationShipTypeNameById</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String personRelationShipType(java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Checks if a concept with a given ID exists</description>
+		<name>checkIfConceptExistByIdAsString</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String checkIfConceptExistByIdAsString(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a person attribute from a person object and the attributeTypeId</description>
+		<name>personAttribute</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String personAttribute(org.openmrs.Person,java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a person address from a person object and locationTypeId</description>
+		<name>personAddress</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String personAddress(org.openmrs.Person,java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a person address from a person object and locationTypeId</description>
+		<name>fullPersonAddress</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getFullPersonAddress(org.openmrs.Person)</function-signature>
+	</function>
+	
+	<function>
+		<description>Get a concept value from a convset, param: convset obs, conceptId you want to get its value</description>
+		<name>convsetObsValueByConcept</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String convsetObsValueByConcept(org.openmrs.Obs,java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Parse a global propertie name</description>
+		<name>gpParser</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String globalPropertyParser(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number of new clients counseled and tested for HIV</description>
+		<name>newClientCounseledAndTested</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfNewClientsCounseledAndTestedForHIV(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number of new clients tested and received results</description>
+		<name>newClientTestedAndReceivedResults</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfNewClientsTestedAndReceivedResults(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number of HIV Positive clients</description>
+		<name>hivPositiveClients</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfHIVPositiveClients(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number Of Discordant Couples</description>
+		<name>discordantCouples</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfDiscordantCouples(java.lang.String, java.lang.String, java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number Of Couples Counseled</description>
+		<name>couplesCounseled</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfCouplesCounseled(java.lang.String, java.lang.String, java.lang.Integer)</function-signature>
+	</function>
+	
+	<function>
+		<description>Number Of Couples Counseled And Tested</description>
+		<name>couplesCounseledAndTested</name>
+		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
+		<function-signature>java.lang.String getNumberOfCouplesCounseledAndTested(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)</function-signature>
+	</function>
+	
+</taglib>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.vcttrac">
+	<class name="VCTClient" table="trac_vct_client">
+
+		<id name="tracVctClientId" type="java.lang.Integer"
+			column="trac_vct_client_id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		
+		<property name="codeClient" column="code_client" type="java.lang.String" not-null="true"/>
+		<property name="vctOrPit" column="vct_or_pit" type="java.lang.Boolean"/>
+		<property name="codeTest" column="code_test" type="java.lang.String"/>
+		<!-- <property name="partnerCodeTest" column="partner_code_test" type="java.lang.String"/> -->
+		<property name="nid" column="nid" type="java.lang.String"/>
+		<property name="typeOfCounseling" column="type_of_counseling" type="java.lang.Integer"/>
+		<property name="clientDecision" column="client_decision" type="java.lang.Integer"/>
+		<property name="archived" column="archived" type="java.lang.Boolean"/>
+		<property name="voided" column="voided" type="java.lang.Boolean"/>
+		<property name="uuid" column="uuid" type="java.lang.String" length="38" unique="true"/>		
+		<many-to-one name="client" column="client_id" class="org.openmrs.Person"
+			not-null="true" />
+		<many-to-one name="partner" column="partner_id" class="org.openmrs.Person"
+			not-null="false" />
+		<many-to-one name="location" column="location" class="org.openmrs.Location"
+			not-null="true" />
+		<many-to-one name="counselingObs" column="obs_id_counseling" class="org.openmrs.Obs" />
+		<many-to-one name="resultObs" column="obs_id_result" class="org.openmrs.Obs" />
+		<property name="dateOfRegistration" type="date" column="date_registration"/>
+		<property name="dateCreated" type="date" column="date_created"/>
+		<property name="dateVoided" type="date" column="date_voided"/>
+		<property name="dateChanged" type="date" column="date_changed"/>
+		<many-to-one name="createdBy" column="creator" class="org.openmrs.User"
+			not-null="true" />
+		<many-to-one name="voidedBy" column="voided_by" class="org.openmrs.User"/>
+		<many-to-one name="changedBy" column="changed_by" class="org.openmrs.User"/>
+		
+	</class>
+	
+</hibernate-mapping>
