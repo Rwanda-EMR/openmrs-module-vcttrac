@@ -1,6 +1,8 @@
 <%@ include file="template/localHeader.jsp"%>
 <openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctResultReception.form" />
 
+
+
 	<style>
 		input {
 	    	font-size: 100%;
@@ -12,7 +14,6 @@
 	</style>
 	
 <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.autocomplete.js" />
-
 
 <div style="width: 90%; margin-left: auto; margin-right: auto;">
 

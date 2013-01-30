@@ -9,6 +9,10 @@
 
 <openmrs:require privilege="Edit VCT Client test result" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctClientTest.list?page=1" />
 
+<script type="text/javascript">
+var $j = jQuery.noConflict();
+</script>
+
 <!-- <div style="width: 22%; float: left; border: 1px solid #8FABC7; -moz-border-radius: 3px; padding: 5px; font-size: 0.9em;">
 <div style="width: 100%; background: #8FABC7; -moz-border-radius: 3px; padding: 4px; margin-bottom: 3px; color: #FFFFFF; font-weight: bold;"><spring:message code="@MODULE_ID@.tablelist.newClientTest"/></div>
 	<form action="vctClientTest.list?page=1&save" method="post">
@@ -140,7 +144,7 @@
 	}
 	
 	function showDialog(){
-		$("#dialog").dialog({
+		$j("#dialog").dialog({
 			zIndex: 980,
 			bgiframe: true,
 			height: 190,
@@ -150,7 +154,7 @@
 	}
 
 	function initDialogContent(id,codeClient,dateOfRegistration){
-		$("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.tablelist.newClientTest'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formNewTest' action='vctClientTest.list?page=1&save' method='post'>"
+		$j("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.tablelist.newClientTest'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formNewTest' action='vctClientTest.list?page=1&save' method='post'>"
 			+"<table><tr><td></td><td></td><td><input type='hidden' id='clientId' name='clientId' value='"+id+"'/></td><td></td></tr>"
 			+"<tr><td><spring:message code='@MODULE_ID@.registration.codeclient'/></td><td><span class='displayHelp'><img border='0' src='<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif' title='<spring:message code='@MODULE_ID@.help'/>'/></span></td><td><input readonly='readonly' type='text' name='clientCode' id='clientCodeId' value='"+codeClient+"'/></td><td><span id='clientCodeError'></span></td></tr>"
 			+"<tr><td><spring:message code='@MODULE_ID@.result.clientcode'/></td><td><span class='displayHelp'><img border='0' src='<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif' title='<spring:message code='@MODULE_ID@.help'/>'/></span></td><td><input type='text' name='testCode' id='testCodeId' value='"+codeClient+"'/></td><td><span id='testCodeError'></span></td></tr>"
@@ -159,7 +163,7 @@
 	}
 
 	function editClientCodeTest(id,clientTestCode){
-		$("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.tablelist.editClientTest'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTestCode' action='vctClientTest.list?page=1&edit' method='post'>"
+		$j("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.tablelist.editClientTest'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTestCode' action='vctClientTest.list?page=1&edit' method='post'>"
 			+"<table><tr><td></td><td></td><td><input type='hidden' id='clientCodeId' name='clientCode' value='"+id+"'/></td><td></td></tr>"
 			+"<tr><td><spring:message code='@MODULE_ID@.result.clientcode'/></td><td><span class='displayHelp'><img border='0' src='<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif' title='<spring:message code='@MODULE_ID@.help'/>'/></span></td><td><input type='text' name='testCode' id='testCodeId' value='"+clientTestCode+"'/></td><td><span id='testCodeError'></span></td></tr>"
 			+"<tr><td></td><td></td><td><input type='button' id='btSave' value='<spring:message code='general.save' />' onclick='submitFormEditClientTestCode();'/></td></tr></table></form></div></p></div>");
@@ -179,39 +183,39 @@
 
 	function validateFormFields(){
 		var valid=true;
-		if($("#testCodeId").val()==''){
-			$("#testCodeError").html("*");
-			$("#testCodeError").addClass("error");
+		if($j("#testCodeId").val()==''){
+			$j("#testCodeError").html("*");
+			$j("#testCodeError").addClass("error");
 			valid=false;
 		} else {
-			$("#testCodeError").html("");
-			$("#testCodeError").removeClass("error");
+			$j("#testCodeError").html("");
+			$j("#testCodeError").removeClass("error");
 		}
 
-		if($("#obsDateId").val()==''){
-			$("#obsDateError").html("*");
-			$("#obsDateError").addClass("error");
+		if($j("#obsDateId").val()==''){
+			$j("#obsDateError").html("*");
+			$j("#obsDateError").addClass("error");
 			valid=false;
 		} else {
-			$("#obsDateError").html("");
-			$("#obsDateError").removeClass("error");
+			$j("#obsDateError").html("");
+			$j("#obsDateError").removeClass("error");
 		}
 
-		if($("#clientCodeId").val()==''){
-			$("#clientCodeError").html("*");
-			$("#clientCodeError").addClass("error");
+		if($j("#clientCodeId").val()==''){
+			$j("#clientCodeError").html("*");
+			$j("#clientCodeError").addClass("error");
 			valid=false;
 		} else {
-			$("#clientCodeError").html("");
-			$("#clientCodeError").removeClass("error");
+			$j("#clientCodeError").html("");
+			$j("#clientCodeError").removeClass("error");
 		}
 
 		if(!valid){
-			$("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
-			$("#errorDivId").addClass("error");
+			$j("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+			$j("#errorDivId").addClass("error");
 		} else {
-			$("#errorDivId").html("");
-			$("#errorDivId").removeClass("error");
+			$j("#errorDivId").html("");
+			$j("#errorDivId").removeClass("error");
 		}
 		
 		return valid;
@@ -219,21 +223,21 @@
 
 	function validateEditFormFields(){
 		var valid=true;
-		if($("#testCodeId").val()==''){
-			$("#testCodeError").html("*");
-			$("#testCodeError").addClass("error");
+		if($j("#testCodeId").val()==''){
+			$j("#testCodeError").html("*");
+			$j("#testCodeError").addClass("error");
 			valid=false;
 		} else {
-			$("#testCodeError").html("");
-			$("#testCodeError").removeClass("error");
+			$j("#testCodeError").html("");
+			$j("#testCodeError").removeClass("error");
 		}
 
 		if(!valid){
-			$("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
-			$("#errorDivId").addClass("error");
+			$j("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+			$j("#errorDivId").addClass("error");
 		} else {
-			$("#errorDivId").html("");
-			$("#errorDivId").removeClass("error");
+			$j("#errorDivId").html("");
+			$j("#errorDivId").removeClass("error");
 		}
 		
 		return valid;	
