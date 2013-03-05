@@ -67,7 +67,7 @@
 		</tr>
 		<tr>
 			<td><spring:message code="Encounter.provider" /></td>
-			<td> : <b>${providerName}</b><input name="provider" value="${pci.providerId}" size="5" type="hidden"/></td>
+			<td> : <b>${vcttag:personName(pci.providerId)}</b><input name="provider" value="${pci.providerId}" size="5" type="hidden"/></td>
 			<td></td>
 		</tr>
 		<tr>

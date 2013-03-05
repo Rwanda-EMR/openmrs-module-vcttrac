@@ -53,7 +53,7 @@ public class VCTCounselingFormController extends ParameterizableViewController {
 			VCTPreCounselingInfo pci = new VCTPreCounselingInfo();
 			pci.setEncounterDate(request.getParameter("encounterDate"));
 			pci.setLocationId(Integer.parseInt(request.getParameter("location")));
-			pci.setProviderId(Integer.parseInt(request.getParameter("provider")));
+			pci.setProviderId(Context.getUserService().getUser(Integer.parseInt(request.getParameter("provider"))).getPerson().getPersonId());
 			pci.setCounselingTypeId(Integer.parseInt(request.getParameter("counselingType")));
 			
 			List<Integer> personIds = new ArrayList<Integer>();
@@ -62,7 +62,7 @@ public class VCTCounselingFormController extends ParameterizableViewController {
 			
 			mav.addObject("personIds", personIds);
 			mav.addObject("pci", pci);
-			mav.addObject("providerName", Context.getUserService().getUser(pci.getProviderId()).getPersonName());
+//			mav.addObject("providerName", Context.getUserService().getUser(pci.getProviderId()).getPersonName());
 		}
 		catch (Exception ex) {
 			String msg = "An error occured [" + ex.getMessage() + "], please check your log file.";

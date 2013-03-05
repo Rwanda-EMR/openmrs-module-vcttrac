@@ -50,7 +50,7 @@ public class VCTPreCounselingFormController extends ParameterizableViewControlle
 			ci.setEncounterDate(sdf.format(today));
 			ci.setLocationId(Integer.valueOf(VCTConfigurationUtil.getDefaultLocationId()));
 			//if (Context.getAuthenticatedUser().hasRole("Provider"))
-			ci.setProviderId(Context.getAuthenticatedUser().getUserId());
+			ci.setProviderId(Context.getAuthenticatedUser().getPerson().getPersonId());
 			
 			mav.addObject("ci", ci);
 		}
