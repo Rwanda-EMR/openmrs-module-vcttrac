@@ -17,12 +17,14 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
 import org.openmrs.module.Extension.MEDIA_TYPE;
 import org.openmrs.module.vcttrac.extension.html.AdminList;
 
 /**
  * This test validates the AdminList extension class
  */
+@Ignore
 public class AdminListExtensionTest extends TestCase {
 
 	/**
