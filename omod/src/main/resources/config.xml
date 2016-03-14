@@ -4,10 +4,10 @@
 <module configVersion="1.2">
 
 	<!-- Base Module Properties -->
-	<id>vcttrac</id>
-	<name>Rwanda VCT</name>
-	<version>0.2.5.1</version>
-	<package>org.openmrs.module.@MODULE_ID@</package>
+	<id>@MODULE_ID@</id>
+	<name>@MODULE_NAME@</name>
+	<version>@MODULE_VERSION@</version>
+	<package>@MODULE_PACKAGE@</package>
 	<author>Rwanda MoH</author>
 	<description>
 		VCT Module, management of clients in the process of counseling and testing HIV 
@@ -24,7 +24,7 @@
 	-->
 	<!-- /Base Module Properties -->
 
-	<require_version>1.6.2.12911</require_version>
+	<require_version>${openMRSVersion}</require_version>
 
 	<!-- Extensions -->
 	<extension>
