@@ -13,19 +13,6 @@
 var $j = jQuery.noConflict();
 </script>
 
-<!-- <div style="width: 22%; float: left; border: 1px solid #8FABC7; -moz-border-radius: 3px; padding: 5px; font-size: 0.9em;">
-<div style="width: 100%; background: #8FABC7; -moz-border-radius: 3px; padding: 4px; margin-bottom: 3px; color: #FFFFFF; font-weight: bold;"><spring:message code="@MODULE_ID@.tablelist.newClientTest"/></div>
-	<form action="vctClientTest.list?page=1&save" method="post">
-		<table>
-			<tr><td></td><td><input type="hidden" id="clientId" name="clientId" value=""/></td><td></td></tr>
-			<tr><td><spring:message code="@MODULE_ID@.registration.codeclient"/></td><td><input readonly="readonly" type="text" name="clientCode" id="clientCodeId" value=""/></td><td><span id="clientCodeError"></span></td></tr>
-			<tr><td><spring:message code="@MODULE_ID@.result.clientcode"/></td><td><input type="text" name="testCode" id="testCodeId" value=""/></td><td><span id="testCodeError"></span></td></tr>
-			<tr><td><spring:message code="Encounter.datetime"/></td><td><input type="text" name="obsDate" id="obsDateId" value="" size="11" onclick="showCalendar(this);"/></td><td><span id="obsDateError"></span></td></tr>
-			<tr><td></td><td><input type="button" id="btSave" value="<spring:message code="general.save"/>"/></td></tr>
-		</table>
-	</form>
-</div> -->
-
 <!-- <div style="width: 74%; float: right; border: 1px solid #8FABC7; margin-left: 5px; -moz-border-radius: 3px; padding: 5px;"> -->
 	<div id="list_container" style="width: 97%">
 	

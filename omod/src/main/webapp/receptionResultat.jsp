@@ -1,8 +1,6 @@
 <%@ include file="template/localHeader.jsp"%>
 <openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctResultReception.form" />
 
-
-
 	<style>
 		input {
 	    	font-size: 100%;

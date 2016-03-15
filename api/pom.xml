@@ -25,6 +25,7 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>mohtracportal-api</artifactId>
+			<scope>provided</scope>
 			<version>${mohtracPortalVersion}</version>
 		</dependency>
 	</dependencies>

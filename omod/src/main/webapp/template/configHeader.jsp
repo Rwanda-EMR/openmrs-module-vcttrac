@@ -1,5 +1,5 @@
 <%@ taglib prefix="vct_tag" tagdir="/WEB-INF/tags/module/vcttrac" %>
-<%@ taglib prefix="vcttag" uri="/WEB-INF/view/module/@MODULE_ID@/taglibs/vcttag.tld" %>
+<%@ taglib prefix="vcttag" uri="/WEB-INF/view/module/vcttrac/taglibs/vcttag.tld" %>
 <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/vctstyle.css" />
 
 <style>

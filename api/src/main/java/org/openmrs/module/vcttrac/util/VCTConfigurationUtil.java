@@ -114,8 +114,8 @@ public class VCTConfigurationUtil {
 	 */
 	public static Integer getPartnerRelationShipTypeId() throws Exception {
 		GlobalProperty gp = Context.getAdministrationService().getGlobalPropertyObject("vcttrac.relationshiptype.partners");
-		return (gp != null & gp.getPropertyValue().trim().compareTo("") != 0) ? Integer.parseInt(gp.getPropertyValue())
-		        : null;
+		
+		return (gp != null && gp.getPropertyValue() != null && gp.getPropertyValue().trim().compareTo("") != 0) ? Integer.parseInt(gp.getPropertyValue()) : null;
 	}
 	
 	//VctHivTestConstruct
