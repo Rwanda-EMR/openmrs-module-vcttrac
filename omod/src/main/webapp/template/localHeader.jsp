@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery-1.3.2.js" />
 <%@ taglib prefix="vcttag" uri="/WEB-INF/view/module/vcttrac/taglibs/vcttag.tld" %>
 <%@ taglib prefix="vct_tag" tagdir="/WEB-INF/tags/module/vcttrac" %>
 

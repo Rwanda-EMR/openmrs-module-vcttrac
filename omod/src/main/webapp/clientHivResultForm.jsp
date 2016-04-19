@@ -1,14 +1,9 @@
 <%@ include file="template/localHeader.jsp"%>
 <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.bgiframe.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/ui/ui.core.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/ui/ui.dialog.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/ui/ui.draggable.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/ui/ui.resizable.js" />
 
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/theme/ui.all.css" />
 <!-- <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/theme/demos.css" /> -->
 
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="springform" uri="/WEB-INF/taglibs/spring-form.tld" %>
 
 <openmrs:require privilege="Edit VCT Client test result" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctClientResults.form" />
 
@@ -49,7 +44,7 @@
 
 <div class="right">
 	<b class="boxHeader"><spring:message code="@MODULE_ID@.result.resulthivtest"/></b>
-	<form:form cssClass="box" commandName="result" method="post">
+	<springform:form cssClass="box" commandName="result" method="post">
 		<table>
 			<tr>
 				<td><spring:message code="Encounter.datetime" /></td>
@@ -104,7 +99,7 @@
 				</tr>
 			</c:if>
 		</table>	
-	</form:form>
+	</springform:form>
 
 </div>
 

@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.vcttrac.VCTPreCounselingInfo;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
@@ -53,7 +54,10 @@ public class VCTCounselingFormController extends ParameterizableViewController {
 			VCTPreCounselingInfo pci = new VCTPreCounselingInfo();
 			pci.setEncounterDate(request.getParameter("encounterDate"));
 			pci.setLocationId(Integer.parseInt(request.getParameter("location")));
-			pci.setProviderId(Context.getUserService().getUser(Integer.parseInt(request.getParameter("provider"))).getPerson().getPersonId());
+			Integer prov = Integer.parseInt(request.getParameter("provider"));
+			Person p = prov != null ? Context.getUserService().getUser(prov).getPerson() : null;
+			if (p != null)
+				pci.setProviderId(p.getPersonId());
 			pci.setCounselingTypeId(Integer.parseInt(request.getParameter("counselingType")));
 			
 			List<Integer> personIds = new ArrayList<Integer>();
