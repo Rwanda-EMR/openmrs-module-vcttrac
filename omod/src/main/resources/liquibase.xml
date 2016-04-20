@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="2016April20-1349" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="code_client" />
+			</not>
+		</preConditions>
+		<comment>
+			Add code_client column if not exists to trac_vct_client table, Adding a unique column to vct_client table
+		</comment>
+		<sql>
+			ALTER TABLE `trac_vct_client` ADD COLUMN `code_client`
+			varchar(10) DEFAULT
+			NULL AFTER `trac_vct_client_id`;
+			ALTER TABLE
+			`trac_vct_client` ADD
+			UNIQUE (`code_client`);
+		</sql>
+	</changeSet>
+	<changeSet id="2016April21-0110" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="client_decision" />
+			</not>
+		</preConditions>
+		<comment>
+			Adding a column to vct_client table for the decision of the client to join or not the HIV program
+		</comment>
+		<sql>
+			ALTER TABLE `trac_vct_client` ADD COLUMN `client_decision`
+			numeric(1) DEFAULT NULL AFTER `date_registration`;
+		</sql>
+	</changeSet>
+	<changeSet id="2016April21-0111" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="changed_by" />
+			</not>
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="date_changed" />
+			</not>
+		</preConditions>
+		<comment>
+			Adding date_changed and changed_by columns to vct_client table
+		</comment>
+		<sql>
+			ALTER TABLE `trac_vct_client` ADD COLUMN `changed_by` int(11)
+			DEFAULT NULL AFTER `creator`;
+			ALTER TABLE `trac_vct_client` ADD
+			CONSTRAINT FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`);
+			ALTER TABLE `trac_vct_client` ADD COLUMN `date_changed` date DEFAULT
+			NULL AFTER `creator`;
+		</sql>
+	</changeSet>
+	<changeSet id="2016April21-0112" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="location" />
+			</not>
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="uuid" />
+			</not>
+		</preConditions>
+		<comment>
+			Adding a column to vct_client table for the UUIDs and Location where the client registered for VCT
+		</comment>
+		<sql>
+			UPDATE `trac_vct_client` SET partner_code_test = NULL WHERE
+			partner_code_test IS NOT NULL;
+			ALTER TABLE trac_vct_client DROP
+			FOREIGN KEY trac_vct_client_ibfk_7;
+			ALTER TABLE trac_vct_client DROP
+			COLUMN partner_code_test;
+
+			ALTER TABLE `trac_vct_client` ADD COLUMN `location` int(11) DEFAULT NULL
+			AFTER `code_test`;
+			ALTER TABLE `trac_vct_client` ADD CONSTRAINT
+			FOREIGN KEY (`location`) REFERENCES `location` (`location_id`);
+
+			ALTER TABLE `trac_vct_client` ADD COLUMN `uuid` char(38);
+			UPDATE
+			`trac_vct_client` SET uuid = UUID() WHERE uuid IS NULL;
+			ALTER TABLE
+			`trac_vct_client` MODIFY uuid char(38) NOT NULL;
+			CREATE UNIQUE INDEX
+			trac_vct_client_uuid_index ON `trac_vct_client` (`uuid`);
+		</sql>
+	</changeSet>
+	<changeSet id="2016April21-0114" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="trac_vct_client" columnName="nid" />
+			</not>
+		</preConditions>
+		<comment>
+			Adding a column to vct_client table for the NID Number
+		</comment>
+		<sql>
+			ALTER TABLE `trac_vct_client` ADD COLUMN `nid` VARCHAR(21)
+			DEFAULT NULL AFTER `code_client`;
+		</sql>
+	</changeSet>
+	<changeSet id="2016April21-0116" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<columnExists tableName="trac_vct_client" columnName="code_client" />
+		</preConditions>
+		<comment>
+			Increase the size of the column code_client from VARCHAR(10) to VARCHAR(20)
+		</comment>
+		<sql>
+			ALTER TABLE `trac_vct_client` MODIFY `code_client` VARCHAR(20);
+		</sql>
+	</changeSet>
+</databaseChangeLog>
