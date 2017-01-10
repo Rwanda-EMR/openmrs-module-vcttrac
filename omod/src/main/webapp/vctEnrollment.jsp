@@ -116,15 +116,15 @@
 
 function setCodeTestAndShowDialog(id,gender){
 	distroyResultDiv();
-	$("#currentCodeTest").val($("#"+id).val());
-	$("#currentGender").val(gender);
+	jQuery("#currentCodeTest").val(jQuery("#"+id).val());
+	jQuery("#currentGender").val(gender);
 	getClientInfo();
 	showDialog();
 }
 
 function showDialog(){
-	$("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.enrollment.hiv'/>'><p><div id='result'></div></p></div>");
-	$("#dialog").dialog({
+	jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.enrollment.hiv'/>'><p><div id='result'></div></p></div>");
+	jQuery("#dialog").dialog({
 		zIndex: 980,
 		bgiframe: true,
 		height: 390,
@@ -140,18 +140,18 @@ function distroyResultDiv(){
 	}
 }
 
-$("#load").click(function(){
-	var url='autocompletion/getClientInfo.htm?q='+$("#currentCodeTest").val();
-	$("#currentGender").val(($('#currentGender').val()=='F')?"<input type='checkbox' name='enroll_in_pmtct' id='enroll_in_pmtct'/><label for='enroll_in_pmtct'><spring:message code='@MODULE_ID@.enroll.program.pmtct'/></label>":"");
+jQuery("#load").click(function(){
+	var url='autocompletion/getClientInfo.htm?q='+jQuery("#currentCodeTest").val();
+	jQuery("#currentGender").val((jQuery('#currentGender').val()=='F')?"<input type='checkbox' name='enroll_in_pmtct' id='enroll_in_pmtct'/><label for='enroll_in_pmtct'><spring:message code='@MODULE_ID@.enroll.program.pmtct'/></label>":"");
 
-	$.get(url, function(data) {
-		  $('#result').html("<div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEnrollment' action='hivProgramEnrollment.list?page=1&code="+$("#currentCodeTest").val()+"' method='post'>"+data
+	jQuery.get(url, function(data) {
+		  jQuery('#result').html("<div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEnrollment' action='hivProgramEnrollment.list?page=1&code="+jQuery("#currentCodeTest").val()+"' method='post'>"+data
 				  +"<div class='generatedClientInfo'><table>"
-				  +"<tr><td><spring:message code='@MODULE_ID@.enrollment.date'/></td><td><input name='enrollmentDate' id='enrollmentDate' type='text' size='11' onclick='showCalendar(this)' value=''/><span id='enrollmentDateError'></span></td><td></td><td>"+$("#currentGender").val()+"</td></tr>"
-				  +"<tr><td><spring:message code='Encounter.provider' /></td><td>"+$("#provsList").val()+"</td><td><span id='providerError'></span></td><td></td></tr>"
-				  +"<tr><td><spring:message code='Encounter.location' /></td><td>"+$("#locsList").val()+"</td><td><span id='locationError'></span></td><td></td></tr></table></div>"
+				  +"<tr><td><spring:message code='@MODULE_ID@.enrollment.date'/></td><td><input name='enrollmentDate' id='enrollmentDate' type='text' size='11' onclick='showCalendar(this)' value=''/><span id='enrollmentDateError'></span></td><td></td><td>"+jQuery("#currentGender").val()+"</td></tr>"
+				  +"<tr><td><spring:message code='Encounter.provider' /></td><td>"+jQuery("#provsList").val()+"</td><td><span id='providerError'></span></td><td></td></tr>"
+				  +"<tr><td><spring:message code='Encounter.location' /></td><td>"+jQuery("#locsList").val()+"</td><td><span id='locationError'></span></td><td></td></tr></table></div>"
 				  +"<br/><input type='button' onclick='submitForm();' value='<spring:message code='@MODULE_ID@.enrollment.enroll'/>'/></form>");
-		  $('#result').addClass("clientInfo");
+		  jQuery('#result').addClass("clientInfo");
 	});				
 });
 
@@ -163,27 +163,27 @@ function submitForm(){
 }
 
 function getClientInfo(){
-	$("#load").click();	
+	jQuery("#load").click();	
 }
 
 function validateFields(){
 	var valid=true;
-	if($("#enrollmentDate").val()==''){
-		$("#enrollmentDateError").html("*");
-		$("#enrollmentDateError").addClass("error");
+	if(jQuery("#enrollmentDate").val()==''){
+		jQuery("#enrollmentDateError").html("*");
+		jQuery("#enrollmentDateError").addClass("error");
 		valid=false;
 	}  else {
-		$("#enrollmentDateError").html("");
-		$("#enrollmentDateError").removeClass("error");
+		jQuery("#enrollmentDateError").html("");
+		jQuery("#enrollmentDateError").removeClass("error");
 	}
 
-	if($("#nextVisitDateId").val()==''){
-		$("#nextVisitDateError").html("*");
-		$("#nextVisitDateError").addClass("error");
+	if(jQuery("#nextVisitDateId").val()==''){
+		jQuery("#nextVisitDateError").html("*");
+		jQuery("#nextVisitDateError").addClass("error");
 		valid=false;
 	} else {
-		$("#nextVisitDateError").html("");
-		$("#nextVisitDateError").removeClass("error");
+		jQuery("#nextVisitDateError").html("");
+		jQuery("#nextVisitDateError").removeClass("error");
 	}
 
 	var cont=true;
@@ -191,22 +191,22 @@ function validateFields(){
 	while(cont){
 
 		if(cont && document.getElementById("identifierTypeId_"+index)!=null){
-			if($("#identifierId_"+index).val()==''){
-				$("#identifierError_"+index).html("*");
-				$("#identifierError_"+index).addClass("error");
+			if(jQuery("#identifierId_"+index).val()==''){
+				jQuery("#identifierError_"+index).html("*");
+				jQuery("#identifierError_"+index).addClass("error");
 				valid=false;
 			} else {
-				$("#identifierError_"+index).html("");
-				$("#identifierError_"+index).removeClass("error");
+				jQuery("#identifierError_"+index).html("");
+				jQuery("#identifierError_"+index).removeClass("error");
 			}
 
 			if(null!=document.getElementById("identifierLocationId_"+index) && document.getElementById("identifierLocationId_"+index).value==''){
-				$("#identifierLocationError_"+index).html("*");
-				$("#identifierLocationError_"+index).addClass("error");
+				jQuery("#identifierLocationError_"+index).html("*");
+				jQuery("#identifierLocationError_"+index).addClass("error");
 				valid=false;
 			} else {
-				$("#identifierLocationError_"+index).html("");
-				$("#identifierLocationError_"+index).removeClass("error");
+				jQuery("#identifierLocationError_"+index).html("");
+				jQuery("#identifierLocationError_"+index).removeClass("error");
 			}
 		} else{
 			cont=false;
@@ -215,11 +215,11 @@ function validateFields(){
 	}
 
 	if(!valid){
-		$("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
-		$("#errorDivId").addClass("error");
+		jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+		jQuery("#errorDivId").addClass("error");
 	} else {
-		$("#errorDivId").html("");
-		$("#errorDivId").removeClass("error");
+		jQuery("#errorDivId").html("");
+		jQuery("#errorDivId").removeClass("error");
 	}
 
 	return valid;
