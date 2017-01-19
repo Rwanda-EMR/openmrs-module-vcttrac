@@ -81,36 +81,36 @@
 </div>
 
 <script type="text/javascript">
-	$(document)
+	jQuery(document)
 			.ready(
 					function() {
-						$("#linkNId").click(function(){
-							$("#divOtherID").hide();
-							$("#divNID").show();
+						jQuery("#linkNId").click(function(){
+							jQuery("#divOtherID").hide();
+							jQuery("#divNID").show();
 						});
 
-						$("#linkOtherIds").click(function(){
-							$("#divNID").hide();
-							$("#divOtherID").show();
+						jQuery("#linkOtherIds").click(function(){
+							jQuery("#divNID").hide();
+							jQuery("#divOtherID").show();
 						});
 						
-						$("#nid").focus();
+						jQuery("#nid").focus();
 
-						$("#nid")
+						jQuery("#nid")
 								.keyup(
 										function(e) {
-											var val = $("#nid").val();
-											var currentValue = $.trim(val);
+											var val = jQuery("#nid").val();
+											var currentValue = jQuery.trim(val);
 
 											if (currentValue.length != 21) {
-												$("#btSubmit").attr("disabled",
+												jQuery("#btSubmit").attr("disabled",
 														"true");
 											} else {
-												var nid=$("#nid").val();
+												var nid=jQuery("#nid").val();
 												formatNID(nid);
-												if ($("#nid").val().length == 21) {
-													$("#btSubmit").removeAttr('disabled');
-													$("#btSubmit").focus();
+												if (jQuery("#nid").val().length == 21) {
+													jQuery("#btSubmit").removeAttr('disabled');
+													jQuery("#btSubmit").focus();
 												}
 											}
 
@@ -120,7 +120,7 @@
 														&& (e.which < 48 || e.which > 57)) {
 													e.preventDefault();
 												} else
-													$("#nid").val(
+													jQuery("#nid").val(
 															currentValue + " ");
 											} else if (currentValue.length == 16) {
 												if (e.which != 8
@@ -128,7 +128,7 @@
 														&& (e.which < 48 || e.which > 57)) {
 													e.preventDefault();
 												} else
-													$("#nid").val(
+													jQuery("#nid").val(
 															currentValue + " ");
 											} else if (currentValue.length == 8) {
 												if (e.which != 8
@@ -136,7 +136,7 @@
 														&& (e.which < 48 || e.which > 57)) {
 													e.preventDefault();
 												} else
-													$("#nid").val(
+													jQuery("#nid").val(
 															currentValue + " ");
 											} else if (currentValue.length == 6) {
 												if (e.which != 8
@@ -144,7 +144,7 @@
 														&& (e.which < 48 || e.which > 57)) {
 													e.preventDefault();
 												} else
-													$("#nid").val(
+													jQuery("#nid").val(
 															currentValue + " ");
 											} else if (currentValue.length == 1) {
 												if (e.which != 8
@@ -152,19 +152,19 @@
 														&& (e.which < 48 || e.which > 57)) {
 													e.preventDefault();
 												} else
-													$("#nid").val(
+													jQuery("#nid").val(
 															currentValue + " ");
 											}
 										});
 
-						$("#nid").keydown(
+						jQuery("#nid").keydown(
 								function(e) {
 									if (e.which != 8 && e.which != 0
 											&& (e.which < 48 || e.which > 57)) {
 										e.preventDefault();
 									} else {
-										var val = $("#nid").val();
-										var currentValue = $.trim(val);
+										var val = jQuery("#nid").val();
+										var currentValue = jQuery.trim(val);
 
 										if (currentValue.length >= 21) {
 											if (e.which != 8 && e.which != 0) {
@@ -178,19 +178,19 @@
 									}
 								});
 
-						$("#btSubmit")
+						jQuery("#btSubmit")
 								.click(
 										function() {
-											if ($("#nid").val() != "") {
-												$("#noNIDError").html("");
-												$("#noNIDError").removeClass(
+											if (jQuery("#nid").val() != "") {
+												jQuery("#noNIDError").html("");
+												jQuery("#noNIDError").removeClass(
 														"error");
 												this.form.submit();
 											} else {
-												$("#noNIDError")
+												jQuery("#noNIDError")
 														.html(
 																"<spring:message code='@MODULE_ID@.error.noNID'/>");
-												$("#noNIDError").addClass(
+												jQuery("#noNIDError").addClass(
 														"error");
 											}
 										});
@@ -198,13 +198,13 @@
 					});
 	
 	function formatNID(nid) {
-		var currentValue = $.trim(nid);
+		var currentValue = jQuery.trim(nid);
 		var validNID="";
 		for(var i=0;i<currentValue.length;i++){
 			if(currentValue.charAt(i)!=' ')
 				validNID+=currentValue.charAt(i);
 			switch(validNID.length){
-				case 21:$("#nid").val(validNID);return;break;
+				case 21:jQuery("#nid").val(validNID);return;break;
 				case 18:validNID+=' ';break;
 				case 16:validNID+=' ';break;
 				case 8:validNID+=' ';break;
@@ -213,7 +213,7 @@
 			}
 			
 		}
-		$("#nid").val(validNID);
+		jQuery("#nid").val(validNID);
 	}
 </script>
 

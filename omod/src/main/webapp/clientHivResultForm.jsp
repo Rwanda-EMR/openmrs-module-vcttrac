@@ -111,9 +111,9 @@
 <div id="divDlg"></div>
 
 	<script>
-		$(document).ready(function(){
-			$("#clientCode").autocomplete("autocompletion/getClientCode.htm");
-			$("#btSave").click(function(){
+		jQuery(document).ready(function(){
+			jQuery("#clientCode").autocomplete("autocompletion/getClientCode.htm");
+			jQuery("#btSave").click(function(){
 				if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
 					this.form.submit();
 			});
@@ -124,8 +124,8 @@
 			var counter=1;
 			while(document.getElementById("clientCode_"+counter)!=null){
 				if(counter==parseInt(obj.id.substring(11)))
-					$("#clientCode_"+counter).removeClass("highLight");
-				else $("#clientCode_"+counter).addClass("highLight");
+					jQuery("#clientCode_"+counter).removeClass("highLight");
+				else jQuery("#clientCode_"+counter).addClass("highLight");
 				counter++;
 			}
 			document.getElementById("clientCode").value=obj.title;
@@ -134,7 +134,7 @@
 		}
 
 		function showDialog(){
-			$("#dialog").dialog({
+			jQuery("#dialog").dialog({
 				zIndex: 980,
 				bgiframe: true,
 				height: 150,
@@ -144,7 +144,7 @@
 		}
 
 		function initDialogContent(testCode){
-			$("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.result.testcode.edit'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTest' action='vctClientResults.form?testCode="+testCode+"&edit' method='post'>"
+			jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.result.testcode.edit'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTest' action='vctClientResults.form?testCode="+testCode+"&edit' method='post'>"
 				+"<table><tr><td></td><td><input type='hidden' id='testCodeToChangeId' name='testCodeToChange' value='"+testCode+"'/></td><td></td></tr>"
 				+"<tr><td><spring:message code='@MODULE_ID@.result.clientcode'/></td><td><input type='text' name='editedTestCode' id='editedTestCodeId' value='"+testCode+"'/></td><td><span id='editedTestCodeError'></span></td></tr>"
 				+"<tr><td></td><td><input type='button' id='btSave' value='<spring:message code='general.save' />' onclick='submitForm();'/></td></tr></table></form></div></p></div>");
@@ -164,21 +164,21 @@
 
 		function validateFormFields(){
 			var valid=true;
-			if($("#editedTestCodeId").val()==''){
-				$("#editedTestCodeError").html("*");
-				$("#editedTestCodeError").addClass("error");
+			if(jQuery("#editedTestCodeId").val()==''){
+				jQuery("#editedTestCodeError").html("*");
+				jQuery("#editedTestCodeError").addClass("error");
 				valid=false;
 			} else {
-				$("#editedTestCodeError").html("");
-				$("#editedTestCodeError").removeClass("error");
+				jQuery("#editedTestCodeError").html("");
+				jQuery("#editedTestCodeError").removeClass("error");
 			}
 
 			if(!valid){
-				$("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
-				$("#errorDivId").addClass("error");
+				jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+				jQuery("#errorDivId").addClass("error");
 			} else {
-				$("#errorDivId").html("");
-				$("#errorDivId").removeClass("error");
+				jQuery("#errorDivId").html("");
+				jQuery("#errorDivId").removeClass("error");
 			}
 			
 			return valid;

@@ -55,19 +55,19 @@
 	
 <script>
 
-	$(document).ready(function(){
-		$("#vct").hover(function(){
-			$("#vct").addClass("menuLinkSelected");
-			$("#pit").removeClass("menuLinkSelected");
-			$("#newLinks").html("<a href='vctRegistration.form?type=vct&select=new'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.newclient'/></div></a>");
-			$("#selectLinks").html("<a href='vctRegistration.form?type=vct&select=choose'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.existingclient'/></div></a>");
+	jQuery(document).ready(function(){
+		jQuery("#vct").hover(function(){
+			jQuery("#vct").addClass("menuLinkSelected");
+			jQuery("#pit").removeClass("menuLinkSelected");
+			jQuery("#newLinks").html("<a href='vctRegistration.form?type=vct&select=new'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.newclient'/></div></a>");
+			jQuery("#selectLinks").html("<a href='vctRegistration.form?type=vct&select=choose'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.existingclient'/></div></a>");
 		});
 
-		$("#pit").hover(function(){
-			$("#pit").addClass("menuLinkSelected");
-			$("#vct").removeClass("menuLinkSelected");
-			$("#newLinks").html("<a href='vctRegistration.form?type=pit&select=new'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.newclient'/></div></a>");
-			$("#selectLinks").html("<a href='vctRegistration.form?type=pit&select=choose'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.existingclient'/></div></a>");
+		jQuery("#pit").hover(function(){
+			jQuery("#pit").addClass("menuLinkSelected");
+			jQuery("#vct").removeClass("menuLinkSelected");
+			jQuery("#newLinks").html("<a href='vctRegistration.form?type=pit&select=new'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.newclient'/></div></a>");
+			jQuery("#selectLinks").html("<a href='vctRegistration.form?type=pit&select=choose'><div class='menuLinkA'><spring:message code='@MODULE_ID@.home.existingclient'/></div></a>");
 		});
 	});
 </script>

@@ -72,19 +72,19 @@
 
 </div>
 	<script>
-		$(document).ready(function(){
-			$("#clientCode").autocomplete("autocompletion/getClientCodeForResult.htm");
-			$("#btSave").click(function(){
+		jQuery(document).ready(function(){
+			jQuery("#clientCode").autocomplete("autocompletion/getClientCodeForResult.htm");
+			jQuery("#btSave").click(function(){
 				if(validateFields()){
 					if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
 						this.form.submit();
 				}
 			});
-			$("#load").click(function(){
-				var url='autocompletion/getClientInfo.htm?q='+$("#clientCode").val();
-				$.get(url, function(data) {
-					  $('#result').html(data);
-					  $('#result').addClass("clientInfo");
+			jQuery("#load").click(function(){
+				var url='autocompletion/getClientInfo.htm?q='+jQuery("#clientCode").val();
+				jQuery.get(url, function(data) {
+					  jQuery('#result').html(data);
+					  jQuery('#result').addClass("clientInfo");
 				});				
 			});
 		});
@@ -95,35 +95,35 @@
 			var counter=1;
 			while(document.getElementById("clientCode_"+counter)!=null){
 				if(counter==parseInt(obj.id.substring(11)))
-					$("#clientCode_"+counter).removeClass("highLight");
-				else $("#clientCode_"+counter).addClass("highLight");
+					jQuery("#clientCode_"+counter).removeClass("highLight");
+				else jQuery("#clientCode_"+counter).addClass("highLight");
 				counter++;
 			}
 			
 			document.getElementById("clientCode").value=obj.title;
 			var date=new Date();
 			document.getElementById("dateHivTestRsltRcvd").value=date.getDate()+"/"+(date.getMonth()+1)+"/"+(date.getYear()+1900);
-			$("#load").click();
+			jQuery("#load").click();
 		}
 
 		function validateFields(){
 			var valid=true;
-			if($("#clientCode").val()==''){
-				$("#clientCodeError").html("*");
-				$("#clientCodeError").addClass("error");
+			if(jQuery("#clientCode").val()==''){
+				jQuery("#clientCodeError").html("*");
+				jQuery("#clientCodeError").addClass("error");
 				valid=false;
 			} else {
-				$("#clientCodeError").html("");
-				$("#clientCodeError").removeClass("error");
+				jQuery("#clientCodeError").html("");
+				jQuery("#clientCodeError").removeClass("error");
 			}
 
-			if($("#dateHivTestRsltRcvd").val()==''){
-				$("#dateHivTestRsltRcvdError").html("*");
-				$("#dateHivTestRsltRcvdError").addClass("error");
+			if(jQuery("#dateHivTestRsltRcvd").val()==''){
+				jQuery("#dateHivTestRsltRcvdError").html("*");
+				jQuery("#dateHivTestRsltRcvdError").addClass("error");
 				valid=false;
 			} else {
-				$("#dateHivTestRsltRcvdError").html("");
-				$("#dateHivTestRsltRcvdError").removeClass("error");
+				jQuery("#dateHivTestRsltRcvdError").html("");
+				jQuery("#dateHivTestRsltRcvdError").removeClass("error");
 			}
 
 			//alert(document.getElementById("clientEnrolled").checked);
@@ -132,13 +132,13 @@
 			if(document.getElementById("transferred")){
 				if(document.getElementById("transferred").checked){
 					//if(document.getElementById("nextVisitDateId")!=null){
-						if($("#locationId").val()==''){
-							$("#locationError").html("*");
-							$("#locationError").addClass("error");
+						if(jQuery("#locationId").val()==''){
+							jQuery("#locationError").html("*");
+							jQuery("#locationError").addClass("error");
 							valid=false;
 						} else {
-							$("#locationError").html("");
-							$("#locationError").removeClass("error");
+							jQuery("#locationError").html("");
+							jQuery("#locationError").removeClass("error");
 						}
 					//}
 				}
@@ -146,13 +146,13 @@
 			
 			/*if(document.getElementById("clientEnrolled").checked){
 				if(document.getElementById("nextVisitDateId")!=null){
-					if($("#nextVisitDateId").val()==''){
-						$("#nextVisitDateError").html("*");
-						$("#nextVisitDateError").addClass("error");
+					if(jQuery("#nextVisitDateId").val()==''){
+						jQuery("#nextVisitDateError").html("*");
+						jQuery("#nextVisitDateError").addClass("error");
 						valid=false;
 					} else {
-						$("#nextVisitDateError").html("");
-						$("#nextVisitDateError").removeClass("error");
+						jQuery("#nextVisitDateError").html("");
+						jQuery("#nextVisitDateError").removeClass("error");
 					}
 				}
 	
@@ -161,22 +161,22 @@
 				while(cont){
 	
 					if(cont && document.getElementById("identifierTypeId_"+index)!=null){
-						if($("#identifierId_"+index).val()==''){
-							$("#identifierError_"+index).html("*");
-							$("#identifierError_"+index).addClass("error");
+						if(jQuery("#identifierId_"+index).val()==''){
+							jQuery("#identifierError_"+index).html("*");
+							jQuery("#identifierError_"+index).addClass("error");
 							valid=false;
 						} else {
-							$("#identifierError_"+index).html("");
-							$("#identifierError_"+index).removeClass("error");
+							jQuery("#identifierError_"+index).html("");
+							jQuery("#identifierError_"+index).removeClass("error");
 						}
 	
 						if(document.getElementById("identifierLocationId_"+index).value==''){
-							$("#identifierLocationError_"+index).html("*");
-							$("#identifierLocationError_"+index).addClass("error");
+							jQuery("#identifierLocationError_"+index).html("*");
+							jQuery("#identifierLocationError_"+index).addClass("error");
 							valid=false;
 						} else {
-							$("#identifierLocationError_"+index).html("");
-							$("#identifierLocationError_"+index).removeClass("error");
+							jQuery("#identifierLocationError_"+index).html("");
+							jQuery("#identifierLocationError_"+index).removeClass("error");
 						}
 					} else{
 						cont=false;
@@ -186,25 +186,25 @@
 			}*/
 
 			if(!valid){
-				$("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
-				$("#errorDivId").addClass("error");
+				jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+				jQuery("#errorDivId").addClass("error");
 			} else {
-				$("#errorDivId").html("");
-				$("#errorDivId").removeClass("error");
+				jQuery("#errorDivId").html("");
+				jQuery("#errorDivId").removeClass("error");
 			}
 			
 			return valid;
 		}
 
 		function clearErrors(){
-			$("#clientCodeError").html("");
-			$("#clientCodeError").removeClass("error");
+			jQuery("#clientCodeError").html("");
+			jQuery("#clientCodeError").removeClass("error");
 
-			$("#dateHivTestRsltRcvdError").html("");
-			$("#dateHivTestRsltRcvdError").removeClass("error");
+			jQuery("#dateHivTestRsltRcvdError").html("");
+			jQuery("#dateHivTestRsltRcvdError").removeClass("error");
 			
-			$("#errorDivId").html("");
-			$("#errorDivId").removeClass("error");
+			jQuery("#errorDivId").html("");
+			jQuery("#errorDivId").removeClass("error");
 		}
 		
 	</script>

@@ -45,8 +45,8 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#n_1").focus();
+	jQuery(document).ready(function(){
+		jQuery("#n_1").focus();
 	});
 </script>
 

@@ -27,28 +27,28 @@
 		//chart.htm?chart=barChartView&type=todayAndYesterday&width=300&height=300
 
 		if(graphCategory<3){
-			$("#chartHolder").html(
+			jQuery("#chartHolder").html(
 				bts+"<img src='chart.htm?chart="+id+"&width="+width+"&height="+height+"&graphCategory="+graphCategory+"' width='"+width+"' height='"+height+"' />");
 			//alert("this is it AAAAA");
 		}
 		if(graphCategory>2 && graphCategory<4){
-			$("#chartHolder").html(
+			jQuery("#chartHolder").html(
 					bts+"<img src='chart.htm?chart="+id+"&width="+width+"&height="+height+"&graphCategory="+graphCategory+"&type=monthInYear' width='"+width+"' height='"+height+"' />");
 			//alert("this is it BBBBBBB");
 		}
 		if(graphCategory>=4){
-			$("#chartHolder").html(
+			jQuery("#chartHolder").html(
 					bts+"<img src='chart.htm?chart="+id+"&width="+width+"&height="+height+"&graphCategory="+graphCategory+"&type=years' width='"+width+"' height='"+height+"' />");
 			//alert("this is it BBBBBBB");
 		}
 	}
 
-	$(document).ready(function(){
-		$("#dayStat").click(function(){
-			$("#chartHolder").load("vctTodayGraphicalStatistic.htm");
+	jQuery(document).ready(function(){
+		jQuery("#dayStat").click(function(){
+			jQuery("#chartHolder").load("vctTodayGraphicalStatistic.htm");
 		});
 
-		$("#dayStat").click();
+		jQuery("#dayStat").click();
 	});
 </script>
 

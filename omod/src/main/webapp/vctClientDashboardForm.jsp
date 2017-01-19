@@ -194,15 +194,15 @@
 		function showResult(obj){
 			var id="#viewHide_"+obj.name;
 			var hivTestResultDivId="#hivResult_"+obj.name;
-			$(id).html("[<a id='hideResult_"+obj.name+"' onclick='hideResult(this);' name="+obj.name+" title='<spring:message code='@MODULE_ID@.dashboard.hidehivresult'/>' href='#'> <spring:message code='@MODULE_ID@.dashboard.hideresult'/> <a/>]");
-			$(hivTestResultDivId).show(500);
+			jQuery(id).html("[<a id='hideResult_"+obj.name+"' onclick='hideResult(this);' name="+obj.name+" title='<spring:message code='@MODULE_ID@.dashboard.hidehivresult'/>' href='#'> <spring:message code='@MODULE_ID@.dashboard.hideresult'/> <a/>]");
+			jQuery(hivTestResultDivId).show(500);
 		}
 
 		function hideResult(obj){
 			var id="#viewHide_"+obj.name;
 			var hivTestResultDivId="#hivResult_"+obj.name;
-			$(id).html("[<a id='viewResult_"+obj.name+"' onclick='showResult(this);' name="+obj.name+" title='<spring:message code='@MODULE_ID@.dashboard.viewhivresult'/>' href='#'> <spring:message code='@MODULE_ID@.dashboard.showresult'/> <a/>]");
-			$(hivTestResultDivId).hide(500);
+			jQuery(id).html("[<a id='viewResult_"+obj.name+"' onclick='showResult(this);' name="+obj.name+" title='<spring:message code='@MODULE_ID@.dashboard.viewhivresult'/>' href='#'> <spring:message code='@MODULE_ID@.dashboard.showresult'/> <a/>]");
+			jQuery(hivTestResultDivId).hide(500);
 		}
 
 </script>
