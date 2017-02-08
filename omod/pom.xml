@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>vcttrac</artifactId>
-		<version>0.2.5.1-SNAPSHOT</version>
+		<version>0.2.5.1</version>
 	</parent>
 	<artifactId>vcttrac-omod</artifactId>
 	<packaging>jar</packaging>
