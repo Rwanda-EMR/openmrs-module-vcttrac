@@ -52,6 +52,21 @@
 								<td><input type="text" size="11" name="birthdate" value="${birthdate}" id="birthdateId" onclick="showCalendar(this)"/></td>
 								<td><span id="birthdateError"></span></td>
 							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.phoneNumber"/></td>
+								<td></td>
+								<td><input type="text" name="phoneNumber" value="${phoneNumber}"/></td>
+							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.peerEducator"/></td>
+								<td></td>
+								<td><input type="text" name="peerEducator"  value="${peerEducator}"/></td>
+							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.peerEducatorPhoneNumber"/></td>
+								<td></td>
+								<td><input type="text" name="peerEducatorPhoneNumber"  value="${peerEducatorPhoneNumber}"/></td>
+							</tr>
 						</table>
 					</div>
 					
