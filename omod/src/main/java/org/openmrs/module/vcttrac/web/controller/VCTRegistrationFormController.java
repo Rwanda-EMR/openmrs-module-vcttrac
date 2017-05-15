@@ -301,6 +301,7 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 
 					// save the person
 					ps.savePerson(p);
+					Context.getPatientService().savePatient(new Patient(p));
 
 					log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Person created successfully !");
 				} else
