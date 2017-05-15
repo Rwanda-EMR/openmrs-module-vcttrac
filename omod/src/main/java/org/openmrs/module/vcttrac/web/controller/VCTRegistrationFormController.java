@@ -20,10 +20,12 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.exception.ConstraintViolationException;
 import org.openmrs.Location;
+import org.openmrs.OpenmrsData;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Person;
@@ -38,15 +40,17 @@ import org.openmrs.api.PatientIdentifierException;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.MohTracConfigurationUtil;
-import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
-import org.openmrs.module.vcttrac.util.VCTModuleTag;
 import org.openmrs.module.vcttrac.VCTClient;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
+import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
+import org.openmrs.module.vcttrac.util.VCTModuleTag;
 import org.openmrs.module.vcttrac.util.VCTTracUtil;
 import org.openmrs.web.WebConstants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import MoHOrderEntryBridge.MoHOrderEntryBridgeConstants;
 
 /**
  * @author Yves GAKUBA
@@ -134,6 +138,30 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 	private void createPersonAttributes(HttpServletRequest request, Person p) {
 		PersonService ps = Context.getPersonService();
 		PersonAttribute pa_civilStatus = null, paCs = null, pa_educationLevel = null, paEl = null, pa_mainActivity = null, paMa = null;
+		PersonAttribute phoneNumber = new PersonAttribute();
+		PersonAttribute peerEducator = new PersonAttribute();
+		PersonAttribute peerEducatorPhoneNumber = new PersonAttribute();
+		
+		phoneNumber.setAttributeType(Context.getPersonService().getPersonAttributeTypeByUuid(MoHOrderEntryBridgeConstants.PERSONATTRIBUTE_UUID_PHONENUMBER));
+		peerEducator.setAttributeType(Context.getPersonService().getPersonAttributeTypeByUuid(MoHOrderEntryBridgeConstants.PERSONATTRIBUTE_UUID_PEER_EDUCATOR_NAME));
+		peerEducatorPhoneNumber.setAttributeType(Context.getPersonService().getPersonAttributeTypeByUuid(MoHOrderEntryBridgeConstants.PERSONATTRIBUTE_UUID_PEER_EDUCATOR_PHONENUMBER));
+		phoneNumber.setValue(request.getParameter("phoneNumber"));
+		peerEducator.setValue(request.getParameter("peerEducator"));
+		peerEducatorPhoneNumber.setValue(request.getParameter("peerEducatorPhoneNumber"));
+		
+		if(StringUtils.isNotBlank(phoneNumber.getValue())) {
+			setBasicOpenMRSDataProperties(phoneNumber);
+			p.addAttribute(phoneNumber);
+		}
+		if(StringUtils.isNotBlank(peerEducator.getValue())) {
+			setBasicOpenMRSDataProperties(peerEducator);
+			p.addAttribute(peerEducator);
+		}
+		if(StringUtils.isNotBlank(peerEducatorPhoneNumber.getValue())) {
+			setBasicOpenMRSDataProperties(peerEducatorPhoneNumber);
+			p.addAttribute(peerEducatorPhoneNumber);
+		}
+		
 		try {
 			paCs = p.getAttribute(VCTConfigurationUtil.getCivilStatusAttributeTypeId());
 			pa_civilStatus = (paCs==null) ? new PersonAttribute() : paCs;
@@ -222,6 +250,11 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 			log.error(">>>>VCT>>REGISTRATION>> Fail to create/update person_attributes : " + ex.getMessage());
 			ex.printStackTrace();
 		}
+	}
+	
+	private void setBasicOpenMRSDataProperties(OpenmrsData object) {
+		object.setCreator(Context.getAuthenticatedUser());
+		object.setDateCreated(new Date());
 	}
 	
 	/**

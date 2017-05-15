@@ -38,6 +38,12 @@
 			<scope>provided</scope>
 			<version>${mohtracPortalVersion}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>mohorderentrybridge-api</artifactId>
+			<scope>provided</scope>
+			<version>${mohorderentrybridgeVersion}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

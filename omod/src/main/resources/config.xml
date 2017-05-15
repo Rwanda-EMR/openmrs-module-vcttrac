@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.2//EN" "http://resources.openmrs.org/doctype/config-1.2.dtd">
 
 <module configVersion="1.2">
 
@@ -14,7 +13,8 @@
 	</description>
 
 	<require_modules>
-		<require_module version="0.2.1">org.openmrs.module.mohtracportal</require_module>
+		<require_module version="${mohtracPortalVersion}">org.openmrs.module.mohtracportal</require_module>
+		<require_module version="${mohorderentrybridgeVersion}">org.openmrs.module.mohorderentrybridge</require_module>
 	</require_modules>
 
 	<activator>@MODULE_PACKAGE@.VCTModuleActivator</activator>

@@ -72,6 +72,21 @@
 								<td><input type="text" size="11" name="birthdate" id="birthdateId" onclick="showCalendar(this)"/></td>
 								<td><span id="birthdateError"></span></td>
 							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.phoneNumber"/></td>
+								<td></td>
+								<td><input type="text" name="phoneNumber"/></td>
+							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.peerEducator"/></td>
+								<td></td>
+								<td><input type="text" name="peerEducator"/></td>
+							</tr>
+							<tr>
+								<td><spring:message code="@MODULE_ID@.person.peerEducatorPhoneNumber"/></td>
+								<td></td>
+								<td><input type="text" name="peerEducatorPhoneNumber"/></td>
+							</tr>
 						</table>
 					</div>
 					
