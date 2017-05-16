@@ -1,8 +1,4 @@
 <%@ include file="template/localHeader.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.bgiframe.js" />
-
-<!-- <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/theme/demos.css" /> -->
-
 <%@ taglib prefix="springform" uri="/WEB-INF/taglibs/spring-form.tld" %>
 
 <openmrs:require privilege="Edit VCT Client test result" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctClientResults.form" />
@@ -12,9 +8,6 @@
     	font-size: 100%;
     }
 </style>
-
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.autocomplete.js" />
-
 
 <div style="width: 90%; margin-left: auto; margin-right: auto;">
 

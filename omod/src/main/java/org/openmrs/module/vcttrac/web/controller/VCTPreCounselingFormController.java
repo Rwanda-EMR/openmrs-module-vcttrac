@@ -14,6 +14,7 @@
 package org.openmrs.module.vcttrac.web.controller;
 
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.vcttrac.VCTPreCounselingInfo;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
@@ -32,34 +34,42 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
  * @author Yves GAKUBA
  */
 public class VCTPreCounselingFormController extends ParameterizableViewController {
-	
+
 	private Log log = LogFactory.getLog(getClass());
-	
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.ParameterizableViewController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		ModelAndView mav = new ModelAndView(getViewName());
 		VCTPreCounselingInfo ci = new VCTPreCounselingInfo();
 		DateFormat sdf = Context.getDateFormat();
 		Date today = new Date();
-		
+
 		try {
 			ci.setEncounterDate(sdf.format(today));
 			ci.setLocationId(Integer.valueOf(VCTConfigurationUtil.getDefaultLocationId()));
-			//if (Context.getAuthenticatedUser().hasRole("Provider"))
-			ci.setProviderId(Context.getAuthenticatedUser().getPerson().getPersonId());
-			
+			// if (Context.getAuthenticatedUser().hasRole("Provider"))
+			ci.setProviderId(getDefaultProviderId());
+
 			mav.addObject("ci", ci);
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			String msg = "An error occured [" + ex.getMessage() + "], please check your log file.";
 			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
 			log.error(">>>>>>>>>>>>VCT>>Pre>>Counseling>>Form>>>> An errer occured : " + ex.getMessage());
 			ex.printStackTrace();
 		}
 		return mav;
+	}
+
+	private Integer getDefaultProviderId() {
+		Collection<Provider> provs = Context.getProviderService()
+				.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
+		if (!provs.isEmpty())
+			return provs.iterator().next().getProviderId();
+		return Context.getAuthenticatedUser().getPerson().getPersonId();
 	}
 }

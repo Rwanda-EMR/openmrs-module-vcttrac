@@ -19,6 +19,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Person;
@@ -53,11 +54,14 @@ public class VCTCounselingFormController extends ParameterizableViewController {
 			
 			VCTPreCounselingInfo pci = new VCTPreCounselingInfo();
 			pci.setEncounterDate(request.getParameter("encounterDate"));
-			pci.setLocationId(Integer.parseInt(request.getParameter("location")));
-			Integer prov = Integer.parseInt(request.getParameter("provider"));
-			Person p = prov != null ? Context.getUserService().getUser(prov).getPerson() : null;
-			if (p != null)
-				pci.setProviderId(p.getPersonId());
+			if(StringUtils.isNotBlank(request.getParameter("location")))
+				pci.setLocationId(Integer.parseInt(request.getParameter("location")));
+			if(StringUtils.isNotBlank(request.getParameter("provider"))) {
+				Integer prov = Integer.parseInt(request.getParameter("provider"));
+				Person p = prov != null ? Context.getUserService().getUser(prov).getPerson() : null;
+				if (p != null)
+					pci.setProviderId(p.getPersonId());
+			}
 			pci.setCounselingTypeId(Integer.parseInt(request.getParameter("counselingType")));
 			
 			List<Integer> personIds = new ArrayList<Integer>();

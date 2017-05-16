@@ -117,18 +117,4 @@
 			ALTER TABLE `trac_vct_client` MODIFY `code_client` VARCHAR(20);
 		</sql>
 	</changeSet>
-	<changeSet id="201705151514" author="k-joseph">
-		<preConditions onFail="MARK_RAN">
-			<not>
-				<sqlCheck expectedResult="0">
-					SELECT COUNT(DISTINCT client_id) FROM trac_vct_client WHERE client_id NOT IN(SELECT patient_id FROM patient);
-				</sqlCheck>
-			</not>
-		</preConditions>
-		<comment>Copying all Rwandan VCT/PIT Clients into patients</comment>
-		<sql>
-			INSERT INTO patient(patient_id, creator, date_created)
-			SELECT DISTINCT client_id AS patient_id, creator, now() AS date_created FROM trac_vct_client WHERE client_id NOT IN(SELECT patient_id FROM patient); 
-		</sql>
-	</changeSet>
 </databaseChangeLog>

@@ -43,7 +43,7 @@ public class DwrUtil {
 			ret.setBirthdate(ps.getBirthdate());
 			ret.setBirthdateEstimated(ps.getBirthdateEstimated());
 			String identifier = "";
-			identifier = (ps.isPatient()) ? ((Patient) ps).getPatientIdentifier().getIdentifier() : "";
+			identifier = (ps.isPatient() && ((Patient) ps).getPatientIdentifier() != null) ? ((Patient) ps).getPatientIdentifier().getIdentifier() : "";
 			
 			String name = ((ret.getGivenName() != null) ? ret.getGivenName().trim() : "") + "&nbsp;"
 			        + ((ret.getMiddleName() != null) ? ret.getMiddleName().trim() : "") + "&nbsp;"

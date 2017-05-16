@@ -21,6 +21,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -104,23 +105,6 @@ public class VCTSaveCounselingViewController extends ParameterizableViewControll
 	/**
 	 * Auto generated method comment
 	 * 
-	 * @param request
-	 */
-	//	private void updatePartnersTestCodes(HttpServletRequest request) {
-	//		VCTModuleService service = Context.getService(VCTModuleService.class);
-	//		
-	//		VCTClient client = service.getClientAtLastVisitByClientId(Integer.parseInt(request.getParameter("personId_" + 1)));
-	//		client.setPartnerCodeTest(request.getParameter("codeClient_" + 2));
-	//		service.saveVCTClient(client);
-	//		
-	//		VCTClient partner = service.getClientAtLastVisitByClientId(Integer.parseInt(request.getParameter("personId_" + 2)));
-	//		partner.setPartnerCodeTest(request.getParameter("codeClient_" + 1));
-	//		service.saveVCTClient(partner);
-	//		
-	//	}
-	/**
-	 * Auto generated method comment
-	 * 
 	 * @param pci
 	 * @param index
 	 * @param request
@@ -134,107 +118,77 @@ public class VCTSaveCounselingViewController extends ParameterizableViewControll
 		DateFormat df = Context.getDateFormat();
 		
 		try {
-			//			MohTracPortalService serv = Context.getService(MohTracPortalService.class);
-			
-			ci.setPatientId(Integer.valueOf(request.getParameter("personId_" + index)));
-			ci.setCodeClient(request.getParameter("codeClient_" + index));
-			//ci.setWhatHandicap(Integer.parseInt(request.getParameter("handicap_" + index)));
-			ci.setWhyTesting(Integer.valueOf(request.getParameter("whyTesting_" + index)));
-			ci.setRefereDuService(Integer.valueOf(request.getParameter("refereDuService_" + index)));
-//			ci.setNumberOfCondomTaken(Integer.valueOf(request.getParameter("numberOfCondom_" + index)));
-			//			ci.setHivTested((request.getParameter("hivTestedCkbx_" + index) != null) ? 1 : 0);
-			ci.setClinicalComment(request.getParameter("comment_" + index));
-			
-			//			if (pci.getCounselingTypeId() == 2) {
-			//				if (index == 1)
-			//					ci.setCodeDuPartenaire(request.getParameter("codeClient_" + (index + 1)));
-			//				else
-			//					ci.setCodeDuPartenaire(request.getParameter("codeClient_" + (index - 1)));
-			//			}
-			
-			Obs parentObs = new Obs();
-			Date obsDatetime = df.parse(pci.getEncounterDate());
-			Concept vctProgramConcept = Context.getConceptService().getConcept(
-			    VCTConfigurationUtil.getVctProgramConstructConceptId());
-			Person person = Context.getPersonService().getPerson(ci.getPatientId());
-			
-			parentObs.setPerson(person);
-			parentObs.setConcept(vctProgramConcept);
-			parentObs.setCreator(Context.getAuthenticatedUser());
-			parentObs.setDateCreated(new Date());
-			parentObs.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			parentObs.setObsDatetime(obsDatetime);
-			
-			Obs obs1 = new Obs();
-			obs1.setPerson(person);
-			obs1.setCreator(Context.getAuthenticatedUser());
-			obs1.setDateCreated(new Date());
-			obs1.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			obs1.setObsDatetime(obsDatetime);
-			obs1.setConcept(cs.getConcept(VCTConfigurationUtil.getWhyDidYouGetTestedConceptId()));
-			obs1.setValueCoded(cs.getConcept(ci.getWhyTesting()));
-			
-			Obs obs2 = new Obs();
-			obs2.setPerson(person);
-			obs2.setCreator(Context.getAuthenticatedUser());
-			obs2.setDateCreated(new Date());
-			obs2.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			obs2.setObsDatetime(obsDatetime);
-			obs2.setConcept(cs.getConcept(VCTConfigurationUtil.getProgramThatOrderedTestConceptId()));
-			obs2.setValueCoded(cs.getConcept(ci.getRefereDuService()));
-			
-			Obs obs3 = new Obs();
-			obs3.setPerson(person);
-			obs3.setCreator(Context.getAuthenticatedUser());
-			obs3.setDateCreated(new Date());
-			obs3.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			obs3.setObsDatetime(obsDatetime);
-			obs3.setConcept(cs.getConcept(VCTConfigurationUtil.getClinicalImpressionCommentConceptId()));
-			obs3.setValueText(ci.getClinicalComment());
-			
-			/*Obs obs4 = new Obs();
-			obs4.setPerson(person);
-			obs4.setCreator(Context.getAuthenticatedUser());
-			obs4.setDateCreated(new Date());
-			obs4.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			obs4.setObsDatetime(obsDatetime);
-			obs4.setConcept(cs.getConcept(VCTTracUtil.getHivTestingDoneConceptId()));
-			obs4.setValueNumeric(Double.valueOf(ci.getHivTested()));*/
-
-			/*Obs obs5 = new Obs();
-			obs5.setPerson(person);
-			obs5.setCreator(Context.getAuthenticatedUser());
-			obs5.setDateCreated(new Date());
-			obs5.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
-			obs5.setObsDatetime(obsDatetime);
-			obs5.setConcept(cs.getConcept(VCTConfigurationUtil.getNumberOfCondomsTakenConceptId()));
-			obs5.setValueNumeric(Double.valueOf(ci.getNumberOfCondomTaken()));*/
-			
-			parentObs.addGroupMember(obs1);
-			parentObs.addGroupMember(obs2);
-			parentObs.addGroupMember(obs3);
-			//			parentObs.addGroupMember(obs4);
-//			parentObs.addGroupMember(obs5);
-			
-			os.saveObs(parentObs, null);
-			
-			VCTModuleService service = Context.getService(VCTModuleService.class);
-			VCTClient client = service.getClientAtLastVisitByClientId(parentObs.getPersonId());
-			client.setCounselingObs(parentObs);
-			client.setTypeOfCounseling(pci.getCounselingTypeId());
-			
-			if (pci.getCounselingTypeId() == 2) {
-				if (index == 1)
-					client.setPartner(Context.getPersonService().getPerson(
-					    Integer.valueOf(request.getParameter("personId_" + (index + 1)))));
-				else
-					client.setPartner(Context.getPersonService().getPerson(
-					    Integer.valueOf(request.getParameter("personId_" + (index - 1)))));
+			if(StringUtils.isNotBlank(request.getParameter("personId_" + index))) {
+				ci.setPatientId(Integer.valueOf(request.getParameter("personId_" + index)));
+				ci.setCodeClient(request.getParameter("codeClient_" + index));
+				ci.setWhyTesting(Integer.valueOf(request.getParameter("whyTesting_" + index)));
+				ci.setRefereDuService(Integer.valueOf(request.getParameter("refereDuService_" + index)));
+				ci.setClinicalComment(request.getParameter("comment_" + index));
+				
+				Obs parentObs = new Obs();
+				Date obsDatetime = df.parse(pci.getEncounterDate());
+				Concept vctProgramConcept = Context.getConceptService().getConcept(
+				    VCTConfigurationUtil.getVctProgramConstructConceptId());
+				Person person = Context.getPersonService().getPerson(ci.getPatientId());
+				
+				parentObs.setPerson(person);
+				parentObs.setConcept(vctProgramConcept);
+				parentObs.setCreator(Context.getAuthenticatedUser());
+				parentObs.setDateCreated(new Date());
+				parentObs.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
+				parentObs.setObsDatetime(obsDatetime);
+				
+				Obs obs1 = new Obs();
+				obs1.setPerson(person);
+				obs1.setCreator(Context.getAuthenticatedUser());
+				obs1.setDateCreated(new Date());
+				obs1.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
+				obs1.setObsDatetime(obsDatetime);
+				obs1.setConcept(cs.getConcept(VCTConfigurationUtil.getWhyDidYouGetTestedConceptId()));
+				obs1.setValueCoded(cs.getConcept(ci.getWhyTesting()));
+				
+				Obs obs2 = new Obs();
+				obs2.setPerson(person);
+				obs2.setCreator(Context.getAuthenticatedUser());
+				obs2.setDateCreated(new Date());
+				obs2.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
+				obs2.setObsDatetime(obsDatetime);
+				obs2.setConcept(cs.getConcept(VCTConfigurationUtil.getProgramThatOrderedTestConceptId()));
+				obs2.setValueCoded(cs.getConcept(ci.getRefereDuService()));
+				
+				Obs obs3 = new Obs();
+				obs3.setPerson(person);
+				obs3.setCreator(Context.getAuthenticatedUser());
+				obs3.setDateCreated(new Date());
+				obs3.setLocation(Context.getLocationService().getLocation(pci.getLocationId()));
+				obs3.setObsDatetime(obsDatetime);
+				obs3.setConcept(cs.getConcept(VCTConfigurationUtil.getClinicalImpressionCommentConceptId()));
+				obs3.setValueText(StringUtils.isNotBlank(ci.getClinicalComment()) ? ci.getClinicalComment() : "");
+				
+				parentObs.addGroupMember(obs1);
+				parentObs.addGroupMember(obs2);
+				parentObs.addGroupMember(obs3);
+				
+				os.saveObs(parentObs, null);
+				
+				VCTModuleService service = Context.getService(VCTModuleService.class);
+				VCTClient client = service.getClientAtLastVisitByClientId(parentObs.getPersonId());
+				client.setCounselingObs(parentObs);
+				client.setTypeOfCounseling(pci.getCounselingTypeId());
+				
+				if (pci.getCounselingTypeId() == 2) {
+					if (index == 1)
+						client.setPartner(Context.getPersonService().getPerson(
+						    Integer.valueOf(request.getParameter("personId_" + (index + 1)))));
+					else
+						client.setPartner(Context.getPersonService().getPerson(
+						    Integer.valueOf(request.getParameter("personId_" + (index - 1)))));
+				}
+				service.saveVCTClient(client);
+				
+				String msg = getMessageSourceAccessor().getMessage("Form.saved");
+				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg);
 			}
-			service.saveVCTClient(client);
-			
-			String msg = getMessageSourceAccessor().getMessage("Form.saved");
-			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg);
 		}
 		catch (Exception e) {
 			String msg = getMessageSourceAccessor().getMessage("Form.not.saved");
