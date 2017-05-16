@@ -348,6 +348,9 @@ public class VCTProgramEnrollmentController extends ParameterizableViewControlle
 				pi.setIdentifierType(Context.getPatientService()
 						.getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId()));
 
+				if(client.getNid() == null)
+					log.error("Client " + client + " has no NID");
+				
 				log.info(">>>>>VCT>>HIV>>Program>>Patient>>Enrollment>>>> Trying to save PatientIdentifier, type="
 						+ Context.getPatientService()
 								.getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId()).getName()

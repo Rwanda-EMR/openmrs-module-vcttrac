@@ -36,7 +36,7 @@
 	<table>
 		<tr>
 			<td><spring:message code="vcttrac.registration.clientName"/>/<spring:message code="vcttrac.registration.codeclient"/></td>
-			<td><input type="text" name='n_1' id='n_1' style="width:25em" autocomplete="off" onkeyup='VCT_DWRUtil.patientListInTable(this,1,1);'/></td>
+			<td><input type="text" name='n_1' id='n_1' style="width:25em" autocomplete="off" onkeyup='patientListInTable(this,1,1);'/></td>
 		</tr>
 	</table>
 	
