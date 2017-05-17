@@ -115,27 +115,27 @@ public interface VCTModuleService {
 	//Tracnet Indicators
 	
 	public Integer getNumberOfNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender);
 	
 	public Integer getNumberOfNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender);
 	
-	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, Integer admissionMode,
+	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender);
 	
 	public Integer getNumberOfDiscordantCouples(String from, String to, Integer locationId);
 	
 	public List<VCTClient> getNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender);
 	
 	public List<VCTClient> getNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender);
 	
-	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, Integer admissionMode,
+	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender);
 	
 	public List<VCTClient> getDiscordantCouples(String from, String to, Integer locationId);

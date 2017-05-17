@@ -64,7 +64,7 @@ public class FileExporter {
 			        + clientList.size());
 			outputStream.println();
 			//			outputStream
-			//			        .println("No., Names, Gender, BirthDay, Registration Date, Counseling Done ?, Got Résultat ?, Result of HIV Test");
+			//			        .println("No., Names, Gender, BirthDay, Registration Date, Counseling Done ?, Got Rï¿½sultat ?, Result of HIV Test");
 			setColumnTitles(outputStream);
 			outputStream.println();
 			
@@ -231,26 +231,26 @@ public class FileExporter {
 								+VCTTracUtil.getMessage("vcttrac.person.male", null)+" : "+VCTTracUtil.getMessage("vcttrac.age", null)+" 25+");
 			
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfNewClientsCounseledAndTestedForHiv", null)
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 0, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "VCT", 25, 0, "m"));
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfNewClientsTestedAndReceivedResults", null)
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 0, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "VCT", 25, 0, "m"));
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfHivPositiveClients", null)
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 0, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "VCT", 25, 0, "m"));
 			
 			outputStream.println();
 			outputStream.println();
@@ -265,26 +265,26 @@ public class FileExporter {
 								+VCTTracUtil.getMessage("vcttrac.person.male", null)+" : "+VCTTracUtil.getMessage("vcttrac.age", null)+" 25+");
 			
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfNewClientsCounseledAndTestedForHiv", null)
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, 1, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, loc, "PIT", 25, 0, "m"));
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfNewClientsTestedAndReceivedResults", null)
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, 1, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfNewClientsTestedAndReceivedResults(from, to, loc, "PIT", 25, 0, "m"));
 			outputStream.println(VCTTracUtil.getMessage("vcttrac.tracnet.criteria.numberOfHivPositiveClients", null)
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 0, 15, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 0, 15, "m")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 15, 25, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 15, 25, "m")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 25, 0, "f")
-								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, 1, 25, 0, "m"));
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 0, 15, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 0, 15, "m")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 15, 25, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 15, 25, "m")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 25, 0, "f")
+								+", "+VCTModuleTag.getNumberOfHIVPositiveClients(from, to, loc, "PIT", 25, 0, "m"));
 			
 			outputStream.println();
 			outputStream.println();

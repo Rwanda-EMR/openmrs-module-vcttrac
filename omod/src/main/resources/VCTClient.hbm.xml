@@ -12,7 +12,7 @@
 		</id>
 		
 		<property name="codeClient" column="code_client" type="java.lang.String" not-null="true"/>
-		<property name="vctOrPit" column="vct_or_pit" type="java.lang.Boolean"/>
+		<property name="registrationEntryPoint" column="registration_entry_point" type="java.lang.String" length="22"/>
 		<property name="codeTest" column="code_test" type="java.lang.String"/>
 		<!-- <property name="partnerCodeTest" column="partner_code_test" type="java.lang.String"/> -->
 		<property name="nid" column="nid" type="java.lang.String"/>

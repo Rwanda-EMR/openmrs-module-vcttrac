@@ -303,7 +303,7 @@ public class VCTModuleTag {
 	 * @return
 	 */
 	public static String getNumberOfNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
-	                                                                   Integer admissionMode, Integer minAge,
+	                                                                   String admissionMode, Integer minAge,
 	                                                                   Integer maxAge, String gender) {
 		VCTModuleService vms = Context.getService(VCTModuleService.class);
 		Integer res = vms.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, locationId, admissionMode, minAge, maxAge,
@@ -324,7 +324,7 @@ public class VCTModuleTag {
 	 * @return
 	 */
 	public static String getNumberOfNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
-	                                                                   Integer admissionMode, Integer minAge,
+	                                                                   String admissionMode, Integer minAge,
 	                                                                   Integer maxAge, String gender) {
 		VCTModuleService vms = Context.getService(VCTModuleService.class);
 		Integer res = vms.getNumberOfNewClientsTestedAndReceivedResults(from, to, locationId, admissionMode, minAge, maxAge,
@@ -344,7 +344,7 @@ public class VCTModuleTag {
 	 * @param maxAge
 	 * @return
 	 */
-	public static String getNumberOfHIVPositiveClients(String from, String to, Integer locationId, Integer admissionMode,
+	public static String getNumberOfHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                                   Integer minAge, Integer maxAge, String gender) {
 		VCTModuleService vms = Context.getService(VCTModuleService.class);
 		Integer res = vms.getNumberOfHIVPositiveClients(from, to, locationId, admissionMode, minAge, maxAge, gender);

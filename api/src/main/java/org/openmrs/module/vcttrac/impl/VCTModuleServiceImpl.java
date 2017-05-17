@@ -228,7 +228,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 */
 	@Override
 	public Integer getNumberOfNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender) {
 		return vctDAO.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, locationId, admissionMode, minAge, maxAge,
 		    gender);
@@ -241,7 +241,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 */
 	@Override
 	public Integer getNumberOfNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender) {
 		return vctDAO.getNumberOfNewClientsTestedAndReceivedResults(from, to, locationId, admissionMode, minAge, maxAge,
 		    gender);
@@ -253,7 +253,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 *      java.lang.Integer, java.lang.String)
 	 */
 	@Override
-	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, Integer admissionMode,
+	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender) {
 		return vctDAO.getNumberOfHIVPositiveClients(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
@@ -300,7 +300,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 *      java.lang.Integer, java.lang.String)
 	 */
 	@Override
-	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, Integer admissionMode,
+	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender) {
 		return vctDAO.getHIVPositiveClients(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
@@ -312,7 +312,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 */
 	@Override
 	public List<VCTClient> getNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender) {
 		return vctDAO.getNewClientsCounseledAndTestedForHIV(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
@@ -324,7 +324,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	 */
 	@Override
 	public List<VCTClient> getNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
-	                                                             Integer admissionMode, Integer minAge, Integer maxAge,
+	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender) {
 		return vctDAO.getNewClientsTestedAndReceivedResults(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}

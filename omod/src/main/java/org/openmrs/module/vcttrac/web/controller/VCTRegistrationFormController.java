@@ -41,6 +41,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.MohTracConfigurationUtil;
 import org.openmrs.module.vcttrac.VCTClient;
+import org.openmrs.module.vcttrac.VCTClient.RegistrationEntryPoint;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTModuleTag;
@@ -267,7 +268,7 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 				// address
 				createPersonAddress(request, client.getClient().getPersonAddress());
 
-				client.setVctOrPit((request.getParameter("vctOrPit").compareToIgnoreCase("pit") == 0));
+				client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
 				if (request.getParameter("registrationDate") != null
 						&& request.getParameter("registrationDate").trim().compareTo("") != 0) {
 					client.setDateOfRegistration(df.parse(request.getParameter("registrationDate")));
@@ -307,7 +308,7 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 					p = ps.getPerson(Integer.valueOf(request.getParameter("client")));
 
 				client.setClient(p);
-				client.setVctOrPit((request.getParameter("vctOrPit").compareToIgnoreCase("pit") == 0));
+				client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
 				client.setCounselingObs(null);
 				client.setResultObs(null);
 				client.setCreatedBy(Context.getAuthenticatedUser());
@@ -423,7 +424,7 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 
 		mav.addObject("registeredClient", client);
 
-		mav.addObject("type", (client.isVctOrPit()) ? "pit" : "vct");
+		mav.addObject("type", client.getRegistrationEntryPoint());
 
 		if (null != client.getClient().getPersonAddress())
 			mav.addObject("location", client.getClient().getPersonAddress());

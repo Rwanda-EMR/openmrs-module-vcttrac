@@ -93,9 +93,12 @@
 							<tr>
 								<td><spring:message code="@MODULE_ID@.registration.vctorpit"/></td>
 								<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/images/info.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
-								<td><select name="vctOrPit">
-										<option value="vct" <c:if test="${type=='vct'}">selected='selected'</c:if>><spring:message code="@MODULE_ID@.vct"/></option>
-										<option value="pit" <c:if test="${type=='pit'}">selected='selected'</c:if>><spring:message code="@MODULE_ID@.pit"/></option>
+								<td><select name="registrationEntryPoint">
+										<option value="VCT" <c:if test="${type=='VCT'}">selected='selected'</c:if>>VCT</option>
+										<option value="PIT" <c:if test="${type=='PIT'}">selected='selected'</c:if>>PIT</option>
+										<option value="MALE_CIRCUMCISION" <c:if test="${type=='MALE_CIRCUMCISION'}">selected='selected'</c:if>>MALE_CIRCUMCISION</option>
+										<option value="POST_EXPOSURE" <c:if test="${type=='POST_EXPOSURE'}">selected='selected'</c:if>>VCT</option>
+										<option value="OTHER" <c:if test="${type=='OTHER'}">selected='selected'</c:if>>OTHER</option>
 									</select>
 								</td>
 								<td></td>

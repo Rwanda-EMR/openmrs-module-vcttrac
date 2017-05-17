@@ -14,6 +14,7 @@ import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.ContextProvider;
+import org.openmrs.module.vcttrac.VCTClient.RegistrationEntryPoint;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTTracUtil;
@@ -89,13 +90,21 @@ public class VCTPreRegistrationCheckupController extends ParameterizableViewCont
 				}
 								
 				//redict the view accordingly
-				if (request.getParameter("type").trim().compareToIgnoreCase("vct") == 0)
-					mav.setView(new RedirectView("vctRegistration.form?type=vct&select="
+				if (request.getParameter("type").trim().equalsIgnoreCase(RegistrationEntryPoint.VCT.name()))
+					mav.setView(new RedirectView("vctRegistration.form?type=VCT&select="
+					        + (((found)) ? ("choose&clientId=" + pId) : "new")));
+				else if(request.getParameter("type").trim().equalsIgnoreCase(RegistrationEntryPoint.PIT.name()))
+					mav.setView(new RedirectView("vctRegistration.form?type=PIT&select="
+					        + (((found)) ? ("choose&clientId=" + pId) : "new")));
+				else if(request.getParameter("type").trim().equalsIgnoreCase(RegistrationEntryPoint.MALE_CIRCUMCISION.name()))
+					mav.setView(new RedirectView("vctRegistration.form?type=MALE_CIRCUMCISION&select="
+					        + (((found)) ? ("choose&clientId=" + pId) : "new")));
+				else if(request.getParameter("type").trim().equalsIgnoreCase(RegistrationEntryPoint.POST_EXPOSURE.name()))
+					mav.setView(new RedirectView("vctRegistration.form?type=POST_EXPOSURE&select="
 					        + (((found)) ? ("choose&clientId=" + pId) : "new")));
 				else
-					mav.setView(new RedirectView("vctRegistration.form?type=pit&select="
+					mav.setView(new RedirectView("vctRegistration.form?type=OTHER&select="
 					        + (((found)) ? ("choose&clientId=" + pId) : "new")));
-				
 				//pack the nid in the model object
 				mav.addObject("nid", request.getParameter("nid"));
 			} else if (request.getParameter("idType") != null && request.getParameter("idType").trim().compareTo("") != 0) {

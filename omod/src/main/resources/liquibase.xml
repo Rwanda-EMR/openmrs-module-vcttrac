@@ -117,4 +117,15 @@
 			ALTER TABLE `trac_vct_client` MODIFY `code_client` VARCHAR(20);
 		</sql>
 	</changeSet>
+	<changeSet id="201705161744" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<columnExists tableName="trac_vct_client" columnName="vct_or_pit" />
+		</preConditions>
+		<comment>Rename vct_or_pit to registration_entry_point and change its type to varchar(22)</comment>
+		<sql>
+			ALTER TABLE trac_vct_client CHANGE vct_or_pit registration_entry_point VARCHAR(22);
+			UPDATE trac_vct_client SET registration_entry_point = 'VCT' WHERE registration_entry_point = '0';
+			UPDATE trac_vct_client SET registration_entry_point = 'PIT' WHERE registration_entry_point = '1';
+		</sql>
+	</changeSet>
 </databaseChangeLog>

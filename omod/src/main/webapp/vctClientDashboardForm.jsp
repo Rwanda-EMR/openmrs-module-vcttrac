@@ -85,7 +85,7 @@
 	<div class="hdClientSummary">
 		<div class="boxHeader" style="-moz-border-radius: 5px; margin-top: 4px; font-weight: bold;">
 			<div style="float: left; width: 70%;">
-				<spring:message code="@MODULE_ID@.registration.reference"/> : <c:if test="${!visit.vctOrPit}"><a href="#"><spring:message code="@MODULE_ID@.vct"/></a></c:if><c:if test="${visit.vctOrPit}"><a href="#"><spring:message code="@MODULE_ID@.pit"/></a></c:if> <spring:message code="@MODULE_ID@.on"/> <a href="#"><openmrs:formatDate date="${visit.dateOfRegistration}" type="medium" /></a> @ <a href="#">${visit.location}</a> <spring:message code="@MODULE_ID@.by"/> <a href="#">${visit.createdBy.person.personName}</a> <c:if test="${visit.changedBy ne null}">/ <a href="#">${visit.changedBy.person.personName}</a></c:if>
+				<spring:message code="@MODULE_ID@.registration.reference"/> : <c:if test="${!visit.registrationEntryPoint}"><a href="#"><spring:message code="@MODULE_ID@.vct"/></a></c:if><c:if test="${visit.registrationEntryPoint}"><a href="#"><spring:message code="@MODULE_ID@.pit"/></a></c:if> <spring:message code="@MODULE_ID@.on"/> <a href="#"><openmrs:formatDate date="${visit.dateOfRegistration}" type="medium" /></a> @ <a href="#">${visit.location}</a> <spring:message code="@MODULE_ID@.by"/> <a href="#">${visit.createdBy.person.personName}</a> <c:if test="${visit.changedBy ne null}">/ <a href="#">${visit.changedBy.person.personName}</a></c:if>
 			</div>
 			<div style="float: right; width: 25%; text-align: right;">
 				<spring:message code="@MODULE_ID@.registration.codeclient"/> : <a href="vctRegistration.form?codeClient=${visit.codeClient}&edit=true">${visit.codeClient}</a>

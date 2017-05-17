@@ -66,7 +66,7 @@ public class VCTClientListingController extends ParameterizableViewController {
 			if (request.getParameter("type") != null && request.getParameter("type").trim().compareTo("") != 0) {
 				String from = request.getParameter("dateFrom");
 				String to = request.getParameter("dateTo");
-				Integer admissionMode = Integer.valueOf(request.getParameter("type"));
+				String admissionMode = request.getParameter("type");
 				Integer locationId = Integer.valueOf(request.getParameter("location"));
 				if (request.getParameter("type").trim().compareTo("2") != 0) {
 					Integer minAge = Integer.valueOf(((request.getParameter("minAge") == null) ? 0 + "" : request
