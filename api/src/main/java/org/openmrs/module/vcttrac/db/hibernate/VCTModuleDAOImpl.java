@@ -67,17 +67,10 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	 * @return
 	 */
 	private Session getSession() {
-		// if (getSessionFactory().isClosed())
-		// log.info(">>>>VCT_DAO>> sessionFactory is closed!");
 		Session session = getSessionFactory().getCurrentSession();
 		if (session == null) {
-			// log.info(">>>>VCT_DAO>> Trying to close the existing
-			// session...");
 			Context.closeSession();
-			// log.info(">>>>VCT_DAO>> Session closed.");
-			// log.info(">>>>VCT_DAO>> Trying to open new session...");
 			Context.openSession();
-			// log.info(">>>>VCT_DAO>> New Session created.");
 			try {
 				session = getSessionFactory().getCurrentSession();
 			} catch (Exception e) {
@@ -145,8 +138,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 			query += " AND t.obs_id_counseling IS NULL";
 		}
 
-		// log.info(">>>>>>>>>>>>>>>>>>>QUERY : " + query);
-
 		personIds = getSession().createSQLQuery(query).list();
 
 		if (personIds == null || personIds.size() == 0) {
@@ -169,7 +160,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 			}
 
 			query += "ORDER BY pn.given_name;";
-			// log.info(">>>>>>>>>>>>>>>>>>>QUERY 1 : " + query);
 			personIds = getSession().createSQLQuery(query).list();
 		}
 		List<Person> personList = new ArrayList<Person>();
@@ -237,12 +227,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	@SuppressWarnings("unchecked")
 	public List<String> getAllClientCodeForReceptionOfResult() {
 		List<String> clientsCode = new ArrayList<String>();
-		// getSession()
-		// .createSQLQuery(
-		// "SELECT code_test FROM trac_vct_client WHERE code_test IS NOT NULL
-		// AND obs_id_result IS NOT NULL AND archived IS FALSE AND voided IS
-		// FALSE")
-		// .list();
 
 		List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
 				.add(Restrictions.isNotNull("codeTest")).add(Restrictions.isNotNull("resultObs"))
@@ -300,10 +284,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	@SuppressWarnings("unchecked")
 	public List<Integer> getVCTClientsBasedOnGender(String gender, Date registrationDate) {
 		String query = "SELECT trac_vct_client_id FROM trac_vct_client cl INNER JOIN person p ON cl.client_id=p.person_id "
-				+ "WHERE p.gender='" + gender + "'";// + "' AND cl.archived IS
-													// FALSE AND cl.voided IS
-													// FALSE ";
-
+				+ "WHERE p.gender='" + gender + "'";
 		query += (registrationDate != null)
 				? " AND date_registration='" + MohTracUtil.getMySQLDateFormat().format(registrationDate) + "'" : "";
 
@@ -382,14 +363,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		// + " AND archived IS FALSE AND voided IS FALSE";
 		else
 			query = "SELECT trac_vct_client_id FROM trac_vct_client WHERE type_of_counseling IS NULL";// AND
-																										// archived
-																										// IS
-																										// FALSE
-																										// AND
-																										// voided
-																										// IS
-																										// FALSE";
-
 		query += (registrationDate != null)
 				? " AND date_registration='" + MohTracUtil.getMySQLDateFormat().format(registrationDate) + "'" : "";
 
@@ -646,39 +619,14 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfCouplesCounseledAndTested(java.lang.String,
 	 *      java.lang.String, java.lang.Integer)
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested) {
-		// try {
-		// List<VCTClient> couples = new ArrayList<VCTClient>();
-		//
-		// List<VCTClient> clientList =
-		// getSession().createCriteria(VCTClient.class).add(
-		// Restrictions.eq("typeOfCounseling", 2)).add(
-		// Restrictions.eq("location",
-		// Context.getLocationService().getLocation(locationId))).add(
-		// Restrictions.isNotNull("counselingObs")).add(Restrictions.isNotNull("codeTest")).add(
-		// Restrictions.between("dateOfRegistration",
-		// Context.getDateFormat().parse(from), Context.getDateFormat()
-		// .parse(to))).list();
-		// couples = clientList;
-		//
-		// }
-		// catch (Exception e) {
-		// log.error(">>>VCT>>Number>>of>>Couples>>Counseled>>And>>Tested>>for>>hiv>>
-		// from: " + from + ", to: " + to
-		// + ", location: " + locationId);
-		// e.printStackTrace();
-		// }
-
 		List<VCTClient> result = new ArrayList<VCTClient>();
 		int all = 0, oneOfThem = 0, noneOfThem = 0, res = 0;
 
 		try {
 			List<VCTClient> couplesCounseled = getCouplesCounseled(from, to, locationId);
-			// log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>Couples counseled :
-			// "+couplesCounseled.size());
-
-			// for (VCTClient c : couplesCounseled) {
 			int index = 0;
 			while (couplesCounseled.size() > index) {
 				res = checkIfClientAndPartnerGetTested(couplesCounseled, couplesCounseled.get(index));
@@ -803,7 +751,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	 */
 	@Override
 	public List<VCTClient> getDiscordantCouples(String from, String to, Integer locationId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -1030,9 +977,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		DateFormat df = MohTracUtil.getMySQLDateFormat();
 
 		query = "SELECT c.trac_vct_client_id FROM trac_vct_client c";
-		// boolean whereCreated = false;
-
-		// location
 		if (location != null)
 			query += whereOrAnd() + " c.location=" + location;
 		// date from
@@ -1064,9 +1008,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		// ordering
 		query += " ORDER BY c.date_registration DESC";
-
-		// log.info(">>>>STATISTICS>>QUERY>> " + query);
-
 		tempIds = getSession().createSQLQuery(query).list();
 		clientIds = tempIds;
 
@@ -1212,7 +1153,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	public Integer getNumberOfClientByDateOfRegistration(Date registrationDate) {
 		String query = "SELECT COUNT(trac_vct_client_id) FROM trac_vct_client WHERE date_registration='"
 				+ MohTracUtil.getMySQLDateFormat().format(registrationDate) + "'";
-		// log.info(">>>>>>>>> " + query);
 		int numberOfClient = Integer.valueOf("" + getSession().createSQLQuery(query).uniqueResult());
 
 		return numberOfClient;
@@ -1226,7 +1166,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	public Integer getNumberOfClientByMonthAndYearOfRegistration(Integer month, Integer year) {
 		String query = "SELECT COUNT(trac_vct_client_id) FROM trac_vct_client WHERE MONTH(date_registration)=" + month
 				+ " AND YEAR(date_registration)=" + year;
-		// log.info(">>>>>>>>> " + query);
 		int numberOfClient = Integer.valueOf("" + getSession().createSQLQuery(query).uniqueResult());
 
 		return numberOfClient;
