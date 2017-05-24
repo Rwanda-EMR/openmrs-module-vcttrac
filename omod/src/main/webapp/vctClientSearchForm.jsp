@@ -12,11 +12,11 @@
 					var box = document.getElementById("resultOfSearch");
 					box.innerHTML = ret
 						+"<br/><openmrs:hasPrivilege privilege='Create new Client'>"
-						+"<div style='text-align: left; margin-left: auto; margin-right; padding: 5px 2px;'>[<spring:message code='vcttrac.home.newclient'/>"
-						+" <a href='vctPreRegistrationCheckup.htm?type=vct'  title='<spring:message code='vcttrac.home.vct'/>'>"
-						+"<spring:message code='vcttrac.vct'/></a> <spring:message code='vcttrac.or'/>"
-						+" <a href='vctPreRegistrationCheckup.htm?type=pit' title='<spring:message code='vcttrac.home.pit'/>'><spring:message code='vcttrac.pit'/>"
-						+"</a>]</div></openmrs:hasPrivilege>";
+						+"<div style='text-align: left; margin-left: auto; margin-right; padding: 5px 2px;'><spring:message code='vcttrac.home.newclient'/> "
+						+"<select onchange='location = this.options[this.selectedIndex].value;'><option value=''>Select Registration Entry Point</option><option value='vctPreRegistrationCheckup.htm?type=VCT'>VCT</option>"
+						+ "<option value='vctPreRegistrationCheckup.htm?type=PIT'>PIT</option><option value='vctPreRegistrationCheckup.htm?type=MALE_CIRCUMCISION'>Male Circumcision</option>"
+						+ "<option value='vctPreRegistrationCheckup.htm?type=POST_EXPOSURE'>Post exposure</option><option value='vctPreRegistrationCheckup.htm?type=OTHER'>Other</option></select>"
+						+"</div></openmrs:hasPrivilege>";
 				}); 
 			}
 		 }
