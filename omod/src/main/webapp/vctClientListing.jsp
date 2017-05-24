@@ -15,26 +15,26 @@
 	<div style="width: 100%; overflow: scroll;">
 		<table class="list_data">
 			<tr>
-				<th class="columnHeader" rowspan="2"><spring:message code="@MODULE_ID@.export.column.registrationdate"/></th>
-				<th class="columnHeader" rowspan="2"><spring:message code="@MODULE_ID@.export.column.number"/></th>
-				<th class="columnHeader" rowspan="2"><spring:message code="@MODULE_ID@.registration.codeclient"/></th>
+				<th class="columnHeader" rowspan="2"><spring:message code="vcttrac.export.column.registrationdate"/></th>
+				<th class="columnHeader" rowspan="2"><spring:message code="vcttrac.export.column.number"/></th>
+				<th class="columnHeader" rowspan="2"><spring:message code="vcttrac.registration.codeclient"/></th>
 				<th class="columnHeader" rowspan="2"><spring:message code="Person.names"/></th>
-				<th class="columnHeader" rowspan="2"><spring:message code="@MODULE_ID@.age"/></th>
-				<th class="columnHeader" rowspan="2"><spring:message code="@MODULE_ID@.person.gender"/></th>
-				<th class="columnHeader" colspan="3" style="text-align: center;"><spring:message code="@MODULE_ID@.person.attributes"/></th>
-				<th class="columnHeader" style="text-align: center;"><spring:message code="@MODULE_ID@.registration.clientAddress"/></th>
-				<th class="columnHeader" colspan="2" style="text-align: center;"><spring:message code="@MODULE_ID@.counseling"/></th>
-				<th class="columnHeader" colspan="2" style="text-align: center;"><spring:message code="@MODULE_ID@.hivtest"/></th>
+				<th class="columnHeader" rowspan="2"><spring:message code="vcttrac.age"/></th>
+				<th class="columnHeader" rowspan="2"><spring:message code="vcttrac.person.gender"/></th>
+				<th class="columnHeader" colspan="3" style="text-align: center;"><spring:message code="vcttrac.person.attributes"/></th>
+				<th class="columnHeader" style="text-align: center;"><spring:message code="vcttrac.registration.clientAddress"/></th>
+				<th class="columnHeader" colspan="2" style="text-align: center;"><spring:message code="vcttrac.counseling"/></th>
+				<th class="columnHeader" colspan="2" style="text-align: center;"><spring:message code="vcttrac.hivtest"/></th>
 			</tr>
 			<tr>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.registration.CivilStatus"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.registration.mainActivity"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.registration.educationLevel"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.fullAddress"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.dashboard.typeofcounseling"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.reasonTested"/> ?</th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.result"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.result.dateOfReception"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.registration.CivilStatus"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.registration.mainActivity"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.registration.educationLevel"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.fullAddress"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.dashboard.typeofcounseling"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.counseling.reasonTested"/> ?</th>
+				<th class="columnHeader"><spring:message code="vcttrac.result"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.result.dateOfReception"/></th>
 			</tr>
 			<c:if test="${empty clients}">
 				<tr>

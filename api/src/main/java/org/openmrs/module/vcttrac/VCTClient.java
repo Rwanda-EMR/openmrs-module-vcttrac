@@ -13,10 +13,8 @@
  */
 package org.openmrs.module.vcttrac;
 
+import java.util.Arrays;
 import java.util.Date;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -266,9 +264,15 @@ public class VCTClient {
 	}
 
 	public void setRegistrationEntryPoint(String registrationEntryPoint) {
-		this.registrationEntryPoint = registrationEntryPoint;
+		if(Arrays.asList(getEnumNames(RegistrationEntryPoint.class)).contains(registrationEntryPoint))
+			this.registrationEntryPoint = registrationEntryPoint;
+		else
+			this.registrationEntryPoint = RegistrationEntryPoint.OTHER.name();
 	}
 
+	private String[] getEnumNames(Class<? extends Enum<?>> e) {
+	    return Arrays.toString(e.getEnumConstants()).replaceAll("^.|.$", "").split(", ");
+	}
 	/**
 	 * Gets the obs corresponding to counseling obs group
 	 * 
@@ -539,11 +543,6 @@ public class VCTClient {
 		}
 
 		public String displayName() {
-			return displayName;
-		}
-
-		@Override
-		public String toString() {
 			return displayName;
 		}
 	}

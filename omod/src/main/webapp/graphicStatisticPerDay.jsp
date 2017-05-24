@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
-<br/><span style="font-size: 2.2em; font-weight: bold; text-decoration: underline;"><spring:message code="@MODULE_ID@.graph.statistic.perday"/></span>
+<br/><span style="font-size: 2.2em; font-weight: bold; text-decoration: underline;"><spring:message code="vcttrac.graph.statistic.perday"/></span>
 
 <table width="96%" cellspacing="25">
 	<!-- <tr>
@@ -11,7 +11,7 @@
 					<tr>
 						<td>Day</td>
 						<td>><input name="todayDate" type="text" size="11" onclick="showCalendar(this)" value="${todayDate}" /></td>
-						<td><input name="refresh" type="button" value="<spring:message code='@MODULE_ID@.tablelist.refresh'/>" /></td>
+						<td><input name="refresh" type="button" value="<spring:message code='vcttrac.tablelist.refresh'/>" /></td>
 					</tr>
 				</table>
 			</span>
@@ -22,7 +22,7 @@
 		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="Counseling individuel vs Couples" src="chart.htm?chart=pieChartView&type=counselingType&width=350&height=300" width="350" height="300" /></div></td>
 	</tr>
 	<tr>
-		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="PIT vs VCT" src="chart.htm?chart=pieChartView&type=vctVsPit&width=350&height=320" width="350" height="320" /></div></td>
+		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="PIT vs VCT" src="chart.htm?chart=pieChartView&type=registrationEntryPoint&width=350&height=320" width="350" height="320" /></div></td>
 		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="Masculin vs Feminin" src="chart.htm?chart=pieChartView&type=gender&width=350&height=300" width="350" height="300" /></div></td>
 	</tr>
 	<!-- <tr>

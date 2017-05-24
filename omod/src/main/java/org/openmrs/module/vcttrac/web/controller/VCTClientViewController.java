@@ -104,7 +104,7 @@ public class VCTClientViewController extends ParameterizableViewController {
 					hivTestingDone.setObsDatetime(obsDatetime);
 					hivTestingDone.setConcept(Context.getConceptService().getConcept(
 					    VCTConfigurationUtil.getHivTestingDoneConceptId()));
-					hivTestingDone.setValueNumeric(1.0);
+					hivTestingDone.setValueBoolean(true);
 					
 					counselingObs.addGroupMember(hivTestingDone);
 					

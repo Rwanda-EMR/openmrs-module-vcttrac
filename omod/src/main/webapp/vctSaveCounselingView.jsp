@@ -1,21 +1,21 @@
 <%@ include file="template/localHeader.jsp"%>
 
-<openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/@MODULE_ID@/preCounseling.form" />
+<openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/vcttrac/preCounseling.form" />
 
-<h2><spring:message code="@MODULE_ID@.counseling.step3.title"/></h2>
+<h2><spring:message code="vcttrac.counseling.step3.title"/></h2>
 
-<!-- <a href="preCounseling.form"><spring:message code="@MODULE_ID@.counseling.step3.newcounseling"/></a>
+<!-- <a href="preCounseling.form"><spring:message code="vcttrac.counseling.step3.newcounseling"/></a>
 <br/><br/> -->
 
 <c:if test="${pci.counselingTypeId==1}">
-	<c:set var="counselingType"><spring:message code="@MODULE_ID@.dashboard.typeofcounseling.individuel" /></c:set>
+	<c:set var="counselingType"><spring:message code="vcttrac.dashboard.typeofcounseling.individuel" /></c:set>
 </c:if>
 <c:if test="${pci.counselingTypeId==2}">
-	<c:set var="counselingType"><spring:message code="@MODULE_ID@.dashboard.typeofcounseling.couple" /></c:set>
+	<c:set var="counselingType"><spring:message code="vcttrac.dashboard.typeofcounseling.couple" /></c:set>
 </c:if>
 
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.counseling" /> : ${counselingType}</b>
+<b class="boxHeader"><spring:message code="vcttrac.counseling" /> : ${counselingType}</b>
 <div class="box">
 	<table>
 		<tr>
@@ -31,29 +31,29 @@
 			<td> : <b>${vcttag:personName(pci.providerId)}</b></td>
 		</tr>
 		<tr>
-			<td><spring:message code="@MODULE_ID@.dashboard.typeofcounseling"/></td>
+			<td><spring:message code="vcttrac.dashboard.typeofcounseling"/></td>
 			<td> : <b>${counselingType}</b></td>
 		</tr>
 	</table>
 </div>
 
 <br/><br/>
-<b class="boxHeader"><spring:message code="@MODULE_ID@.counseling"/> : ${counselingType}</b>
+<b class="boxHeader"><spring:message code="vcttrac.counseling"/> : ${counselingType}</b>
 <div class="box">
 	<table id="list_data">
 		<tr>
 			<th class="columnHeader">#.</th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.registration.clientName"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.reasonTested"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.programOrderedTest"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.registration.clientName"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.counseling.reasonTested"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.counseling.programOrderedTest"/></th>
 			<!-- <th class="columnHeader" style="color:red;">Quel handicap ?</th> 
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.dashboard.tested"/> ?</th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.result.clientcode"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.dashboard.tested"/> ?</th>
+			<th class="columnHeader"><spring:message code="vcttrac.result.clientcode"/></th>
 			<c:if test="${pci.counselingTypeId==2}">
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.clientcodepartner"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.counseling.clientcodepartner"/></th>
 			</c:if>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.numberOfCondoms"/></th> -->
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.counseling.comment"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.counseling.numberOfCondoms"/></th> -->
+			<th class="columnHeader"><spring:message code="vcttrac.counseling.comment"/></th>
 		</tr>
 		<c:forEach items="${ciList}" var="ci" varStatus="status">
 			<tr class="${status.count%2!=0?'even':''}">

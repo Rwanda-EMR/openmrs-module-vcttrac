@@ -128,7 +128,7 @@ public class VCTConfigurationsController extends ParameterizableViewController {
 		}
 		catch (Exception ex) {
 			String msg = getMessageSourceAccessor().getMessage("Form.not.saved");
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg + ": " + ex.getMessage());
 			
 			log
 			        .error(">>>>>>VCT>>Configuration>>Controller>> An error occured when trying to save the VCT Configurations: \n");

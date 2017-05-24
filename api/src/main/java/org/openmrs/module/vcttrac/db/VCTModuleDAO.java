@@ -64,7 +64,7 @@ public interface VCTModuleDAO {
 
 	public List<Integer> getVCTClientsBasedOnCounselingType(Integer counselingType, Date registrationDate);
 
-	public Integer getNumberOfClientByVCTOrPIT(Integer vctorpit, Date startingFrom);
+	public Integer getNumberOfClientsByRegistrationEntryPoint(String entryPoint, Date startingFrom);
 
 	public Integer getNumberOfClientByDateOfRegistration(Date registrationDate);
 
@@ -124,5 +124,5 @@ public interface VCTModuleDAO {
 
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested);
 
-	// end Tracnet Indicators
+	String[] getAllRegistrationEntryPoints();
 }

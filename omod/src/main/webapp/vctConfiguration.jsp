@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:require privilege="Manage VCT configurations" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctConfigurations.htm" />
+<openmrs:require privilege="Manage VCT configurations" otherwise="/login.htm" redirect="/module/vcttrac/vctConfigurations.htm" />
 
 <script type="text/javascript">
 	var $j = jQuery.noConflict();
@@ -10,15 +10,15 @@
 <%@ include file="template/configHeader.jsp"%>
 
 <form action="vctConfigurations.htm?save=true" method="post" style="width:90%; margin:6px auto;">
-	<h4><spring:message code="@MODULE_ID@.configuration.title"/></h4>
+	<h4><spring:message code="vcttrac.configuration.title"/></h4>
 
 	<div style="border: 1px solid red; padding: 3px; -moz-border-radius: 3px; font-size: 0.8em;">
-		<spring:message code="@MODULE_ID@.configuration.note"/>
+		<spring:message code="vcttrac.configuration.note"/>
 	<br/>
 	
 	<!-- Relationship type -->
 	
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.configuration.relationship"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.configuration.relationship"/></b>
 	<div class="box">
 		<table class="configTable">
 			<tr>
@@ -39,7 +39,7 @@
 	
 	<!-- End Relationship type -->
 	
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.configuration.concepts"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.configuration.concepts"/></b>
 	<div class="box">
 		<table class="configTable">
 			<!-- vct program construct -->
@@ -83,10 +83,10 @@
 	</div>
 	<br/>
 	
-	<span title="${vctConfigured.description}"><input <c:if test="${vctConfigured.propertyValue=='true' || vctConfigured.propertyValue=='TRUE'}">checked='checked'</c:if> type="checkbox" name="config_chkbx" value="1"/><spring:message code="@MODULE_ID@.configuration.configuredproperly"/></span>
+	<span title="${vctConfigured.description}"><input <c:if test="${vctConfigured.propertyValue=='true' || vctConfigured.propertyValue=='TRUE'}">checked='checked'</c:if> type="checkbox" name="config_chkbx" value="1"/><spring:message code="vcttrac.configuration.configuredproperly"/></span>
 		
 	<br/><br/>
-	<input type="button" value="<spring:message code="@MODULE_ID@.configuration.save"/>" id="btSave"/>
+	<input type="button" value="<spring:message code="vcttrac.configuration.save"/>" id="btSave"/>
 
 </form>
 
@@ -94,7 +94,7 @@
 
 $j(document).ready( function() {
 	$j("#btSave").click(function(){
-		if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
+		if(confirm("<spring:message code='vcttrac.surewanttosave'/>"))
 			this.form.submit();
 		});
 });

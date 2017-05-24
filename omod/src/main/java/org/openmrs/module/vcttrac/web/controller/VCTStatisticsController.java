@@ -41,7 +41,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 
 /**
- * mapped to /module/@MODULE_ID@/vctStatisticsForm.jsp
+ * mapped to /module/vcttrac/vctStatisticsForm.jsp
  */
 public class VCTStatisticsController extends ParameterizableViewController {
 	

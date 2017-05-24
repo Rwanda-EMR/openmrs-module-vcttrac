@@ -1,5 +1,5 @@
 <%@ include file="template/localHeader.jsp"%>
-<openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctResultReception.form" />
+<openmrs:require privilege="Manage Counseling of VCT/PIT Clients" otherwise="/login.htm" redirect="/module/vcttrac/vctResultReception.form" />
 
 	<style>
 		input {
@@ -11,45 +11,43 @@
 		}
 	</style>
 	
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.autocomplete.js" />
-
 <div style="width: 90%; margin-left: auto; margin-right: auto;">
 
-<h2><spring:message code="@MODULE_ID@.result.receptionofresult"/></h2>
+<h2><spring:message code="vcttrac.result.receptionofresult"/></h2>
 
 <div class="left">
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.result.testcode"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.result.testcode"/></b>
 	<div class="box">
 		<c:forEach items="${clientCodes}" var="code" varStatus="status">
 			<span title="${code}" id="clientCode_${status.count}" onclick="changeValue(this);" class="clientCode highLight">${code}</span>
 		</c:forEach>
-		<c:if test="${empty clientCodes}"><i><spring:message code="@MODULE_ID@.result.noclientcodefound"/></i></c:if>
+		<c:if test="${empty clientCodes}"><i><spring:message code="vcttrac.result.noclientcodefound"/></i></c:if>
 	</div>
 </div>
 
 <div class="right">
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.result.receptionofresult"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.result.receptionofresult"/></b>
 	<form class="box" action="vctResultReception.form?save" method="post">
 		<div id="errorDivId" style="margin-bottom: 5px;"></div>
 		<div id="result"></div>
 		<table>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.result.clientcode"/></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span>
+				<td><spring:message code="vcttrac.result.clientcode"/></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span>
 				</td>
 				<td><input readonly="readonly" type="text" id="clientCode" name="clientCode" /></td>
 				<td><span id="clientCodeError"></span></td>
 			</tr>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.result.datetestresultreceived"/></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span>
+				<td><spring:message code="vcttrac.result.datetestresultreceived"/></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span>
 				</td>
 				<td><input id="dateHivTestRsltRcvd" name="dateHivTestResultReceived" size="11" type="text" onclick="showCalendar(this)" value=""/></td>
 				<td><span id="dateHivTestRsltRcvdError"></span></td>
 			</tr>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.counseling.numberOfCondoms"/></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
+				<td><spring:message code="vcttrac.counseling.numberOfCondoms"/></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
 				<td><select name="numberOfCondom">
 						<option value="0">--</option>
 						<c:forEach items="4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96,100" var="nbr">
@@ -60,7 +58,7 @@
 			<tr>
 				<td></td>
 				<td></td>
-				<td><input type="button" id="btSave" value="<spring:message code="general.save"/>" /></td>
+				<td><input type="button" id="btSave" value="<spring:message code="general.save"/>" disabled/></td>
 			</tr>
 		</table>	
 	</form>	
@@ -76,16 +74,18 @@
 			jQuery("#clientCode").autocomplete("autocompletion/getClientCodeForResult.htm");
 			jQuery("#btSave").click(function(){
 				if(validateFields()){
-					if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
+					if(confirm("<spring:message code='vcttrac.surewanttosave'/>"))
 						this.form.submit();
 				}
 			});
 			jQuery("#load").click(function(){
+				jQuery("#btSave").attr("disabled", true);
 				var url='autocompletion/getClientInfo.htm?q='+jQuery("#clientCode").val();
 				jQuery.get(url, function(data) {
 					  jQuery('#result').html(data);
 					  jQuery('#result').addClass("clientInfo");
-				});				
+					  jQuery("#btSave").attr("disabled", false);
+				});
 			});
 		});
 
@@ -126,9 +126,6 @@
 				jQuery("#dateHivTestRsltRcvdError").removeClass("error");
 			}
 
-			//alert(document.getElementById("clientEnrolled").checked);
-			//alert(document.getElementById("transferred").checked);
-
 			if(document.getElementById("transferred")){
 				if(document.getElementById("transferred").checked){
 					//if(document.getElementById("nextVisitDateId")!=null){
@@ -143,50 +140,9 @@
 					//}
 				}
 			}
-			
-			/*if(document.getElementById("clientEnrolled").checked){
-				if(document.getElementById("nextVisitDateId")!=null){
-					if(jQuery("#nextVisitDateId").val()==''){
-						jQuery("#nextVisitDateError").html("*");
-						jQuery("#nextVisitDateError").addClass("error");
-						valid=false;
-					} else {
-						jQuery("#nextVisitDateError").html("");
-						jQuery("#nextVisitDateError").removeClass("error");
-					}
-				}
-	
-				var cont=true;
-				var index=0;
-				while(cont){
-	
-					if(cont && document.getElementById("identifierTypeId_"+index)!=null){
-						if(jQuery("#identifierId_"+index).val()==''){
-							jQuery("#identifierError_"+index).html("*");
-							jQuery("#identifierError_"+index).addClass("error");
-							valid=false;
-						} else {
-							jQuery("#identifierError_"+index).html("");
-							jQuery("#identifierError_"+index).removeClass("error");
-						}
-	
-						if(document.getElementById("identifierLocationId_"+index).value==''){
-							jQuery("#identifierLocationError_"+index).html("*");
-							jQuery("#identifierLocationError_"+index).addClass("error");
-							valid=false;
-						} else {
-							jQuery("#identifierLocationError_"+index).html("");
-							jQuery("#identifierLocationError_"+index).removeClass("error");
-						}
-					} else{
-						cont=false;
-					}
-					index++;
-				}
-			}*/
 
 			if(!valid){
-				jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+				jQuery("#errorDivId").html("<spring:message code='vcttrac.fillbeforesubmit'/>");
 				jQuery("#errorDivId").addClass("error");
 			} else {
 				jQuery("#errorDivId").html("");

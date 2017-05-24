@@ -199,101 +199,6 @@ public class VCTReceptionOfResultController extends ParameterizableViewControlle
 			
 			log.info(">>>>>VCT>>Result>>Reception>>Form>>>> Client Archived successfully.");
 			
-			/*
-					 * trying to transfer that to the last psy-social UI
-					 * 
-					 * if(request.getParameter("clientDecision").compareTo("1")==0){				
-				Person person = client.getClient();
-				
-				if (!client.getClient().isPatient() && request.getParameter("hivStatus").compareToIgnoreCase("1") == 0) {
-					Patient p = new Patient();
-					PersonName pn = new PersonName(person.getPersonName().getGivenName(), person.getPersonName()
-					        .getMiddleName(), person.getPersonName().getFamilyName());
-					p.getNames().add(pn);
-					p.setBirthdate(person.getBirthdate());
-					p.setGender(person.getGender());//string
-					p.setCreator(Context.getAuthenticatedUser());
-					
-					Program program = Context.getProgramWorkflowService().getProgram(VCTConfigurationUtil.getHivProgramId());
-					PatientProgram patientProgram = new PatientProgram();
-					PatientService patientService = Context.getPatientService();
-					ProgramWorkflowService programWorkFlowService = Context.getProgramWorkflowService();
-					
-					if (request.getParameter("identifierType_0") != null) {
-						log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to create identifier for Patient#" + p.getNames());
-						boolean cont = true;
-						int index = 0;
-						while (cont) {
-							if (cont && request.getParameter("identifierType_" + index) != null
-							        && request.getParameter("identifierType_" + index).compareTo("") != 0) {
-								if (true == Context.getPatientService().getPatientIdentifierType(
-								    Integer.valueOf(request.getParameter("identifierType_" + index))).getRequired()) {
-									
-									p.addIdentifier(createPatientIdentifier(request, index));
-									log.info(">>>>>VCT>>Result>>Reception>>From>>>> Identifier of type "
-									        + Context.getPatientService().getPatientIdentifierType(
-									            Integer.valueOf(request.getParameter("identifierType_" + index))).getName()
-									        + " for Patient#" + p.getNames() + " created succesfully.");
-									
-								}
-							} else
-								cont = false;
-							index += 1;
-						}
-						log.info(">>>>>VCT>>Result>>Reception>>From>>>> Identifier creation for Patient#" + p.getNames() + " is success");
-					}
-					
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to save Patient#" + p.getNames() + "...");
-					patientService.savePatient(p);
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Patient#" + p.getPatientId() + " saved succesfully");
-					
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to enroll Patient#" + p.getNames() + " to " + program.getName() + "...");
-					patientProgram.setPatient(p);
-					patientProgram.setProgram(program);
-					patientProgram.setDateEnrolled(df.parse(request.getParameter("dateHivTestResultReceived")));
-					patientProgram.setCreator(Context.getAuthenticatedUser());
-					patientProgram.setDateCreated(new Date());
-					programWorkFlowService.savePatientProgram(patientProgram);
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Enrollement finished successfully.");
-					
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to synchronize Person#" + person.getPersonId() + " and Person#" + p.getPersonId() + "...");
-					service = (VCTModuleService) ServiceContext.getInstance().getService(VCTModuleService.class);
-					service.synchronizePatientsAndClients(person.getPersonId(), p.getPatientId());
-					person = p;
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Synchronization of patients finished successfully.");
-					
-				}
-
-				if (request.getParameter("nextVisitDate") != null && request.getParameter("nextVisitDate") != "") {
-					Obs obs = new Obs();
-					obs.setConcept(Context.getConceptService().getConcept(VCTTracConstant.RETURN_VISIT_DATE));
-					obs.setObsDatetime(df.parse(request.getParameter("nextVisitDate")));
-					obs.setDateCreated(new Date());
-					obs.setCreator(Context.getAuthenticatedUser());
-					obs.setPerson(person);
-					obs.setLocation(Context.getLocationService().getDefaultLocation());
-					
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to save a Next Visit Date for Patient#" + person.getPersonId() + "...");
-					Context.getObsService().saveObs(obs, null);
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Saved successfully.");
-				}
-				
-				if (request.getParameter("nextVisitDate") != null && request.getParameter("nextVisitDate") != "") {
-					Obs modeOfAdmission = new Obs();
-					modeOfAdmission.setConcept(Context.getConceptService().getConcept(VCTTracConstant.METHOD_OF_ENROLLMENT));
-					modeOfAdmission.setValueCoded(Context.getConceptService().getConcept(VCTTracConstant.VCT_PROGRAM));
-					modeOfAdmission.setDateCreated(new Date());
-					modeOfAdmission.setObsDatetime(resultReceivedOn);
-					modeOfAdmission.setCreator(Context.getAuthenticatedUser());
-					modeOfAdmission.setPerson(person);
-					modeOfAdmission.setLocation(Context.getLocationService().getDefaultLocation());
-					
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Trying to save the Method of Enrollment for Patient#" + person.getPersonId() + "...");
-					Context.getObsService().saveObs(modeOfAdmission, null);
-					log.info(">>>>>VCT>>Result>>Reception>>From>>>> Saved successfully.");
-				}
-			} else */
-
 			if (request.getParameter("clientDecision") != null && request.getParameter("clientDecision").compareTo("0") == 0) {
 				Obs obs = new Obs();
 				obs.setConcept(Context.getConceptService().getConcept(VCTTracConstant.TRANSFER_OUT_TO));
@@ -335,7 +240,7 @@ public class VCTReceptionOfResultController extends ParameterizableViewControlle
 			log.error(">>>>>VCT>>Result>>Reception>>From>>>> An error occured : ");
 			e.printStackTrace();
 			String msg = getMessageSourceAccessor().getMessage("Form.not.saved");
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg + ": " + e.getMessage());
 		}
 		
 	}

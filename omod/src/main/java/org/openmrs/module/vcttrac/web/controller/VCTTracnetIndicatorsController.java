@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.FileExporter;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.web.WebConstants;
@@ -64,8 +65,9 @@ public class VCTTracnetIndicatorsController extends ParameterizableViewControlle
 	 */
 	private void mapParameters(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 		DateFormat df = Context.getDateFormat();
+		Date today = new Date();
+		
 		try {
-			Date today = new Date();
 			if (request.getParameter("location") == null || request.getParameter("location").compareTo("") == 0)
 				mav.addObject("defaultLoc", VCTConfigurationUtil.getDefaultLocationId());
 			else
@@ -80,14 +82,11 @@ public class VCTTracnetIndicatorsController extends ParameterizableViewControlle
 				mav.addObject("to", df.format(today));
 			else
 				mav.addObject("to", request.getParameter("dateTo"));
-			
-//			VCTModuleService vms=Context.getService(VCTModuleService.class);
-//			vms.getCouplesCounseledAndTested(request.getParameter("dateFrom"), request.getParameter("dateTo"), VCTConfigurationUtil.getDefaultLocationId());
-			
+			mav.addObject("registrationEntryPoints", Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints());
 		}
 		catch (Exception e) {
 			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-			    getMessageSourceAccessor().getMessage("@MODULE_ID@.error.loadingData"));
+			    getMessageSourceAccessor().getMessage("vcttrac.error.loadingData"));
 			log.error(">>>>>>VCT>>TRACNET>>INDICATORS>> " + e.getMessage());
 			e.printStackTrace();
 		}

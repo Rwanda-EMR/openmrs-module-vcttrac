@@ -1,13 +1,13 @@
 <%@ include file="template/overviewHeader.jsp"%>
 
-<openmrs:require privilege="View VCT Overview" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctOverview.htm" />
+<openmrs:require privilege="View VCT Overview" otherwise="/login.htm" redirect="/module/vcttrac/vctOverview.htm" />
 
 <div style="width: 95%; margin: auto;">
 	<div class="box" style="float: left; width: 28%;">
 		<ul>
-			<li><a id="dayStat" href="#"><spring:message code="@MODULE_ID@.graph.statistic.perday"/></a></li>
-			<li><a onclick="loadGraph('registrationEvolutionPerDay','550','250',1,6);" href="#"><spring:message code="@MODULE_ID@.graph.evolution.client.received"/></a></li>
-			<!-- <li><a onclick="loadGraph('vctResultOfHivTest');" href="#"><spring:message code="@MODULE_ID@.statistic.graph.resultoftest"/></a></li> -->
+			<li><a id="dayStat" href="#"><spring:message code="vcttrac.graph.statistic.perday"/></a></li>
+			<li><a onclick="loadGraph('registrationEvolutionPerDay','550','250',1,6);" href="#"><spring:message code="vcttrac.graph.evolution.client.received"/></a></li>
+			<!-- <li><a onclick="loadGraph('vctResultOfHivTest');" href="#"><spring:message code="vcttrac.statistic.graph.resultoftest"/></a></li> -->
 		</ul>
 	</div>
 	

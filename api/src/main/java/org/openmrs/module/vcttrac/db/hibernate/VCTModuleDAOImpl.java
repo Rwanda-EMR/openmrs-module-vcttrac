@@ -15,6 +15,7 @@ package org.openmrs.module.vcttrac.db.hibernate;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -104,7 +105,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	public List<Integer> getVCTClientsFromPIT() {
 		List<Integer> clientsCode = getSession()
 				.createSQLQuery(
-						"SELECT trac_vct_client_id FROM trac_vct_client WHERE vct_or_pit=1 AND archived IS FALSE AND voided IS FALSE")
+						"SELECT trac_vct_client_id FROM trac_vct_client WHERE c.registration_entry_point='PIT' AND archived IS FALSE AND voided IS FALSE")
 				.list();
 
 		return clientsCode;
@@ -118,7 +119,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	public List<Integer> getVoluntaryClients() {
 		List<Integer> clientsCode = getSession()
 				.createSQLQuery(
-						"SELECT trac_vct_client_id FROM trac_vct_client WHERE vct_or_pit=0 AND archived IS FALSE AND voided IS FALSE")
+						"SELECT trac_vct_client_id FROM trac_vct_client WHERE registration_entry_point='VCT' AND archived IS FALSE AND voided IS FALSE")
 				.list();
 
 		return clientsCode;
@@ -418,27 +419,35 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	}
 
 	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfClientByVCTOrPIT(java.lang.Integer,
+	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfClientsByRegistrationEntryPoint(java.lang.String,
 	 *      java.util.Date)
 	 */
-	public Integer getNumberOfClientByVCTOrPIT(Integer vctorpit, Date startingFrom) {
+	public Integer getNumberOfClientsByRegistrationEntryPoint(String regEntryPoint, Date startingFrom) {
 
-		String query = "SELECT COUNT(c.client_id) FROM trac_vct_client c";
-
-		if (vctorpit.intValue() == 1)
-			query += " WHERE c.vct_or_pit=0";
-		else if (vctorpit.intValue() == 2)
-			query += " WHERE c.vct_or_pit=1";
-		if (startingFrom != null && vctorpit.intValue() > 0)
-			query += " AND c.date_registration='" + MohTracUtil.getMySQLDateFormat().format(startingFrom) + "'";
-		else if (startingFrom != null && vctorpit.intValue() == 0)
-			query += " WHERE c.date_registration='" + MohTracUtil.getMySQLDateFormat().format(startingFrom) + "'";
+		String query = "SELECT COUNT(DISTINCT c.client_id) FROM trac_vct_client c WHERE c.registration_entry_point = '"
+				+ setRegistrationEntryPoint(regEntryPoint) + "' AND c.date_registration >= '"
+				+ MohTracUtil.getMySQLDateFormat().format(startingFrom) + "'";
 
 		String s = (getSession().createSQLQuery(query).uniqueResult()).toString();
 
 		return Integer.valueOf(s);
 	}
 
+	private String setRegistrationEntryPoint(String registrationEntryPoint) {
+		if(Arrays.asList(getEnumNames(RegistrationEntryPoint.class)).contains(registrationEntryPoint))
+			return registrationEntryPoint;
+		else
+			return RegistrationEntryPoint.OTHER.name();
+	}
+	
+	@Override
+	public String[] getAllRegistrationEntryPoints() {
+		return getEnumNames(RegistrationEntryPoint.class);
+	}
+
+	private String[] getEnumNames(Class<? extends Enum<?>> e) {
+	    return Arrays.toString(e.getEnumConstants()).replaceAll("^.|.$", "").split(", ");
+	}
 	/**
 	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getVCTClientsWaitingFromHIVTest()
 	 */
@@ -494,7 +503,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("counselingObs")).add(Restrictions.isNotNull("codeTest"))
 					.add(Restrictions.between("dateOfRegistration", Context.getDateFormat().parse(from),
@@ -533,7 +542,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("codeTest")).add(Restrictions.isNotNull("resultObs"))
 					.add(Restrictions.between("dateOfRegistration", Context.getDateFormat().parse(from),
@@ -582,7 +591,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("resultObs")).add(Restrictions.between("dateOfRegistration",
 							Context.getDateFormat().parse(from), Context.getDateFormat().parse(to)))
@@ -767,7 +776,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("resultObs")).add(Restrictions.between("dateOfRegistration",
 							Context.getDateFormat().parse(from), Context.getDateFormat().parse(to)))
@@ -813,7 +822,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("counselingObs")).add(Restrictions.isNotNull("codeTest"))
 					.add(Restrictions.between("dateOfRegistration", Context.getDateFormat().parse(from),
@@ -851,7 +860,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		try {
 			List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
-					.add(Restrictions.eq("registrationEntryPoint", RegistrationEntryPoint.valueOf(admissionMode)))
+					.add(Restrictions.eq("registrationEntryPoint", admissionMode))
 					.add(Restrictions.eq("location", Context.getLocationService().getLocation(locationId)))
 					.add(Restrictions.isNotNull("codeTest")).add(Restrictions.isNotNull("resultObs"))
 					.add(Restrictions.between("dateOfRegistration", Context.getDateFormat().parse(from),
@@ -990,7 +999,7 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		}
 		// from vct or pit
 		if (reference != null)
-			query += whereOrAnd() + " c.vct_or_pit=" + reference;
+			query += whereOrAnd() + " c.registration_entry_point='" + reference + "'";
 		// counseling
 		if (counselingType != null) {
 			if (counselingType < 3)

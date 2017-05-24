@@ -41,7 +41,6 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.MohTracConfigurationUtil;
 import org.openmrs.module.vcttrac.VCTClient;
-import org.openmrs.module.vcttrac.VCTClient.RegistrationEntryPoint;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTModuleTag;
@@ -405,7 +404,7 @@ public class VCTRegistrationFormController extends ParameterizableViewController
 			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
 			cve.printStackTrace();
 		} catch (Exception ex) {
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Form.not.saved");
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, Context.getMessageSourceService().getMessage("Form.not.saved") + ": " + ex.getMessage());
 			ex.printStackTrace();
 		}
 	}

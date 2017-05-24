@@ -113,7 +113,7 @@ public class VCTClientListingController extends ParameterizableViewController {
 		}
 		catch (Exception e) {
 			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-			    getMessageSourceAccessor().getMessage("@MODULE_ID@.error.loadingData"));
+			    getMessageSourceAccessor().getMessage("vcttrac.error.loadingData"));
 			log.error(">>>>>>VCT>>TRACNET>>INDICATORS>> " + e.getMessage());
 			e.printStackTrace();
 		}

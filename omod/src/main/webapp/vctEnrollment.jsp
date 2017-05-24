@@ -1,13 +1,10 @@
 <%@ include file="template/localHeader.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.bgiframe.js" />
 
-<!-- <openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/theme/demos.css" /> -->
+<!-- <openmrs:htmlInclude file="/moduleResources/vcttrac/theme/demos.css" /> -->
 
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/jquery.autocomplete.css" />
+<openmrs:htmlInclude file="/moduleResources/vcttrac/jquery.autocomplete.css" />
 
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.autocomplete.js" />
-
-<openmrs:require privilege="Manage VCT Clients program enrollment" otherwise="/login.htm" redirect="/module/@MODULE_ID@/hivProgramEnrollment.list?page=1" />
+<openmrs:require privilege="Manage VCT Clients program enrollment" otherwise="/login.htm" redirect="/module/vcttrac/hivProgramEnrollment.list?page=1" />
 
 <style>
 	#divClientDecision{
@@ -32,16 +29,16 @@
 
 	<table id="list_data">
 		<tr>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.registrationdate"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.number"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.clientcode"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.export.column.registrationdate"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.export.column.number"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.export.column.clientcode"/></th>
 			<openmrs:hasPrivilege privilege="View Patient Names">
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.names"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.export.column.names"/></th>
 			</openmrs:hasPrivilege>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.person.gender"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.age"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.person.gender"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.age"/></th>
 			<openmrs:hasPrivilege privilege="View VCT Client result">
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.result.resulthivtest"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.result.resulthivtest"/></th>
 				<th class="columnHeader"></th>
 			</openmrs:hasPrivilege>
 		</tr>
@@ -70,10 +67,10 @@
 				</openmrs:hasPrivilege>
 				<td class="rowValue ${status.count%2!=0?'even':''}"><img border="0"
 					src="<c:if test="${client.client.gender=='F'}"><openmrs:contextPath/>/images/female.gif</c:if><c:if test="${client.client.gender=='M'}"><openmrs:contextPath/>/images/male.gif</c:if>" /></td>
-				<td class="rowValue ${status.count%2!=0?'even':''}">${(client.client.age<1)?'<1':client.client.age} <spring:message code="@MODULE_ID@.dashboard.yrs"/></td>
+				<td class="rowValue ${status.count%2!=0?'even':''}">${(client.client.age<1)?'<1':client.client.age} <spring:message code="vcttrac.dashboard.yrs"/></td>
 				<openmrs:hasPrivilege privilege="View VCT Client result">
 					<td class="rowValue ${status.count%2!=0?'even':''}"><span class="${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestId)==positiveString?'lastObsValuePositive':'lastObsValue'}">${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestId)}</span></td>
-					<td class="rowValue ${status.count%2!=0?'even':''}"><input type="hidden" id="${status.count}" value="${client.codeTest}"/><input onclick="setCodeTestAndShowDialog(${status.count},'${client.client.gender}');" type="submit" value="<spring:message code='@MODULE_ID@.enrollment.enroll'/>"/></td>
+					<td class="rowValue ${status.count%2!=0?'even':''}"><input type="hidden" id="${status.count}" value="${client.codeTest}"/><input onclick="setCodeTestAndShowDialog(${status.count},'${client.client.gender}');" type="submit" value="<spring:message code='vcttrac.enrollment.enroll'/>"/></td>
 				</openmrs:hasPrivilege>
 			</tr>
 		</c:forEach>
@@ -85,18 +82,18 @@
 				<tr>
 					<c:if test="${prevPage!=-1}">
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="hivProgramEnrollment.list?page=1"><div class="list_pageNumber" style="text-align: center;">|&lt; <spring:message code="@MODULE_ID@.navigation.first"/></div></a>
+							<a href="hivProgramEnrollment.list?page=1"><div class="list_pageNumber" style="text-align: center;">|&lt; <spring:message code="vcttrac.navigation.first"/></div></a>
 						</td>
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;"><a href="hivProgramEnrollment.list?page=${prevPage}">
-							<div class="list_pageNumber" style="text-align: center;">&lt;&lt; <spring:message code="@MODULE_ID@.navigation.previous"/></div></a>
+							<div class="list_pageNumber" style="text-align: center;">&lt;&lt; <spring:message code="vcttrac.navigation.previous"/></div></a>
 						</td>
 					</c:if>
 					<c:if test="${nextPage!=-1}">
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="hivProgramEnrollment.list?page=${nextPage}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="@MODULE_ID@.navigation.next"/> &gt;&gt;</div></a>
+							<a href="hivProgramEnrollment.list?page=${nextPage}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="vcttrac.navigation.next"/> &gt;&gt;</div></a>
 						</td>
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="hivProgramEnrollment.list?page=${lastPage}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="@MODULE_ID@.navigation.last"/> |&gt;</div></a>
+							<a href="hivProgramEnrollment.list?page=${lastPage}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="vcttrac.navigation.last"/> |&gt;</div></a>
 						</td>
 					</c:if>
 				</tr>
@@ -123,7 +120,7 @@ function setCodeTestAndShowDialog(id,gender){
 }
 
 function showDialog(){
-	jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.enrollment.hiv'/>'><p><div id='result'></div></p></div>");
+	jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='vcttrac.enrollment.hiv'/>'><p><div id='result'></div></p></div>");
 	jQuery("#dialog").dialog({
 		zIndex: 980,
 		bgiframe: true,
@@ -142,22 +139,22 @@ function distroyResultDiv(){
 
 jQuery("#load").click(function(){
 	var url='autocompletion/getClientInfo.htm?q='+jQuery("#currentCodeTest").val();
-	jQuery("#currentGender").val((jQuery('#currentGender').val()=='F')?"<input type='checkbox' name='enroll_in_pmtct' id='enroll_in_pmtct'/><label for='enroll_in_pmtct'><spring:message code='@MODULE_ID@.enroll.program.pmtct'/></label>":"");
+	jQuery("#currentGender").val((jQuery('#currentGender').val()=='F')?"<input type='checkbox' name='enroll_in_pmtct' id='enroll_in_pmtct'/><label for='enroll_in_pmtct'><spring:message code='vcttrac.enroll.program.pmtct'/></label>":"");
 
 	jQuery.get(url, function(data) {
 		  jQuery('#result').html("<div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEnrollment' action='hivProgramEnrollment.list?page=1&code="+jQuery("#currentCodeTest").val()+"' method='post'>"+data
 				  +"<div class='generatedClientInfo'><table>"
-				  +"<tr><td><spring:message code='@MODULE_ID@.enrollment.date'/></td><td><input name='enrollmentDate' id='enrollmentDate' type='text' size='11' onclick='showCalendar(this)' value=''/><span id='enrollmentDateError'></span></td><td></td><td>"+jQuery("#currentGender").val()+"</td></tr>"
+				  +"<tr><td><spring:message code='vcttrac.enrollment.date'/></td><td><input name='enrollmentDate' id='enrollmentDate' type='text' size='11' onclick='showCalendar(this)' value=''/><span id='enrollmentDateError'></span></td><td></td><td>"+jQuery("#currentGender").val()+"</td></tr>"
 				  +"<tr><td><spring:message code='Encounter.provider' /></td><td>"+jQuery("#provsList").val()+"</td><td><span id='providerError'></span></td><td></td></tr>"
 				  +"<tr><td><spring:message code='Encounter.location' /></td><td>"+jQuery("#locsList").val()+"</td><td><span id='locationError'></span></td><td></td></tr></table></div>"
-				  +"<br/><input type='button' onclick='submitForm();' value='<spring:message code='@MODULE_ID@.enrollment.enroll'/>'/></form>");
+				  +"<br/><input type='button' onclick='submitForm();' value='<spring:message code='vcttrac.enrollment.enroll'/>'/></form>");
 		  jQuery('#result').addClass("clientInfo");
 	});				
 });
 
 function submitForm(){
 	if(validateFields()){
-		if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
+		if(confirm("<spring:message code='vcttrac.surewanttosave'/>"))
 			document.getElementById("formEnrollment").submit();
 	}
 }
@@ -215,7 +212,7 @@ function validateFields(){
 	}
 
 	if(!valid){
-		jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+		jQuery("#errorDivId").html("<spring:message code='vcttrac.fillbeforesubmit'/>");
 		jQuery("#errorDivId").addClass("error");
 	} else {
 		jQuery("#errorDivId").html("");

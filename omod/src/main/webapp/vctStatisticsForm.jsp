@@ -1,15 +1,13 @@
 <%@ include file="template/localHeader.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.treeview.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery.cookie.js" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/jquery.treeview.css" />
+<openmrs:htmlInclude file="/moduleResources/vcttrac/jquery.treeview.css" />
 
-<openmrs:require privilege="Manage VCT Report customizations" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctStatistics.htm?page=1" />
+<openmrs:require privilege="Manage VCT Report customizations" otherwise="/login.htm" redirect="/module/vcttrac/vctStatistics.htm?page=1" />
 
 <c:if test="${param.page eq null || param.page==''}">
-	<c:redirect url="/module/@MODULE_ID@/vctStatistics.htm?page=1"/>
+	<c:redirect url="/module/vcttrac/vctStatistics.htm?page=1"/>
 </c:if>
 
-<h2><spring:message code="@MODULE_ID@.statistic.description"/></h2>
+<h2><spring:message code="vcttrac.statistic.description"/></h2>
 
 <div>
 	<%@ include file="template/statisticParameterHeader.jsp"%>
@@ -31,19 +29,19 @@
 	<c:set var="columns" value="9" scope="page"/>
 	<table id="list_data">
 		<tr>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.registration.date"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.number"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.registration.date"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.export.column.number"/></th>
 			<openmrs:hasPrivilege privilege="View Patient Names">
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.export.column.names"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.export.column.names"/></th>
 			</openmrs:hasPrivilege>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.person.gender"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.age"/></th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.statistic.counselingdone"/> ?</th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.dashboard.tested"/> ?</th>
-			<th class="columnHeader"><spring:message code="@MODULE_ID@.statistic.resultavailable"/> ?</th>
-			<!-- <c:if test="${param.gotresult=='true'}"><th class="columnHeader"><spring:message code="@MODULE_ID@.statistic.receptiondone"/> ?</th></c:if> -->
+			<th class="columnHeader"><spring:message code="vcttrac.person.gender"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.age"/></th>
+			<th class="columnHeader"><spring:message code="vcttrac.statistic.counselingdone"/> ?</th>
+			<th class="columnHeader"><spring:message code="vcttrac.dashboard.tested"/> ?</th>
+			<th class="columnHeader"><spring:message code="vcttrac.statistic.resultavailable"/> ?</th>
+			<!-- <c:if test="${param.gotresult=='true'}"><th class="columnHeader"><spring:message code="vcttrac.statistic.receptiondone"/> ?</th></c:if> -->
 			<openmrs:hasPrivilege privilege="View VCT Client result">
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.home.result"/></th>
+				<th class="columnHeader"><spring:message code="vcttrac.home.result"/></th>
 			</openmrs:hasPrivilege>
 		</tr>
 		<c:if test="${empty clients}">
@@ -69,10 +67,10 @@
 				</openmrs:hasPrivilege>
 				<td class="rowValue ${status.count%2!=0?'even':''}" style="text-align: center;"><img border="0"
 					src="<c:if test="${client.client.gender=='F'}"><openmrs:contextPath/>/images/female.gif</c:if><c:if test="${client.client.gender=='M'}"><openmrs:contextPath/>/images/male.gif</c:if>" /></td>
-				<td class="rowValue ${status.count%2!=0?'even':''}">${(client.client.age<1)?'<1':client.client.age} <spring:message code="@MODULE_ID@.dashboard.yrs"/></td>
+				<td class="rowValue ${status.count%2!=0?'even':''}">${(client.client.age<1)?'<1':client.client.age} <spring:message code="vcttrac.dashboard.yrs"/></td>
 				<td class="rowValue ${status.count%2!=0?'even':''}" style="text-align: center;"><img border="0"
 					src="<c:if test="${client.counselingObs ne null}"><openmrs:contextPath/>/images/checkmark.png</c:if><c:if test="${client.counselingObs==null}"><openmrs:contextPath/>/images/delete.gif</c:if>" />
-					<c:if test="${client.counselingObs ne null}">&nbsp;<spring:message code="@MODULE_ID@.date.on"/>&nbsp;<openmrs:formatDate date="${client.counselingObs.obsDatetime}" type="medium" /></c:if>
+					<c:if test="${client.counselingObs ne null}">&nbsp;<spring:message code="vcttrac.date.on"/>&nbsp;<openmrs:formatDate date="${client.counselingObs.obsDatetime}" type="medium" /></c:if>
 				</td>
 				<td class="rowValue ${status.count%2!=0?'even':''}" style="text-align: center;">
 					<c:if test="${client.codeTest ne null}"><img border="0" src="<openmrs:contextPath/>/images/checkmark.png" /></c:if>
@@ -83,7 +81,7 @@
 				</td>
 				<td class="rowValue ${status.count%2!=0?'even':''}" style="text-align: center;">
 					<img border="0" src="<c:if test="${client.resultObs ne null}"><openmrs:contextPath/>/images/checkmark.png</c:if><c:if test="${client.resultObs==null}"><openmrs:contextPath/>/images/delete.gif</c:if>" />
-					<c:if test="${client.resultObs ne null}">&nbsp;<spring:message code="@MODULE_ID@.date.on"/>&nbsp;<openmrs:formatDate date="${client.resultObs.obsDatetime}" type="medium" /></c:if>
+					<c:if test="${client.resultObs ne null}">&nbsp;<spring:message code="vcttrac.date.on"/>&nbsp;<openmrs:formatDate date="${client.resultObs.obsDatetime}" type="medium" /></c:if>
 				</td>
 				<openmrs:hasPrivilege privilege="View VCT Client result">
 					<td class="rowValue ${status.count%2!=0?'even':''}"><span class="${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestConceptId)==positiveString?'lastObsValuePositive':'lastObsValue'}">${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestConceptId)}</span>
@@ -99,10 +97,10 @@
 				<tr>
 					<c:if test="${prevPage!=-1}">
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="vctStatistics.htm?page=1${parameters}"><div class="list_pageNumber" style="text-align: center;">|&lt; <spring:message code="@MODULE_ID@.navigation.first"/></div></a>
+							<a href="vctStatistics.htm?page=1${parameters}"><div class="list_pageNumber" style="text-align: center;">|&lt; <spring:message code="vcttrac.navigation.first"/></div></a>
 						</td>
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;"><a href="vctStatistics.htm?page=${prevPage}${parameters}">
-							<div class="list_pageNumber" style="text-align: center;">&lt;&lt; <spring:message code="@MODULE_ID@.navigation.previous"/></div></a>
+							<div class="list_pageNumber" style="text-align: center;">&lt;&lt; <spring:message code="vcttrac.navigation.previous"/></div></a>
 						</td>
 					</c:if>
 					<td>
@@ -110,10 +108,10 @@
 					</td>
 					<c:if test="${nextPage!=-1}">
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="vctStatistics.htm?page=${nextPage}${parameters}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="@MODULE_ID@.navigation.next"/> &gt;&gt;</div></a>
+							<a href="vctStatistics.htm?page=${nextPage}${parameters}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="vcttrac.navigation.next"/> &gt;&gt;</div></a>
 						</td>
 						<td width="100px" class="" style="padding:1px 2px 1px 2px; vertical-align: text-top;">
-							<a href="vctStatistics.htm?page=${lastPage}${parameters}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="@MODULE_ID@.navigation.last"/> &gt;|</div></a>
+							<a href="vctStatistics.htm?page=${lastPage}${parameters}"><div class="list_pageNumber" style="text-align: center;"><spring:message code="vcttrac.navigation.last"/> &gt;|</div></a>
 						</td>
 					</c:if>
 				</tr>

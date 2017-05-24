@@ -4,8 +4,8 @@
 <%@ taglib prefix="vcttag" uri="/WEB-INF/view/module/vcttrac/taglibs/vcttag.tld" %>
 <%@ taglib prefix="vct_tag" tagdir="/WEB-INF/tags/module/vcttrac" %>
 
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/listingstyle.css" />
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/vctstyle.css" />
+<openmrs:htmlInclude file="/moduleResources/vcttrac/listingstyle.css" />
+<openmrs:htmlInclude file="/moduleResources/vcttrac/vctstyle.css" />
 
 <vct_tag:checkConfigurations/>
 
@@ -41,16 +41,16 @@
 	}
 </style>
 
-<h2 id="vctHeaderDiv" onclick="window.location.href='vctHome.htm';" title="<spring:message code="@MODULE_ID@.goHome"/>"><spring:message code="@MODULE_ID@.title.description"/></h2>
+<h2 id="vctHeaderDiv" onclick="window.location.href='vctHome.htm';" title="<spring:message code="vcttrac.goHome"/>"><spring:message code="vcttrac.title.description"/></h2>
 <div style="width: 100%; text-align: right;">
 	<span class="statDiv">
 		<table>
 			<tr>
 				<openmrs:hasPrivilege privilege="View VCT Client Dashboard">
-					<td><span title="<spring:message code="@MODULE_ID@.home.searchClient"/>" onclick="window.location.href='vctClientSearch.htm';"><spring:message code="@MODULE_ID@.home.searchClient"/></span></td>
+					<td><span title="<spring:message code="vcttrac.home.searchClient"/>" onclick="window.location.href='vctClientSearch.htm';"><spring:message code="vcttrac.home.searchClient"/></span></td>
 				</openmrs:hasPrivilege>
 				<openmrs:hasPrivilege privilege="Manage VCT Report customizations">
-					<td><span title="<spring:message code="@MODULE_ID@.statistic.description"/>" onclick="window.location.href='vctStatistics.htm?page=1';"><spring:message code="@MODULE_ID@.statistic.title"/></span></td>
+					<td><span title="<spring:message code="vcttrac.statistic.description"/>" onclick="window.location.href='vctStatistics.htm?page=1';"><spring:message code="vcttrac.statistic.title"/></span></td>
 				</openmrs:hasPrivilege>
 			</tr>
 		</table>

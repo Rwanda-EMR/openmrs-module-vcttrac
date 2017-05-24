@@ -36,8 +36,8 @@ public class VCTCreatePieChartView extends AbstractChartView {
 	 */
 	@Override
 	protected JFreeChart createChart(Map<String, Object> model, HttpServletRequest request) {
-		if (request.getParameter("type").trim().compareTo("vctVsPit") == 0)
-			return createVCTvsPITPieChartView();
+		if (request.getParameter("type").trim().compareTo("registrationEntryPoint") == 0)
+			return createRegistrationEntryPointGraph();
 		else if (request.getParameter("type").trim().compareTo("gender") == 0)
 			return createGenderPieChartView();
 		else if (request.getParameter("type").trim().compareTo("counselingType") == 0)
@@ -46,38 +46,45 @@ public class VCTCreatePieChartView extends AbstractChartView {
 			return ChartFactory.createPieChart("No chart selected", null, true, true, false);
 	}
 	
-	private JFreeChart createVCTvsPITPieChartView() {
+	public static JFreeChart createRegistrationEntryPointGraph() {
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 		
 		VCTModuleService service = Context.getService(VCTModuleService.class);
 		
 		try {
 			Date reportingDate = new Date();
-			int numberOfClientInVCT = service.getNumberOfClientByVCTOrPIT(1, reportingDate);
-			int numberOfClientInPIT = service.getNumberOfClientByVCTOrPIT(2, reportingDate);
 			
-			int all = numberOfClientInVCT + numberOfClientInPIT;
-			
+			int numberOfClientInVCT = service.getNumberOfClientsByRegistrationEntryPoint("VCT", reportingDate);
+			int numberOfClientInPIT = service.getNumberOfClientsByRegistrationEntryPoint("PIT", reportingDate);
+			int numberOfClientInMaleCircusmcision = service.getNumberOfClientsByRegistrationEntryPoint("MALE_CIRCUMCISION", reportingDate);
+			int numberOfClientInPostExposure = service.getNumberOfClientsByRegistrationEntryPoint("POST_EXPOSURE", reportingDate);
+			int numberOfClientInOther = service.getNumberOfClientsByRegistrationEntryPoint("OTHER", reportingDate);
+			int all = numberOfClientInVCT + numberOfClientInPIT + numberOfClientInMaleCircusmcision + numberOfClientInPostExposure + numberOfClientInOther;
 			Float percentageVCT = new Float(100 * numberOfClientInVCT / all);
+			Float percentagePIT = new Float(100 * numberOfClientInPIT / all);
+			Float percentageMaleC = new Float(100 * numberOfClientInMaleCircusmcision / all);
+			Float percentagePostExpo = new Float(100 * numberOfClientInPostExposure / all);
+			Float percentageOther = new Float(100 * numberOfClientInOther / all);
+			
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.vctclient", null) + " (" + numberOfClientInVCT + " , "
 			        + percentageVCT + "%)", percentageVCT);
-			
-			Float percentagePIT = new Float(100 * numberOfClientInPIT / all);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.pitclient", null) + " (" + numberOfClientInPIT + " , "
 			        + percentagePIT + "%)", percentagePIT);
+			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.circumcisionclient", null) + " (" + numberOfClientInMaleCircusmcision + " , "
+			        + percentageMaleC + "%)", percentageMaleC);
+			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.exposureclient", null) + " (" + numberOfClientInPostExposure + " , "
+			        + percentagePostExpo + "%)", percentagePostExpo);
+			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.otherclient", null) + " (" + numberOfClientInOther + " , "
+			        + percentageOther + "%)", percentageOther);
 			
-			JFreeChart chart = ChartFactory.createPieChart(VCTTracUtil.getMessage("vcttrac.home.vctclient", null) + " "
-			        + VCTTracUtil.getMessage("vcttrac.graph.statistic.comparedto", null) + " "
-			        + VCTTracUtil.getMessage("vcttrac.home.pitclient", null), pieDataset, true, true, false);
+			JFreeChart chart = ChartFactory.createPieChart(VCTTracUtil.getMessage("vcttrac.graph.registrationEntryPoints", null), pieDataset, true, true, false);
 			
 			return chart;
 		}
 		catch (Exception e) {
 			log.error(">>VCT>>vs>>PIT>>PIE>>CHART>> " + e.getMessage());
 			e.printStackTrace();
-			return ChartFactory.createPieChart(VCTTracUtil.getMessage("vcttrac.home.vctclient", null) + " "
-		        + VCTTracUtil.getMessage("vcttrac.graph.statistic.comparedto", null) + " "
-		        + VCTTracUtil.getMessage("vcttrac.home.pitclient", null), null, true, true, false);
+			return ChartFactory.createPieChart(VCTTracUtil.getMessage("vcttrac.graph.registrationEntryPoints", null), null, true, true, false);
 		}
 	}
 	

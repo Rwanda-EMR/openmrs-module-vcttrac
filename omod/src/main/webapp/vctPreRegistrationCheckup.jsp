@@ -7,7 +7,7 @@
 			method="get">
 			<fieldset style="-moz-border-radius: 3px;">
 				<legend><b>&nbsp;<spring:message
-					code="@MODULE_ID@.preregistration.findclintusingnid" />&nbsp;</b></legend>
+					code="vcttrac.preregistration.findclintusingnid" />&nbsp;</b></legend>
 				<table>
 					<tr>
 						<td colspan="2">
@@ -16,10 +16,10 @@
 						<td><input type="hidden" name="type" value="${param.type}" /></td>
 					</tr>
 					<tr>
-						<td><spring:message code="@MODULE_ID@.preregistration.enter.nid"/></td>
+						<td><spring:message code="vcttrac.preregistration.enter.nid"/></td>
 						<td><input autocomplete="off" type="text" name="nid" id="nid" size="40" /></td>
 						<td><span id="spanId"><input type="submit" disabled="disabled" id="btSubmit"
-							value="<spring:message code="@MODULE_ID@.preregistration.find"/>"
+							value="<spring:message code="vcttrac.preregistration.find"/>"
 							style="min-width: 100px;" /></span></td>
 					</tr>
 					<tr>
@@ -30,14 +30,14 @@
 				</table>
 			</fieldset>
 		</form>
-		&nbsp;<a href="#" id="linkOtherIds"><spring:message code="@MODULE_ID@.preregistration.search.medicalrecord"/></a>
+		&nbsp;<a href="#" id="linkOtherIds"><spring:message code="vcttrac.preregistration.search.medicalrecord"/></a>
 	</div>
 	
 	<div id="divOtherID" style="display: none; width: 50%; margin-left: auto; margin-right: auto;">
 		<form action="vctPreRegistrationCheckup.htm?type=${param.type}"
 			method="get">
 			<fieldset style="-moz-border-radius: 3px;">
-				<legend><b>&nbsp;<spring:message code="@MODULE_ID@.preregistration.findclintusingid" />&nbsp;</b></legend>
+				<legend><b>&nbsp;<spring:message code="vcttrac.preregistration.findclintusingid" />&nbsp;</b></legend>
 				<table>
 					<tr>
 						<td colspan="2">
@@ -46,9 +46,9 @@
 						<td><input type="hidden" name="type" value="${param.type}" /></td>
 					</tr>
 					<tr>
-						<td>&nbsp;<b><spring:message code="@MODULE_ID@.preregistration.identifier.type.choice" /></b></td>
-						<td>&nbsp;<b><spring:message code="@MODULE_ID@.preregistration.identifier.location" /></b></td>
-						<td>&nbsp;<b><spring:message code="@MODULE_ID@.preregistration.identifier" /></b></td>
+						<td>&nbsp;<b><spring:message code="vcttrac.preregistration.identifier.type.choice" /></b></td>
+						<td>&nbsp;<b><spring:message code="vcttrac.preregistration.identifier.location" /></b></td>
+						<td>&nbsp;<b><spring:message code="vcttrac.preregistration.identifier" /></b></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -68,13 +68,13 @@
 						</td>
 						<td><input autocomplete="off" type="text" name="ptIdentifier" id="ptIdentifierId" size="30" /></td>
 						<td><input type="submit" id="btSubmitOther"
-							value="<spring:message code="@MODULE_ID@.preregistration.find"/>"
+							value="<spring:message code="vcttrac.preregistration.find"/>"
 							style="min-width: 100px;" /></td>
 					</tr>
 				</table>
 			</fieldset>
 		</form>
-		&nbsp;<a href="#" id="linkNId"><spring:message code="@MODULE_ID@.preregistration.search.nid"/></a>
+		&nbsp;<a href="#" id="linkNId"><spring:message code="vcttrac.preregistration.search.nid"/></a>
 	</div>
 	
 
@@ -189,7 +189,7 @@
 											} else {
 												jQuery("#noNIDError")
 														.html(
-																"<spring:message code='@MODULE_ID@.error.noNID'/>");
+																"<spring:message code='vcttrac.error.noNID'/>");
 												jQuery("#noNIDError").addClass(
 														"error");
 											}

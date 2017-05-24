@@ -97,7 +97,7 @@ public interface VCTModuleService {
 	 * @param startingFrom Counting from what date of registration?
 	 * @return Number of clients
 	 */
-	public Integer getNumberOfClientByVCTOrPIT(Integer vctorpit, Date startingFrom);
+	public Integer getNumberOfClientsByRegistrationEntryPoint(String entryPoint, Date startingFrom);
 	
 	public Integer getNumberOfClientByDateOfRegistration(Date registrationDate);
 	
@@ -154,5 +154,5 @@ public interface VCTModuleService {
 	
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested);
 	
-	//end Tracnet Indicators
+	String[] getAllRegistrationEntryPoints();
 }

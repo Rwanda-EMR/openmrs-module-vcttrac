@@ -1,7 +1,7 @@
 <%@ include file="template/localHeader.jsp"%>
 <%@ taglib prefix="springform" uri="/WEB-INF/taglibs/spring-form.tld" %>
 
-<openmrs:require privilege="Edit VCT Client test result" otherwise="/login.htm" redirect="/module/@MODULE_ID@/vctClientResults.form" />
+<openmrs:require privilege="Edit VCT Client test result" otherwise="/login.htm" redirect="/module/vcttrac/vctClientResults.form" />
 
 <style>
 	input {
@@ -11,13 +11,13 @@
 
 <div style="width: 90%; margin-left: auto; margin-right: auto;">
 
-<h2><spring:message code="@MODULE_ID@.home.result"/></h2>
+<h2><spring:message code="vcttrac.home.result"/></h2>
 
 <span style="position: absolute; margin-top: -28px; margin-right: 5px; right: 75px; font-style: italic; font-size: 10px;">
 	<form action="vctClientResults.form" method="get">
 		<table>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.result.clientcode"/></td>
+				<td><spring:message code="vcttrac.result.clientcode"/></td>
 				<td><input type="text" name="testCode" value="${param.testCode}"/></td>
 				<td><input type="submit" value="Search"/></td>
 			</tr>
@@ -26,46 +26,46 @@
 </span>
 
 <div class="left">
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.result.testcode"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.result.testcode"/></b>
 	<div class="box">
 		<c:forEach items="${clientCodes}" var="code" varStatus="status">
 			<span title="${code}" id="clientCode_${status.count}" onclick="changeValue(this);" class="clientCode <c:if test="${param.tcode!=code}">highLight</c:if>">${code}</span>
 		</c:forEach>
-		<c:if test="${empty clientCodes}"><i><spring:message code="@MODULE_ID@.result.noclientcodefound"/></i></c:if>
+		<c:if test="${empty clientCodes}"><i><spring:message code="vcttrac.result.noclientcodefound"/></i></c:if>
 	</div>
 </div>
 
 <div class="right">
-	<b class="boxHeader"><spring:message code="@MODULE_ID@.result.resulthivtest"/></b>
+	<b class="boxHeader"><spring:message code="vcttrac.result.resulthivtest"/></b>
 	<springform:form cssClass="box" commandName="result" method="post">
 		<table>
 			<tr>
 				<td><spring:message code="Encounter.datetime" /></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
 				<td><spring:bind path="dateOfResult"><input id="encounterDate" name="${status.expression}" size="11" type="text" onclick="showCalendar(this)" value="${status.value}"/></spring:bind></td>
 				<td><form:errors cssClass="error" path="dateOfResult" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="Encounter.location" /></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
 				<td><spring:bind path="location"><openmrs_tag:locationField formFieldName="${status.expression}" initialValue="${status.value}" /></spring:bind></td>
 				<td><form:errors cssClass="error" path="location" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.result.clientcode"/></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
+				<td><spring:message code="vcttrac.result.clientcode"/></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
 				<td><spring:bind path="codeTest"><input readonly="readonly" type="text" id="clientCode" name="${status.expression}" value="${status.value}"/></spring:bind>
 					<c:if test="${hivTestResultObsId!=0}"><!-- ${param.testCode!=null} -->
 						<openmrs:hasPrivilege privilege="Edit VCT HIV Test Code">
-							<input class="list_exportBt" type="button" onclick="editCodeTest('${param.testCode}');" value="<spring:message code='@MODULE_ID@.result.testcode.edit'/>"/>
+							<input class="list_exportBt" type="button" onclick="editCodeTest('${param.testCode}');" value="<spring:message code='vcttrac.result.testcode.edit'/>"/>
 						</openmrs:hasPrivilege>
 					</c:if>
 				</td>
 				<td><form:errors cssClass="error" path="codeTest" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="@MODULE_ID@.result.resulthivtest"/></td>
-				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/@MODULE_ID@/images/help.gif" title="<spring:message code="@MODULE_ID@.help"/>"/></span></td>
+				<td><spring:message code="vcttrac.result.resulthivtest"/></td>
+				<td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
 				<td><spring:bind path="hivTestResult"><select name="${status.expression}">
 					<option value="0">--</option>
 					<c:forEach items="${resultOfHivTestOptions}" var="option">
@@ -107,7 +107,7 @@
 		jQuery(document).ready(function(){
 			jQuery("#clientCode").autocomplete("autocompletion/getClientCode.htm");
 			jQuery("#btSave").click(function(){
-				if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
+				if(confirm("<spring:message code='vcttrac.surewanttosave'/>"))
 					this.form.submit();
 			});
 							
@@ -137,9 +137,9 @@
 		}
 
 		function initDialogContent(testCode){
-			jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='@MODULE_ID@.result.testcode.edit'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTest' action='vctClientResults.form?testCode="+testCode+"&edit' method='post'>"
+			jQuery("#divDlg").html("<div id='dialog' style='font-size: 0.9em;' title='<spring:message code='vcttrac.result.testcode.edit'/>'><p><div><div id='errorDivId' style='margin-bottom: 5px;'></div><form id='formEditTest' action='vctClientResults.form?testCode="+testCode+"&edit' method='post'>"
 				+"<table><tr><td></td><td><input type='hidden' id='testCodeToChangeId' name='testCodeToChange' value='"+testCode+"'/></td><td></td></tr>"
-				+"<tr><td><spring:message code='@MODULE_ID@.result.clientcode'/></td><td><input type='text' name='editedTestCode' id='editedTestCodeId' value='"+testCode+"'/></td><td><span id='editedTestCodeError'></span></td></tr>"
+				+"<tr><td><spring:message code='vcttrac.result.clientcode'/></td><td><input type='text' name='editedTestCode' id='editedTestCodeId' value='"+testCode+"'/></td><td><span id='editedTestCodeError'></span></td></tr>"
 				+"<tr><td></td><td><input type='button' id='btSave' value='<spring:message code='general.save' />' onclick='submitForm();'/></td></tr></table></form></div></p></div>");
 		}
 
@@ -150,7 +150,7 @@
 
 		function submitForm(){
 			if(validateFormFields()){
-				if(confirm("<spring:message code='@MODULE_ID@.surewanttosave'/>"))
+				if(confirm("<spring:message code='vcttrac.surewanttosave'/>"))
 					document.getElementById("formEditTest").submit();
 			}
 		}
@@ -167,7 +167,7 @@
 			}
 
 			if(!valid){
-				jQuery("#errorDivId").html("<spring:message code='@MODULE_ID@.fillbeforesubmit'/>");
+				jQuery("#errorDivId").html("<spring:message code='vcttrac.fillbeforesubmit'/>");
 				jQuery("#errorDivId").addClass("error");
 			} else {
 				jQuery("#errorDivId").html("");

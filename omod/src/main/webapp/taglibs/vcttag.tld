@@ -89,21 +89,21 @@
 		<description>Number of new clients counseled and tested for HIV</description>
 		<name>newClientCounseledAndTested</name>
 		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
-		<function-signature>java.lang.String getNumberOfNewClientsCounseledAndTestedForHIV(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+		<function-signature>java.lang.String getNumberOfNewClientsCounseledAndTestedForHIV(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
 	</function>
 	
 	<function>
 		<description>Number of new clients tested and received results</description>
 		<name>newClientTestedAndReceivedResults</name>
 		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
-		<function-signature>java.lang.String getNumberOfNewClientsTestedAndReceivedResults(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+		<function-signature>java.lang.String getNumberOfNewClientsTestedAndReceivedResults(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
 	</function>
 	
 	<function>
 		<description>Number of HIV Positive clients</description>
 		<name>hivPositiveClients</name>
 		<function-class>org.openmrs.module.vcttrac.util.VCTModuleTag</function-class>
-		<function-signature>java.lang.String getNumberOfHIVPositiveClients(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
+		<function-signature>java.lang.String getNumberOfHIVPositiveClients(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String)</function-signature>
 	</function>
 	
 	<function>

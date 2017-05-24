@@ -423,7 +423,7 @@ public class VCTProgramEnrollmentController extends ParameterizableViewControlle
 		} catch (Exception e) {
 			log.error(">>>>>VCT>>HIV>>Program>>Patient>>Enrollment>>>> An error occured : " + e.getMessage());
 			e.printStackTrace();
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Form.not.saved");
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, Context.getMessageSourceService().getMessage("Form.not.saved") +  ": " + e.getMessage());
 		}
 		return true;
 	}

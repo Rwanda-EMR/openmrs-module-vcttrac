@@ -182,11 +182,11 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfClientByVCTOrPIT(java.lang.Integer,
+	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfClientsByRegistrationEntryPoint(java.lang.String,
 	 *      java.util.Date)
 	 */
-	public Integer getNumberOfClientByVCTOrPIT(Integer vctorpit, Date startingFrom) {
-		return vctDAO.getNumberOfClientByVCTOrPIT(vctorpit, startingFrom);
+	public Integer getNumberOfClientsByRegistrationEntryPoint(String entryPoint, Date startingFrom) {
+		return vctDAO.getNumberOfClientsByRegistrationEntryPoint(entryPoint, startingFrom);
 	}
 	
 	/**
@@ -407,6 +407,11 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	@Override
 	public Integer getNumberOfClientByYearOfRegistration(Integer year) {
 		return vctDAO.getNumberOfClientByYearOfRegistration(year);
+	}
+
+	@Override
+	public String[] getAllRegistrationEntryPoints() {
+		return vctDAO.getAllRegistrationEntryPoints();
 	}
 	
 }

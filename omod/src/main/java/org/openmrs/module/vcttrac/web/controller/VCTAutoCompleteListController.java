@@ -303,7 +303,7 @@ public class VCTAutoCompleteListController extends SimpleFormController {
 		catch (Exception e) {
 			e.printStackTrace();
 			String msg = getMessageSourceAccessor().getMessage("Form.not.saved");
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg + ": " + e.getMessage());
 		}
 		
 	}

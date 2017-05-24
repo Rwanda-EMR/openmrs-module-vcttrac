@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 
 /**
- * mapped to /module/@MODULE_ID@/vctClientSearchForm.jsp
+ * mapped to /module/vcttrac/vctClientSearchForm.jsp
  */
 public class VCTClientSearchController extends ParameterizableViewController {
 	
