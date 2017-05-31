@@ -13,12 +13,6 @@
  */
 package org.openmrs.module.vcttrac.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
@@ -34,6 +28,11 @@ import org.openmrs.web.WebConstants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Yves GAKUBA
@@ -97,6 +96,7 @@ public class VCTStatisticsController extends ParameterizableViewController {
 			mav.addObject("programOrdererConceptOptions", VCTTracUtil.createCodedOptions(VCTConfigurationUtil
 			        .getProgramThatOrderedTestConceptId()));
 			mav.addObject("resultOfHivTestConceptOptions", VCTTracUtil.createResultOfHivTestOptions());
+			mav.addObject("registrationEntryPoints", Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints());
 	}
 	
 	/**
@@ -152,10 +152,9 @@ public class VCTStatisticsController extends ParameterizableViewController {
 				parameters.append((null != location) ? "&location=" + location : "");
 				searchDescription.append((null != location) ? "at " + Context.getLocationService().getLocation(location).getName() +", " : "");
 				
-				String reference = (request.getParameter("reference") == null || request.getParameter("reference").trim()
-				        .compareTo("2") == 0) ? null : request.getParameter("reference").trim();
+				String reference = request.getParameter("reference");
 				parameters.append((null != reference) ? "&reference=" + reference : "");
-				searchDescription.append((null != reference) ? "referenced in " + ((reference.compareTo("0")==0)?"VCT":"PIT")+", " : "");
+				searchDescription.append((null != reference) ? "referenced in " + reference + ", " : "");
 				
 				String gender = (request.getParameter("gender") == null || request.getParameter("gender").trim().compareTo(
 				    "") == 0) ? null : request.getParameter("gender").trim();

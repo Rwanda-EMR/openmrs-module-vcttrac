@@ -22,7 +22,7 @@
 		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="Counseling individuel vs Couples" src="chart.htm?chart=pieChartView&type=counselingType&width=350&height=300" width="350" height="300" /></div></td>
 	</tr>
 	<tr>
-		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="PIT vs VCT" src="chart.htm?chart=pieChartView&type=registrationEntryPoint&width=350&height=320" width="350" height="320" /></div></td>
+		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="Registation entry Points" src="chart.htm?chart=pieChartView&type=registrationEntryPoint&width=350&height=320" width="350" height="320" /></div></td>
 		<td><br/><br/><div style="border: 1px solid #DEDEDE;"><img title="Masculin vs Feminin" src="chart.htm?chart=pieChartView&type=gender&width=350&height=300" width="350" height="300" /></div></td>
 	</tr>
 	<!-- <tr>

@@ -13,13 +13,13 @@
  */
 package org.openmrs.module.vcttrac;
 
-import java.util.Arrays;
-import java.util.Date;
-
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Person;
 import org.openmrs.User;
+
+import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author Yves G
@@ -531,7 +531,13 @@ public class VCTClient {
 	}
 
 	public enum RegistrationEntryPoint {
-		VCT("VCT"), PIT("PIT"), MALE_CIRCUMCISION("Male Circumcision"), POST_EXPOSURE("Post Exposure"), OTHER("Other");
+		VCT("VCT"),
+		PIT("PIT"),
+		MALE_CIRCUMCISION("Male Circumcision"),
+		POST_EXPOSURE("Post Exposure"),
+		VCT_MOBILE("VCT Mobile"),
+		PEP("PEP"),
+		OTHER("Other");
 
 		private String displayName;
 

@@ -13,9 +13,10 @@
 							<tr>
 								<td><spring:message code="vcttrac.registration.reference"/></td>
 								<td><select name="reference" id="reference_id">
-									<option value="2">--</option>
-									<option value="0" <c:if test="${param.reference==0}">selected='selected'</c:if>><spring:message code="vcttrac.vct"/></option>
-									<option value="1" <c:if test="${param.reference==1}">selected='selected'</c:if>><spring:message code="vcttrac.pit"/></option>
+									<option>--</option>
+									<c:forEach items="${registrationEntryPoints}" var="entryPoint">
+										<option value="${entryPoint}" <c:if test="${param.reference==entryPoint}">selected='selected'</c:if>>${entryPoint}</option>
+									</c:forEach>
 								</select></td>
 							</tr>
 							<tr>

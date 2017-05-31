@@ -13,17 +13,16 @@
  */
 package org.openmrs.module.vcttrac.web.view.chart;
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTTracUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -45,7 +44,8 @@ public class VCTCreatePieChartView extends AbstractChartView {
 		else
 			return ChartFactory.createPieChart("No chart selected", null, true, true, false);
 	}
-	
+
+	//TODO refactor the registration entry points graphing here
 	public static JFreeChart createRegistrationEntryPointGraph() {
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 		
@@ -58,14 +58,18 @@ public class VCTCreatePieChartView extends AbstractChartView {
 			int numberOfClientInPIT = service.getNumberOfClientsByRegistrationEntryPoint("PIT", reportingDate);
 			int numberOfClientInMaleCircusmcision = service.getNumberOfClientsByRegistrationEntryPoint("MALE_CIRCUMCISION", reportingDate);
 			int numberOfClientInPostExposure = service.getNumberOfClientsByRegistrationEntryPoint("POST_EXPOSURE", reportingDate);
+			int numberOfClientInVctMobile = service.getNumberOfClientsByRegistrationEntryPoint("VCT_MOBILE", reportingDate);
+			int numberOfClientInPep = service.getNumberOfClientsByRegistrationEntryPoint("PEP", reportingDate);
 			int numberOfClientInOther = service.getNumberOfClientsByRegistrationEntryPoint("OTHER", reportingDate);
-			int all = numberOfClientInVCT + numberOfClientInPIT + numberOfClientInMaleCircusmcision + numberOfClientInPostExposure + numberOfClientInOther;
+			int all = numberOfClientInVCT + numberOfClientInPIT + numberOfClientInMaleCircusmcision + numberOfClientInPostExposure + numberOfClientInOther + numberOfClientInPep + numberOfClientInVctMobile;
 			Float percentageVCT = new Float(100 * numberOfClientInVCT / all);
 			Float percentagePIT = new Float(100 * numberOfClientInPIT / all);
 			Float percentageMaleC = new Float(100 * numberOfClientInMaleCircusmcision / all);
 			Float percentagePostExpo = new Float(100 * numberOfClientInPostExposure / all);
+			Float percentageVctMobile = new Float(100 * numberOfClientInVctMobile / all);
+			Float percentagePep = new Float(100 * numberOfClientInPep / all);
 			Float percentageOther = new Float(100 * numberOfClientInOther / all);
-			
+
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.vctclient", null) + " (" + numberOfClientInVCT + " , "
 			        + percentageVCT + "%)", percentageVCT);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.pitclient", null) + " (" + numberOfClientInPIT + " , "
@@ -74,9 +78,13 @@ public class VCTCreatePieChartView extends AbstractChartView {
 			        + percentageMaleC + "%)", percentageMaleC);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.exposureclient", null) + " (" + numberOfClientInPostExposure + " , "
 			        + percentagePostExpo + "%)", percentagePostExpo);
+			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.vctmobileclient", null) + " (" + numberOfClientInVctMobile + " , "
+			        + percentageVctMobile + "%)", percentageVctMobile);
+			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.prepclient", null) + " (" + numberOfClientInPep + " , "
+					+ percentagePep + "%)", percentagePep);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.otherclient", null) + " (" + numberOfClientInOther + " , "
-			        + percentageOther + "%)", percentageOther);
-			
+					+ percentageOther + "%)", percentageOther);
+
 			JFreeChart chart = ChartFactory.createPieChart(VCTTracUtil.getMessage("vcttrac.graph.registrationEntryPoints", null), pieDataset, true, true, false);
 			
 			return chart;

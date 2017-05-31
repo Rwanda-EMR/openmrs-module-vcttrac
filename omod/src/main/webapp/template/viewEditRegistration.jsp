@@ -98,6 +98,8 @@
 										<option value="PIT" <c:if test="${type=='PIT'}">selected='selected'</c:if>>PIT</option>
 										<option value="MALE_CIRCUMCISION" <c:if test="${type=='MALE_CIRCUMCISION'}">selected='selected'</c:if>>MALE_CIRCUMCISION</option>
 										<option value="POST_EXPOSURE" <c:if test="${type=='POST_EXPOSURE'}">selected='selected'</c:if>>VCT</option>
+										<option value="VCT_MOBILE" <c:if test="${type=='VCT_MOBILE'}">selected='selected'</c:if>>VCT_MOBILE</option>
+										<option value="PEP" <c:if test="${type=='PEP'}">selected='selected'</c:if>>PEP</option>
 										<option value="OTHER" <c:if test="${type=='OTHER'}">selected='selected'</c:if>>OTHER</option>
 									</select>
 								</td>

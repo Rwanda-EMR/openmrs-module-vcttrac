@@ -13,11 +13,13 @@
  */
 package org.openmrs.module.vcttrac.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.openmrs.api.context.Context;
+import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Yves GAKUBA
@@ -31,7 +33,8 @@ public class VCTHomePageController extends ParameterizableViewController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView(getViewName());
-		
+
+		mav.addObject("registrationEntryPoints", Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints());
 		return mav;
 	}
 	

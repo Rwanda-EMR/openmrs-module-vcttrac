@@ -10,11 +10,9 @@
 			<div class="menuLinkGroup">
 				<select name="registrationEntryPoint" onchange="location = this.options[this.selectedIndex].value;">
 					<option value="">Select Registration Entry Point</option>
-					<option value="vctPreRegistrationCheckup.htm?type=VCT">VCT</option>
-					<option value="vctPreRegistrationCheckup.htm?type=PIT">PIT</option>
-					<option value="vctPreRegistrationCheckup.htm?type=MALE_CIRCUMCISION">Male Circumcision</option>
-					<option value="vctPreRegistrationCheckup.htm?type=POST_EXPOSURE">Post exposure</option>
-					<option value="vctPreRegistrationCheckup.htm?type=OTHER">Other</option>
+					<c:forEach items="${registrationEntryPoints}" var="entryPoint">
+						<option value="vctPreRegistrationCheckup.htm?type=${entryPoint}">${entryPoint}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</openmrs:hasPrivilege>
