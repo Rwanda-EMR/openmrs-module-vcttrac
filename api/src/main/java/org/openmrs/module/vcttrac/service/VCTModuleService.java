@@ -13,12 +13,13 @@
  */
 package org.openmrs.module.vcttrac.service;
 
-import java.util.Date;
-import java.util.List;
-
 import org.openmrs.Person;
 import org.openmrs.module.vcttrac.VCTClient;
+import org.openmrs.module.vcttrac.VCTClientReport;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Yves GAKUBA
@@ -155,4 +156,6 @@ public interface VCTModuleService {
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested);
 	
 	String[] getAllRegistrationEntryPoints();
+
+	List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare();
 }

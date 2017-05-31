@@ -13,11 +13,12 @@
  */
 package org.openmrs.module.vcttrac.db;
 
-import java.util.Date;
-import java.util.List;
-
 import org.openmrs.Person;
 import org.openmrs.module.vcttrac.VCTClient;
+import org.openmrs.module.vcttrac.VCTClientReport;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Yves GAKUBA
@@ -125,4 +126,6 @@ public interface VCTModuleDAO {
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested);
 
 	String[] getAllRegistrationEntryPoints();
+
+	List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare();
 }

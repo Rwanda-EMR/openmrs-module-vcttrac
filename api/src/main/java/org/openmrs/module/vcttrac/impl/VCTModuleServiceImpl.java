@@ -13,13 +13,14 @@
  */
 package org.openmrs.module.vcttrac.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import org.openmrs.Person;
 import org.openmrs.module.vcttrac.VCTClient;
+import org.openmrs.module.vcttrac.VCTClientReport;
 import org.openmrs.module.vcttrac.db.VCTModuleDAO;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -121,18 +122,12 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public VCTClient getClientById(Integer clientId) {
 		return vctDAO.getClientById(clientId);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getClientVisitByPersonId()
-	 */
+
 	//@Override =>incompatible with jre5
 	public List<VCTClient> getClientVisitByPersonId(Integer personId) {
 		return vctDAO.getClientVisitByPersonId(personId);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getVCTClientsBasedOnGender(java.lang.String)
-	 */
+
 	//@Override =>incompatible with jre5
 	public List<Integer> getVCTClientsBasedOnGender(String gender, Date registrationDate) {
 		return vctDAO.getVCTClientsBasedOnGender(gender, registrationDate);
@@ -146,11 +141,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public List<Integer> getVCTClientsBasedOnAttributeType(Integer attibuteTypeId, Integer value) {
 		return vctDAO.getVCTClientsBasedOnAttributeType(attibuteTypeId, value);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getVCTClientsBasedOnConceptObs(java.lang.Integer,
-	 *      java.lang.Integer)
-	 */
+
 	//@Override =>incompatible with jre5
 	public List<Integer> getVCTClientsBasedOnConceptObs(Integer conceptObsId, Integer value, Boolean gotResult) {
 		return vctDAO.getVCTClientsBasedOnConceptObs(conceptObsId, value, gotResult);
@@ -163,10 +154,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public List<Integer> getVCTClientsTested(Boolean tested) {
 		return vctDAO.getVCTClientsTested(tested);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getVCTClientsBasedOnCounselingType(java.lang.Integer)
-	 */
+
 	//@Override =>incompatible with jre5
 	public List<Integer> getVCTClientsBasedOnCounselingType(Integer counselingType, Date registrationDate) {
 		return vctDAO.getVCTClientsBasedOnCounselingType(counselingType, registrationDate);
@@ -188,11 +176,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public Integer getNumberOfClientsByRegistrationEntryPoint(String entryPoint, Date startingFrom) {
 		return vctDAO.getNumberOfClientsByRegistrationEntryPoint(entryPoint, startingFrom);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getPeople(java.lang.String,
-	 *      java.lang.Boolean)
-	 */
+
 	public List<Person> getPeople(String name, Boolean dead, Boolean counseled) {
 		return vctDAO.getPeople(name, dead, counseled);
 	}
@@ -220,12 +204,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public List<Integer> getVCTClientsWaitingToBeEnrolledInHIVProgram() {
 		return vctDAO.getVCTClientsWaitingToBeEnrolledInHIVProgram();
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfNewClientsCounseledAndTestedForHIV(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public Integer getNumberOfNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
 	                                                             String admissionMode, Integer minAge, Integer maxAge,
@@ -233,12 +212,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 		return vctDAO.getNumberOfNewClientsCounseledAndTestedForHIV(from, to, locationId, admissionMode, minAge, maxAge,
 		    gender);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfNewClientsTestedAndReceivedResults(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public Integer getNumberOfNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
 	                                                             String admissionMode, Integer minAge, Integer maxAge,
@@ -246,22 +220,13 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 		return vctDAO.getNumberOfNewClientsTestedAndReceivedResults(from, to, locationId, admissionMode, minAge, maxAge,
 		    gender);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfHIVPositiveClients(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender) {
 		return vctDAO.getNumberOfHIVPositiveClients(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNumberOfCouplesCounseledAndTested(java.lang.String,
-	 *      java.lang.String, java.lang.Integer)
-	 */
+
 	@Override
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested) {
 		return vctDAO.getNumberOfCouplesCounseledAndTested(from, to, locationId, whoGetTested);
@@ -275,11 +240,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public Integer getNumberOfDiscordantCouples(String from, String to, Integer locationId) {
 		return vctDAO.getNumberOfDiscordantCouples(from, to, locationId);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getCouplesCounseledAndTested(java.lang.String,
-	 *      java.lang.String, java.lang.Integer)
-	 */
+
 	@Override
 	public List<VCTClient> getCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested) {
 		return vctDAO.getCouplesCounseledAndTested(from, to, locationId, whoGetTested);
@@ -293,35 +254,20 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public List<VCTClient> getDiscordantCouples(String from, String to, Integer locationId) {
 		return vctDAO.getDiscordantCouples(from, to, locationId);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getHIVPositiveClients(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
 	                                             Integer minAge, Integer maxAge, String gender) {
 		return vctDAO.getHIVPositiveClients(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNewClientsCounseledAndTestedForHIV(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public List<VCTClient> getNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
 	                                                             String admissionMode, Integer minAge, Integer maxAge,
 	                                                             String gender) {
 		return vctDAO.getNewClientsCounseledAndTestedForHIV(from, to, locationId, admissionMode, minAge, maxAge, gender);
 	}
-	
-	/**
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getNewClientsTestedAndReceivedResults(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
 	public List<VCTClient> getNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
 	                                                             String admissionMode, Integer minAge, Integer maxAge,
@@ -344,11 +290,7 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public Integer getPersonIdByNID(String nid) {
 		return vctDAO.getPersonIdByNID(nid);
 	}
-	
-	/**
-	 * @throws Exception
-	 * @see org.openmrs.module.vcttrac.service.VCTModuleService#getVCTClientBasedOn(java.lang.String)
-	 */
+
 	@Override
 	public List<Integer> getVCTClientsBasedOn(String reference, String gender, Integer counselingType, Integer location,
 	                                          String tested, String dateFrom, String dateTo, Integer minAge, Integer maxAge,
@@ -412,6 +354,11 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	@Override
 	public String[] getAllRegistrationEntryPoints() {
 		return vctDAO.getAllRegistrationEntryPoints();
+	}
+
+	@Override
+	public List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare() {
+		return vctDAO.getHIVPositiveVCTClientsDalayedToLinkToCare();
 	}
 	
 }

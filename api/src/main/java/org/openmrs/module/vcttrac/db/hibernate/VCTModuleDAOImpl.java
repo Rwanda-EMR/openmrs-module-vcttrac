@@ -13,30 +13,25 @@
  */
 package org.openmrs.module.vcttrac.db.hibernate;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.Obs;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.Person;
-import org.openmrs.PersonAttribute;
+import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.MohTracUtil;
 import org.openmrs.module.vcttrac.VCTClient;
 import org.openmrs.module.vcttrac.VCTClient.RegistrationEntryPoint;
+import org.openmrs.module.vcttrac.VCTClientReport;
 import org.openmrs.module.vcttrac.db.VCTModuleDAO;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTModuleTag;
 import org.openmrs.module.vcttrac.util.VCTTracConstant;
+
+import java.text.DateFormat;
+import java.util.*;
 
 /**
  *
@@ -181,9 +176,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return allClients;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getClientById()
-	 */
 	@Override
 	public VCTClient getClientAtLastVisitByClientId(Integer clientId) {
 		Integer i = (Integer) getSession()
@@ -265,9 +257,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return client;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getClientVisitByPersonId()
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<VCTClient> getClientVisitByPersonId(Integer personId) {
@@ -278,9 +267,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return client;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getVCTClientsBasedOnGender(java.lang.String)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Integer> getVCTClientsBasedOnGender(String gender, Date registrationDate) {
@@ -311,10 +297,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return clientsCode;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getVCTClientsBasedOnConceptObs(java.lang.Integer,
-	 *      java.lang.Integer)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Integer> getVCTClientsBasedOnConceptObs(Integer conceptObsId, Integer value, Boolean gotResult) {
@@ -352,9 +334,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return clientsCode;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getVCTClientsBasedOnCounselingType(java.lang.Integer)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Integer> getVCTClientsBasedOnCounselingType(Integer counselingType, Date registrationDate) {
@@ -489,11 +468,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return clientsCode;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfNewClientsCounseledAndTestedForHIV(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Integer getNumberOfNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
@@ -528,11 +502,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return result.size();
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfNewClientsTestedAndReceivedResults(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Integer getNumberOfNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
@@ -577,11 +546,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return result.size();
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfHIVPositiveClients(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Integer getNumberOfHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
@@ -624,10 +588,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return result.size();
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNumberOfCouplesCounseledAndTested(java.lang.String,
-	 *      java.lang.String, java.lang.Integer)
-	 */
 	@SuppressWarnings("unused")
 	@Override
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested) {
@@ -721,10 +681,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return partnersTested;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getCouplesCounseledAndTested(java.lang.String,
-	 *      java.lang.String, java.lang.Integer)
-	 */
 	@SuppressWarnings("unused")
 	@Override
 	public List<VCTClient> getCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested) {
@@ -763,11 +719,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return null;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getHIVPositiveClients(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VCTClient> getHIVPositiveClients(String from, String to, Integer locationId, String admissionMode,
@@ -809,11 +760,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return result;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNewClientsCounseledAndTestedForHIV(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VCTClient> getNewClientsCounseledAndTestedForHIV(String from, String to, Integer locationId,
@@ -847,11 +793,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 		return result;
 	}
 
-	/**
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getNewClientsTestedAndReceivedResults(java.lang.String,
-	 *      java.lang.String, java.lang.Integer, java.lang.Integer,
-	 *      java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VCTClient> getNewClientsTestedAndReceivedResults(String from, String to, Integer locationId,
@@ -969,10 +910,6 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 	private boolean whereCreated = false;
 
-	/**
-	 * @throws Exception
-	 * @see org.openmrs.module.vcttrac.db.VCTModuleDAO#getVCTClientBasedOn(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Integer> getVCTClientsBasedOn(String reference, String gender, Integer counselingType, Integer location,
@@ -1207,4 +1144,72 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 		return year;
 	}
+
+	@Override
+    public List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare() {
+        List<VCTClient> clientList = getAllClients();
+        List<VCTClientReport> uiClients = new ArrayList<VCTClientReport>();
+        Calendar adult = Calendar.getInstance();
+        String adultAge = Context.getAdministrationService().getGlobalProperty("reports.adultStartingAge");
+
+        adult.add(Calendar.YEAR, StringUtils.isNotBlank(adultAge) ? - Integer.parseInt(adultAge) : -16);
+        resetTimes(adult);
+        for(VCTClient client: clientList) {
+            if(client.getClient() != null && client.getClient().getBirthdate() != null && client.getClient().getBirthdate().before(adult.getTime()) && !checkIfPersonIsEnrolledInHIVProgram(client.getClient())) {
+				Date testDate = checkIfPersonIsHIVPositive(client.getClient());
+
+				if(testDate != null) {
+					VCTClientReport c = new VCTClientReport();
+					PersonAttributeType tel = Context.getPersonService().getPersonAttributeTypeByName("Phone Number");
+					PersonAttributeType peerEduc = Context.getPersonService().getPersonAttributeTypeByName("Peer Educator's Name");
+					PersonAttributeType peerEducTel = Context.getPersonService().getPersonAttributeTypeByName("Peer Educator's Phone Number");
+
+					c.setAddress(client.getClient().getPersonAddress() != null ? client.getClient().getPersonAddress().toString() : "");
+					c.setBirthDate(client.getClient().getBirthdate() != null ? c.sdf.format(client.getClient().getBirthdate()) : "");
+					c.setClientId(client.getClient().getPersonId());
+					c.setClientName(client.getClient().getPersonName() != null ? client.getClient().getPersonName().getFullName() : "");
+					c.setDateTestedForHIV(c.sdf.format(testDate));
+					c.setPeerEducator(client.getClient().getAttribute(peerEduc) != null ? client.getClient().getAttribute(peerEduc).getValue() : "");
+					c.setPeerEducatorTelephone(client.getClient().getAttribute(peerEducTel) != null ? client.getClient().getAttribute(peerEducTel).getValue() : "");
+					c.setSex(client.getClient().getGender());
+					c.setTelephone(client.getClient().getAttribute(tel) != null ? client.getClient().getAttribute(tel).getValue() : "");
+
+					uiClients.add(c);
+				}
+            }
+        }
+
+        return uiClients;
+    }
+
+    private boolean checkIfPersonIsEnrolledInHIVProgram(Person person) {
+        String hivProg = Context.getAdministrationService().getGlobalProperty("reports.adulthivprogramname");
+        Program program = Context.getProgramWorkflowService().getProgramByName(StringUtils.isNotBlank(hivProg) ? hivProg : "HIV Program");
+
+        if(!Context.getProgramWorkflowService().getPatientPrograms(new Patient(person), program, null, null, null, null, false).isEmpty())
+			return true;
+		return false;
+    }
+
+    /*
+     * return date when HIV was tested
+     */
+    private Date checkIfPersonIsHIVPositive(Person person) {
+        String hivConcept = Context.getAdministrationService().getGlobalProperty("reports.hivRapidTestConceptId");
+        String hivPositiveConcept = Context.getAdministrationService().getGlobalProperty("rwandasphstudyreports.hivPositiveConceptId");
+
+        for(Obs o: Context.getObsService().getObservationsByPersonAndConcept(person, StringUtils.isNotBlank(hivConcept) ? Context.getConceptService().getConcept(Integer.parseInt(hivConcept)) : Context.getConceptService().getConcept(2169))) {
+            if(o.getValueCoded() != null && o.getValueCoded().getConceptId().equals(StringUtils.isNotBlank(hivPositiveConcept) ? Integer.parseInt(hivPositiveConcept) : 703))
+                return o.getObsDatetime() != null ? o.getObsDatetime() : o.getDateCreated();
+        }
+
+        return null;
+    }
+
+    private void resetTimes(Calendar c) {
+        c.set(Calendar.HOUR, 00);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
+        c.set(Calendar.MILLISECOND, 00);
+    }
 }
