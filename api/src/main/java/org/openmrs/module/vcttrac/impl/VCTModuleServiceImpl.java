@@ -360,5 +360,9 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	public List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare() {
 		return vctDAO.getHIVPositiveVCTClientsDalayedToLinkToCare();
 	}
-	
+
+	@Override
+	public List<VCTClient> getVCTClientsWaitingForHIVProgramEnrollment() {
+		return vctDAO.getVCTClientsWaitingForHIVProgramEnrollment();
+	}
 }

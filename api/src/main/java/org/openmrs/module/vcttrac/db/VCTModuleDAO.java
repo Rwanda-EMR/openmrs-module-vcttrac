@@ -128,4 +128,6 @@ public interface VCTModuleDAO {
 	String[] getAllRegistrationEntryPoints();
 
 	List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare();
+
+	List<VCTClient> getVCTClientsWaitingForHIVProgramEnrollment();
 }

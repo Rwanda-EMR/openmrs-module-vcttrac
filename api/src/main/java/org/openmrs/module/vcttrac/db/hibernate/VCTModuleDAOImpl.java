@@ -29,6 +29,7 @@ import org.openmrs.module.vcttrac.db.VCTModuleDAO;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTModuleTag;
 import org.openmrs.module.vcttrac.util.VCTTracConstant;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
 import java.util.*;
@@ -36,6 +37,7 @@ import java.util.*;
 /**
  *
  */
+@Transactional
 public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 	private Log log = LogFactory.getLog(this.getClass());
@@ -466,6 +468,15 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 				.list();
 
 		return clientsCode;
+	}
+
+	@Override
+	public List<VCTClient> getVCTClientsWaitingForHIVProgramEnrollment() {
+		List<VCTClient> clientList = getSession().createCriteria(VCTClient.class)
+				.add(Restrictions.eq("archived", false)).add(Restrictions.eq("clientDecision", 1)).add(Restrictions.eq("voided", false)).list();
+
+
+		return clientList;
 	}
 
 	@SuppressWarnings({ "unchecked" })
@@ -1146,25 +1157,37 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	}
 
 	@Override
-    public List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare() {
-        List<VCTClient> clientList = getAllClients();
+	public List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare() {
+        List<VCTClient> clientList = getVCTClientsWaitingForHIVProgramEnrollment();
         List<VCTClientReport> uiClients = new ArrayList<VCTClientReport>();
         Calendar adult = Calendar.getInstance();
         String adultAge = Context.getAdministrationService().getGlobalProperty("reports.adultStartingAge");
 
         adult.add(Calendar.YEAR, StringUtils.isNotBlank(adultAge) ? - Integer.parseInt(adultAge) : -16);
         resetTimes(adult);
-        for(VCTClient client: clientList) {
-            if(client.getClient() != null && client.getClient().getBirthdate() != null && client.getClient().getBirthdate().before(adult.getTime()) && !checkIfPersonIsEnrolledInHIVProgram(client.getClient())) {
+		setupVCTUIClients(clientList, uiClients, adult);
+
+		return uiClients;
+    }
+
+	private void setupVCTUIClients(List<VCTClient> clientList, List<VCTClientReport> uiClients, Calendar adult) {
+		boolean missingPatient = false;
+
+		for (VCTClient client : clientList) {
+			String query = "SELECT COUNT(patient_id) from patient where patient_id = " + client.getClient().getPersonId();
+			int numberOfClient = Integer.valueOf("" + getSession().createSQLQuery(query).uniqueResult());
+
+			if (numberOfClient == 0 && client.getClient().getBirthdate() != null
+					&& client.getClient().getBirthdate().before(adult.getTime()) && !checkIfPersonIsEnrolledInHIVProgram(client.getClient())) {
 				Date testDate = checkIfPersonIsHIVPositive(client.getClient());
 
-				if(testDate != null) {
+				if (testDate != null) {
 					VCTClientReport c = new VCTClientReport();
 					PersonAttributeType tel = Context.getPersonService().getPersonAttributeTypeByName("Phone Number");
 					PersonAttributeType peerEduc = Context.getPersonService().getPersonAttributeTypeByName("Peer Educator's Name");
 					PersonAttributeType peerEducTel = Context.getPersonService().getPersonAttributeTypeByName("Peer Educator's Phone Number");
 
-					c.setAddress(client.getClient().getPersonAddress() != null ? client.getClient().getPersonAddress().toString() : "");
+					c.setAddress(client.getClient().getPersonAddress() != null ? getFormattedAddress(client.getClient().getPersonAddress()) : "");
 					c.setBirthDate(client.getClient().getBirthdate() != null ? c.sdf.format(client.getClient().getBirthdate()) : "");
 					c.setClientId(client.getClient().getPersonId());
 					c.setClientName(client.getClient().getPersonName() != null ? client.getClient().getPersonName().getFullName() : "");
@@ -1176,13 +1199,16 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 
 					uiClients.add(c);
 				}
-            }
-        }
+			}
 
-        return uiClients;
-    }
+		}
+	}
 
-    private boolean checkIfPersonIsEnrolledInHIVProgram(Person person) {
+	private String getFormattedAddress(PersonAddress pa) {
+		return pa.getAddress1() + ", " + pa.getCityVillage() + ", " + pa.getStateProvince() + ", " + pa.getCountry();
+	}
+
+	private boolean checkIfPersonIsEnrolledInHIVProgram(Person person) {
         String hivProg = Context.getAdministrationService().getGlobalProperty("reports.adulthivprogramname");
         Program program = Context.getProgramWorkflowService().getProgramByName(StringUtils.isNotBlank(hivProg) ? hivProg : "HIV Program");
 

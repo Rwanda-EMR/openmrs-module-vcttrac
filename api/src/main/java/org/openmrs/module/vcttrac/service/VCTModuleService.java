@@ -14,6 +14,7 @@
 package org.openmrs.module.vcttrac.service;
 
 import org.openmrs.Person;
+import org.openmrs.api.APIException;
 import org.openmrs.module.vcttrac.VCTClient;
 import org.openmrs.module.vcttrac.VCTClientReport;
 import org.springframework.transaction.annotation.Transactional;
@@ -158,4 +159,6 @@ public interface VCTModuleService {
 	String[] getAllRegistrationEntryPoints();
 
 	List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare();
+
+	List<VCTClient> getVCTClientsWaitingForHIVProgramEnrollment();
 }

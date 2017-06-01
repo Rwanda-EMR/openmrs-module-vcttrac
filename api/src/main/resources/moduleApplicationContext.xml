@@ -24,12 +24,10 @@
 						</bean>
 					</property>
 					<property name="preInterceptors">
-						<list>
-							<ref bean="authorizationInterceptor" />
-						</list>
+						<ref bean="serviceInterceptors" />
 					</property>
 					<property name="transactionAttributeSource">
-						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+						<ref bean="transactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
