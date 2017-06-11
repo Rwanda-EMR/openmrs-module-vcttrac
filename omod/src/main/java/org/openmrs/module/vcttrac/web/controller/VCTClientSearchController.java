@@ -13,13 +13,14 @@
  */
 package org.openmrs.module.vcttrac.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.openmrs.api.context.Context;
+import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Yves G
@@ -42,7 +43,8 @@ public class VCTClientSearchController extends ParameterizableViewController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(getViewName());
-		
+		mav.addObject("registrationEntryPoints", Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints());
+
 		return mav;
 	}
 	

@@ -13,10 +13,9 @@
 					box.innerHTML = ret
 						+"<br/><openmrs:hasPrivilege privilege='Create new Client'>"
 						+"<div style='text-align: left; margin-left: auto; margin-right; padding: 5px 2px;'><spring:message code='vcttrac.home.newclient'/> "
-						+"<select onchange='location = this.options[this.selectedIndex].value;'><option value=''>Select Registration Entry Point</option><option value='vctPreRegistrationCheckup.htm?type=VCT'>VCT</option>"
-						+ "<option value='vctPreRegistrationCheckup.htm?type=PIT'>PIT</option><option value='vctPreRegistrationCheckup.htm?type=MALE_CIRCUMCISION'>Male Circumcision</option>"
-						+ "<option value='vctPreRegistrationCheckup.htm?type=POST_EXPOSURE'>Post exposure</option><option value='vctPreRegistrationCheckup.htm?type=VCT_MOBILE'>VCT Mobile</option>"
-					    + "<option value='vctPreRegistrationCheckup.htm?type=PEP'>PEP</option><option value='vctPreRegistrationCheckup.htm?type=OTHER'>Other</option></select>"
+						+"<select onchange='location = this.options[this.selectedIndex].value;'><option value=''>Select Registration Entry Point</option>"
+							+ "<c:forEach items='${registrationEntryPoints}' var='entryPoint'><option value='vctPreRegistrationCheckup.htm?type=${entryPoint.name}'>${entryPoint.displayName}</option></c:forEach>"
+						+ "<option value='vctPreRegistrationCheckup.htm?type=PIT'>PIT</option></select>"
 						+"</div></openmrs:hasPrivilege>";
 				}); 
 			}
