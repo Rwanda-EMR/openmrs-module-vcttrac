@@ -11,7 +11,7 @@
 				<select name="registrationEntryPoint" onchange="location = this.options[this.selectedIndex].value;">
 					<option value="">Select Registration Entry Point</option>
 					<c:forEach items="${registrationEntryPoints}" var="entryPoint">
-						<option value="vctPreRegistrationCheckup.htm?type=${entryPoint}">${entryPoint}</option>
+						<option value="vctPreRegistrationCheckup.htm?type=${entryPoint.name}">${entryPoint.displayName}</option>
 					</c:forEach>
 				</select>
 			</div>

@@ -13,13 +13,14 @@
  */
 package org.openmrs.module.vcttrac;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Person;
 import org.openmrs.User;
 
-import java.util.Arrays;
-import java.util.Date;
+import javax.persistence.Transient;
+import java.util.*;
 
 /**
  * @author Yves G
@@ -46,6 +47,8 @@ public class VCTClient {
 
 	//TODO use RegistrationEntryPoint
 	private String registrationEntryPoint;
+
+	private String registrationEntryPointName;
 
 	private Obs counselingObs;
 
@@ -261,6 +264,14 @@ public class VCTClient {
 
 	public String getRegistrationEntryPoint() {
 		return registrationEntryPoint;
+	}
+
+	@Transient
+	public String getRegistrationEntryPointName() {
+		if(StringUtils.isNotBlank(getRegistrationEntryPoint())) {
+			return RegistrationEntryPoint.valueOf(getRegistrationEntryPoint()).displayName();
+		}
+		return null;
 	}
 
 	public void setRegistrationEntryPoint(String registrationEntryPoint) {
@@ -532,12 +543,12 @@ public class VCTClient {
 
 	public enum RegistrationEntryPoint {
 		VCT("VCT"),
-		PIT("PIT"),
+		PIT("PIT (FP, ANC, PMTCT, OPD, Maternity)"),
 		MALE_CIRCUMCISION("Male Circumcision"),
 		POST_EXPOSURE("Post Exposure"),
-		VCT_MOBILE("VCT Mobile"),
+		VCT_MOBILE("VCT-Mobile"),
 		PEP("PEP"),
-		OTHER("Other");
+		OTHER("Other (TB)");
 
 		private String displayName;
 

@@ -125,7 +125,7 @@ public interface VCTModuleDAO {
 
 	public Integer getNumberOfCouplesCounseledAndTested(String from, String to, Integer locationId, int whoGetTested);
 
-	String[] getAllRegistrationEntryPoints();
+	List<VCTClient.RegistrationEntryPoint> getAllRegistrationEntryPoints();
 
 	List<VCTClientReport> getHIVPositiveVCTClientsDalayedToLinkToCare();
 

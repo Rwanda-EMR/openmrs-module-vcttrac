@@ -14,11 +14,13 @@
 package org.openmrs.module.vcttrac.impl;
 
 import org.openmrs.Person;
+import org.openmrs.module.vcttrac.RegistrationEntryPointClass;
 import org.openmrs.module.vcttrac.VCTClient;
 import org.openmrs.module.vcttrac.VCTClientReport;
 import org.openmrs.module.vcttrac.db.VCTModuleDAO;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -352,8 +354,14 @@ public class VCTModuleServiceImpl implements VCTModuleService {
 	}
 
 	@Override
-	public String[] getAllRegistrationEntryPoints() {
-		return vctDAO.getAllRegistrationEntryPoints();
+	public List<RegistrationEntryPointClass> getAllRegistrationEntryPoints() {
+		List<RegistrationEntryPointClass> reps = new ArrayList<RegistrationEntryPointClass>();
+
+		for(VCTClient.RegistrationEntryPoint r : vctDAO.getAllRegistrationEntryPoints()) {
+			reps.add(new RegistrationEntryPointClass(r));
+		}
+
+		return reps;
 	}
 
 	@Override

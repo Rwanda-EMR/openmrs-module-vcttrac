@@ -15,7 +15,7 @@
 								<td><select name="reference" id="reference_id">
 									<option>--</option>
 									<c:forEach items="${registrationEntryPoints}" var="entryPoint">
-										<option value="${entryPoint}" <c:if test="${param.reference==entryPoint}">selected='selected'</c:if>>${entryPoint}</option>
+										<option value="${entryPoint.name}" <c:if test="${param.reference==entryPoint.name}">selected='selected'</c:if>>${entryPoint.displayName}</option>
 									</c:forEach>
 								</select></td>
 							</tr>

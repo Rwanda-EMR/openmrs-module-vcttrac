@@ -9,6 +9,7 @@ import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohtracportal.util.ContextProvider;
+import org.openmrs.module.vcttrac.RegistrationEntryPointClass;
 import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTTracUtil;
@@ -89,8 +90,8 @@ public class VCTPreRegistrationCheckupController extends ParameterizableViewCont
                     pId = cId;
                 }
 
-                for (String entryPoint : Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints()) {
-                    if (StringUtils.isNotBlank(request.getParameter("type")) && entryPoint.equalsIgnoreCase(request.getParameter("type").trim()))
+                for (RegistrationEntryPointClass entryPoint : Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints()) {
+                    if (StringUtils.isNotBlank(request.getParameter("type")) && entryPoint.getName().equalsIgnoreCase(request.getParameter("type").trim()))
                         rightEntryPoint = true;
                 }
                 if (rightEntryPoint)

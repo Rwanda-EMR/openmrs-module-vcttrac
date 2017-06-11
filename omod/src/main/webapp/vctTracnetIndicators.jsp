@@ -30,7 +30,7 @@
 		<div class="list_container" style="width: 90%">
 			<c:forEach items="${registrationEntryPoints}" var="entryPoint">
 				<div class="list_title">
-					<div class="list_title_msg">${entryPoint} <spring:message code="vcttrac.title.indicators"/></div>
+					<div class="list_title_msg">${entryPoint.displayName} <spring:message code="vcttrac.title.indicators"/></div>
 					<div class="list_title_bts">
 						<form style="display: inline;" action="vctTracnetIndecators.list?exportFormat=csv&location=${defaultLoc}&dateFrom=${from}&dateTo=${to}" method="post">
 							<input type="submit" class="list_exportBt" title="<spring:message code="vcttrac.tablelist.exportToCSV"/>" value="<spring:message code="vcttrac.tablelist.CSV"/>"/>
@@ -56,21 +56,21 @@
 					</tr>
 					<tr>
 						<td class="rowValue"><spring:message code="vcttrac.tracnet.criteria.numberOfNewClientsCounseledAndTestedForHiv"/></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=f&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,entryPoint,0,15,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=m&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,entryPoint,0,15,'m')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=f&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,15,25,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=m&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,15,25,'m')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=f&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,25,0,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=m&type=${entryPoint}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,25,0,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=f&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,entryPoint.name,0,15,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=m&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,entryPoint.name,0,15,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=f&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,15,25,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=m&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,15,25,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=f&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,25,0,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=m&type=${entryPoint.name}&criteria=cct">${vcttag:newClientCounseledAndTested(from,to,defaultLoc,0,25,0,'m')}</a></td>
 					</tr>
 					<tr class="even">
 						<td class="rowValue"><spring:message code="vcttrac.tracnet.criteria.numberOfNewClientsTestedAndReceivedResults"/></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=f&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,entryPoint,0,15,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=m&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,entryPoint,0,15,'m')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=f&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,15,25,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=m&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,15,25,'m')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=f&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,25,0,'f')}</a></td>
-						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=m&type=${entryPoint}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,25,0,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=f&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,entryPoint.name,0,15,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=0&maxAge=15&gender=m&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,entryPoint.name,0,15,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=f&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,15,25,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=15&maxAge=25&gender=m&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,15,25,'m')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=f&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,25,0,'f')}</a></td>
+						<td class="rowValue centered"><a href="vctClients.list?page=1&dateFrom=${from}&dateTo=${to}&location=${defaultLoc}&minAge=25&gender=m&type=${entryPoint.name}&criteria=ctrr">${vcttag:newClientTestedAndReceivedResults(from,to,defaultLoc,0,25,0,'m')}</a></td>
 					</tr>
 					<tr>
 						<td class="rowValue"><spring:message code="vcttrac.tracnet.criteria.numberOfHivPositiveClients"/></td>

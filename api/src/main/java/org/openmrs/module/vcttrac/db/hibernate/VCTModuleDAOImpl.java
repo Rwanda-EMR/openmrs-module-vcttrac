@@ -422,8 +422,8 @@ public class VCTModuleDAOImpl implements VCTModuleDAO {
 	}
 	
 	@Override
-	public String[] getAllRegistrationEntryPoints() {
-		return getEnumNames(RegistrationEntryPoint.class);
+	public List<RegistrationEntryPoint> getAllRegistrationEntryPoints() {
+		return new ArrayList<RegistrationEntryPoint>(EnumSet.allOf(RegistrationEntryPoint.class));
 	}
 
 	private String[] getEnumNames(Class<? extends Enum<?>> e) {
