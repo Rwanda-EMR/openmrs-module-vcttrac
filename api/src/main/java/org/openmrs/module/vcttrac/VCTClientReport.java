@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
  * Created by k-joseph on 31/05/2017.
  */
 public class VCTClientReport {
-    public SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+    public SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private Integer clientId;
     private String clientName;
     private String sex;
