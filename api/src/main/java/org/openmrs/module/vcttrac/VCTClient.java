@@ -545,9 +545,8 @@ public class VCTClient {
 		VCT("VCT"),
 		PIT("PIT (FP, ANC, PMTCT, OPD, Maternity)"),
 		MALE_CIRCUMCISION("Male Circumcision"),
-		POST_EXPOSURE("Post Exposure"),
 		VCT_MOBILE("VCT-Mobile"),
-		PEP("PEP"),
+		PEP("Post Exposure"),
 		OTHER("Other (TB)");
 
 		private String displayName;

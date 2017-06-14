@@ -57,15 +57,13 @@ public class VCTCreatePieChartView extends AbstractChartView {
 			int numberOfClientInVCT = service.getNumberOfClientsByRegistrationEntryPoint("VCT", reportingDate);
 			int numberOfClientInPIT = service.getNumberOfClientsByRegistrationEntryPoint("PIT", reportingDate);
 			int numberOfClientInMaleCircusmcision = service.getNumberOfClientsByRegistrationEntryPoint("MALE_CIRCUMCISION", reportingDate);
-			int numberOfClientInPostExposure = service.getNumberOfClientsByRegistrationEntryPoint("POST_EXPOSURE", reportingDate);
 			int numberOfClientInVctMobile = service.getNumberOfClientsByRegistrationEntryPoint("VCT_MOBILE", reportingDate);
 			int numberOfClientInPep = service.getNumberOfClientsByRegistrationEntryPoint("PEP", reportingDate);
 			int numberOfClientInOther = service.getNumberOfClientsByRegistrationEntryPoint("OTHER", reportingDate);
-			int all = numberOfClientInVCT + numberOfClientInPIT + numberOfClientInMaleCircusmcision + numberOfClientInPostExposure + numberOfClientInOther + numberOfClientInPep + numberOfClientInVctMobile;
+			int all = numberOfClientInVCT + numberOfClientInPIT + numberOfClientInMaleCircusmcision + numberOfClientInOther + numberOfClientInPep + numberOfClientInVctMobile;
 			Float percentageVCT = new Float(100 * numberOfClientInVCT / all);
 			Float percentagePIT = new Float(100 * numberOfClientInPIT / all);
 			Float percentageMaleC = new Float(100 * numberOfClientInMaleCircusmcision / all);
-			Float percentagePostExpo = new Float(100 * numberOfClientInPostExposure / all);
 			Float percentageVctMobile = new Float(100 * numberOfClientInVctMobile / all);
 			Float percentagePep = new Float(100 * numberOfClientInPep / all);
 			Float percentageOther = new Float(100 * numberOfClientInOther / all);
@@ -76,8 +74,6 @@ public class VCTCreatePieChartView extends AbstractChartView {
 			        + percentagePIT + "%)", percentagePIT);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.circumcisionclient", null) + " (" + numberOfClientInMaleCircusmcision + " , "
 			        + percentageMaleC + "%)", percentageMaleC);
-			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.exposureclient", null) + " (" + numberOfClientInPostExposure + " , "
-			        + percentagePostExpo + "%)", percentagePostExpo);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.vctmobileclient", null) + " (" + numberOfClientInVctMobile + " , "
 			        + percentageVctMobile + "%)", percentageVctMobile);
 			pieDataset.setValue(VCTTracUtil.getMessage("vcttrac.home.prepclient", null) + " (" + numberOfClientInPep + " , "

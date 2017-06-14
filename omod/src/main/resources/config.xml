@@ -4,7 +4,7 @@
 
 	<!-- Base Module Properties -->
 	<id>@MODULE_ID@</id>
-	<name>@MODULE_NAME@</name>
+	<name>HIV testing services</name>
 	<version>@MODULE_VERSION@</version>
 	<package>@MODULE_PACKAGE@</package>
 	<author>Rwanda MoH</author>
