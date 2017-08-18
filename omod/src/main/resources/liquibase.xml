@@ -128,4 +128,39 @@
 			UPDATE trac_vct_client SET registration_entry_point = 'PIT' WHERE registration_entry_point = '1';
 		</sql>
 	</changeSet>
+
+	<changeSet id="2017Aug18-1328" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">select count(*) from person_attribute_type where uuid = '99cc76cc-3914-11e7-a919-92ebcb67fe33'</sqlCheck>
+		</preConditions>
+		<comment>add contact person's name person attribute</comment>
+		<insert tableName="person_attribute_type">
+			<column name="name" value="Contact Person's Name"/>
+			<column name="description" value="Contact Person's first and last name"/>
+			<column name="format" value="java.lang.String"/>
+			<column name="foreign_key" valueNumeric="0"/>
+			<column name="searchable" valueBoolean="false"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2017-08-18"/>
+			<column name="retired" valueBoolean="false"/>
+			<column name="uuid" value="99cc76cc-3914-11e7-a919-92ebcb67fe33"/>
+		</insert>
+	</changeSet>
+	<changeSet id="2017Aug18-1329" author="k-joseph">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">select count(*) from person_attribute_type where uuid = '99cc76cc-3914-11e7-a919-92ebcb67fe44'</sqlCheck>
+		</preConditions>
+		<comment>add contact person's phone number person attribute</comment>
+		<insert tableName="person_attribute_type">
+			<column name="name" value="Contact Person's Phone Number"/>
+			<column name="description" value="Contact Person's personal phone number"/>
+			<column name="format" value="java.lang.String"/>
+			<column name="foreign_key" valueNumeric="0"/>
+			<column name="searchable" valueBoolean="false"/>
+			<column name="creator" valueNumeric="1"/>
+			<column name="date_created" valueDate="2017-08-18"/>
+			<column name="retired" valueBoolean="false"/>
+			<column name="uuid" value="99cc76cc-3914-11e7-a919-92ebcb67fe44"/>
+		</insert>
+	</changeSet>
 </databaseChangeLog>
