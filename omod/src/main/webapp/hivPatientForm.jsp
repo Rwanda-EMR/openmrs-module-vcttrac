@@ -90,7 +90,7 @@
             <div style="float: right; width: 45%;">
                 <table>
                     <tr>
-                        <td><spring:message code="vcttrac.date"/></td>
+                        <td>Registration <spring:message code="vcttrac.date"/></td>
                         <td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
                         <td><input type="text" size="11" name="registrationDate" id="registrationDateId" onclick="showCalendar(this)" value="${todayDate}"/></td>
                         <td><span id="registrationDateError"></span></td>

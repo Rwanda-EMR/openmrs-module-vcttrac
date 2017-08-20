@@ -13,12 +13,12 @@
  */
 package org.openmrs.module.vcttrac.extension.html;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Extension;
 import org.openmrs.module.web.extension.AdministrationSectionExt;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class defines the links that will appear on the administration page under the
@@ -71,6 +71,7 @@ public class AdminList extends AdministrationSectionExt {
 		if(Context.getAuthenticatedUser().hasPrivilege("View VCT Overview")){
 			map.put("module/vcttrac/vctOverview.htm", "vcttrac.overview");
 		}
+		map.put("module/vcttrac/hivPatientForm.form", "mohtracportal.welcome.createPatient");
 				
 		return map;
 	}

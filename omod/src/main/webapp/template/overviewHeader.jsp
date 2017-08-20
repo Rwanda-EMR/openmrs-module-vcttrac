@@ -14,5 +14,8 @@
 			<a href="vctClients.list?page=1${parameters}">${title}</a>
 		</li>
 	</c:if>
+	<li class="<c:if test='<%= request.getRequestURI().contains("hivPatientForm") %>'>active</c:if>">
+		<a href="hivPatientForm.form"><spring:message code="mohtracportal.welcome.createPatient"/></a>
+	</li>
 	
 </ul>

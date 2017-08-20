@@ -234,7 +234,8 @@ public class ClientOrPatientRegistration {
                 }
             } else {
                 if (request.getParameter("existOrNew").compareTo("0") == 0) {
-                    p = savePerson(request);
+                    p = setUpPerson(request);
+                    Context.getPersonService().savePerson(p);
 
                     log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Person created successfully !");
                 } else
@@ -286,42 +287,7 @@ public class ClientOrPatientRegistration {
                         && request.getParameter("input_nid").trim().compareTo("") != 0) {
                     // adding the NID to the client object
                     client.setNid(request.getParameter("input_nid"));
-
-                    // creating NID patientIdentifier for the patient
-                    PatientIdentifier pi = new PatientIdentifier();
-                    pi.setCreator(Context.getAuthenticatedUser());
-                    pi.setDateCreated(new Date());
-                    pi.setIdentifier(request.getParameter("input_nid"));
-                    pi.setIdentifierType(getPatientService()
-                            .getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId()));
-                    pi.setLocation(
-                            Context.getLocationService().getLocation(VCTConfigurationUtil.getDefaultLocationId()));
-
-                    try {
-                        Patient patient = getPatientService().getPatient(client.getClient().getPersonId());
-                        patient.addIdentifier(pi);
-                        getPatientService().savePatient(patient);
-                    } catch (InvalidIdentifierFormatException iife) {
-                        log.error(iife);
-                        request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-                                "PatientIdentifier.error.formatInvalid");
-                    } catch (IdentifierNotUniqueException inue) {
-                        log.error(inue);
-                        request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-                                "PatientIdentifier.error.notUnique");
-                    } catch (DuplicateIdentifierException die) {
-                        log.error(die);
-                        request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-                                "PatientIdentifier.error.duplicate");
-                    } catch (InsufficientIdentifiersException iie) {
-                        log.error(iie);
-                        request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-                                "PatientIdentifier.error.insufficientIdentifiers");
-                    } catch (PatientIdentifierException pie) {
-                        log.error(pie);
-                        request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-                                "PatientIdentifier.error.general");
-                    }
+                    setUpPatientIndentifier(request, client.getClient(), false);
                 }
 
                 client.setDateCreated(new Date());
@@ -343,7 +309,53 @@ public class ClientOrPatientRegistration {
         }
     }
 
-    private Person savePerson(HttpServletRequest request) throws ParseException {
+    private PatientIdentifier setUpPatientIndentifier(HttpServletRequest request, Person p, boolean skipAddingToPatient) throws Exception {
+        // creating NID patientIdentifier for the patient
+        String nid = StringUtils.isNotBlank(request.getParameter("nid")) ? request.getParameter("nid") : request.getParameter("input_nid");
+        PatientIdentifier pi = null;
+
+        if(StringUtils.isNotBlank(nid)) {
+            pi = new PatientIdentifier();
+            pi.setCreator(Context.getAuthenticatedUser());
+            pi.setDateCreated(new Date());
+            pi.setIdentifier(nid);
+            pi.setIdentifierType(getPatientService()
+                    .getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId()));
+            pi.setLocation(
+                    Context.getLocationService().getLocation(VCTConfigurationUtil.getDefaultLocationId()));
+            p.setPersonId(p.getPersonId());
+            try {
+                if (!skipAddingToPatient) {
+                    Patient patient = getPatientService().getPatient(p.getPersonId());
+                    new Patient(p).addIdentifier(pi);
+                    getPatientService().savePatient(patient);
+                }
+            } catch (InvalidIdentifierFormatException iife) {
+                log.error(iife);
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
+                        "PatientIdentifier.error.formatInvalid");
+            } catch (IdentifierNotUniqueException inue) {
+                log.error(inue);
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
+                        "PatientIdentifier.error.notUnique");
+            } catch (DuplicateIdentifierException die) {
+                log.error(die);
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
+                        "PatientIdentifier.error.duplicate");
+            } catch (InsufficientIdentifiersException iie) {
+                log.error(iie);
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
+                        "PatientIdentifier.error.insufficientIdentifiers");
+            } catch (PatientIdentifierException pie) {
+                log.error(pie);
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
+                        "PatientIdentifier.error.general");
+            }
+        }
+        return pi;
+    }
+
+    private Person setUpPerson(HttpServletRequest request) throws ParseException {
         Person p;
         PersonName pn;
         p = new Person();
@@ -360,23 +372,32 @@ public class ClientOrPatientRegistration {
         // address
         p.addAddress(createPersonAddress(request, null));
 
-        // save the person
-        Context.getPersonService().savePerson(p);
         return p;
     }
 
     public Patient saveHIVPatient(HttpServletRequest request) throws ParseException, Exception {
-        Person p = savePerson(request);
+        Person p = setUpPerson(request);
         String hivConcept = Context.getAdministrationService().getGlobalProperty("reports.hivRapidTestConceptId");
         String hivPositiveConcept = Context.getAdministrationService().getGlobalProperty("rwandasphstudyreports.hivPositiveConceptId");
         Patient patient = null;
 
-        if(p != null && StringUtils.isNotBlank(hivConcept) && StringUtils.isNotBlank(hivPositiveConcept)) {
-            Context.getObsService().saveObs(createObs(Context.getConceptService().getConcept(Integer.parseInt(hivConcept)), Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)), new Date(), null), null);
+        PatientIdentifier pi = setUpPatientIndentifier(request, p, true);
+        if(p != null && pi != null && StringUtils.isNotBlank(hivConcept) && StringUtils.isNotBlank(hivPositiveConcept)) {
+            if(Context.getPatientService().getPatientIdentifiers(pi.getIdentifier(), getPatientService()
+                    .getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId())).size() == 0) {
+                Context.getPersonService().savePerson(p);
+                Obs o = createObs(Context.getConceptService().getConcept(Integer.parseInt(hivConcept)), Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)), new Date(), null);
+                patient = new Patient(p);
 
-            patient = Context.getPatientService().savePatient(new Patient(p));
-            enrollPatientInProgram(patient, Context.getProgramWorkflowService().getProgram(MohTracConfigurationUtil.getHivProgramId()), new Date(), null);
-        }
+                o.setPerson(p);
+                Context.getObsService().saveObs(o, null);
+                patient.addIdentifier(pi);
+                patient = Context.getPatientService().savePatient(patient);
+                enrollPatientInProgram(patient, Context.getProgramWorkflowService().getProgram(MohTracConfigurationUtil.getHivProgramId()), new Date(), null);
+            } else
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Patient with identifier: " + pi.getIdentifier() + " already exists");
+        } else
+            request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID is required, otherwise check admin logs");
         return patient;
     }
 
