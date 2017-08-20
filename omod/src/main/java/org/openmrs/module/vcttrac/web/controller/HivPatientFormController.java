@@ -1,5 +1,6 @@
 package org.openmrs.module.vcttrac.web.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
@@ -45,7 +46,7 @@ public class HivPatientFormController {
 
     private boolean checkIfParameterValuesAreSet(HttpServletRequest request, List<String> params) {
         for(String p : params) {
-            if(request.getParameterMap().get(p) == null)
+            if(request.getParameterMap().get(p) != null && StringUtils.isBlank(((String[])request.getParameterMap().get(p))[0]))
                 return false;
         }
 
@@ -58,8 +59,8 @@ public class HivPatientFormController {
             ClientOrPatientRegistration cOrpController = new ClientOrPatientRegistration();
 
             //TODO probably in future make these fields configurable
-            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "birthdate", "familyName", "givenName"}))) {
-                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Birthdate, Family & Given Names are required");
+            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "birthdate", "familyName", "givenName", "gender"}))) {
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Birthdate, Gender, Family & Given Names are required");
             } else {
                 Patient p = cOrpController.saveHIVPatient(request);
 
