@@ -3,8 +3,9 @@ package org.openmrs.module.vcttrac.web.controller;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.vcttrac.service.VCTModuleService;
 import org.openmrs.module.vcttrac.util.VCTConfigurationUtil;
 import org.openmrs.module.vcttrac.util.VCTTracConstant;
 import org.openmrs.module.vcttrac.util.VCTTracUtil;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by k-joseph on 18/08/2017.
@@ -42,6 +45,7 @@ public class HivPatientFormController {
         model.addAttribute("todayDate", Context.getDateFormat().format(new Date()));
         model.addAttribute("location", Context.getLocationService().getLocation(VCTConfigurationUtil.getDefaultLocationId()));
         model.addAttribute("locationId", VCTConfigurationUtil.getDefaultLocationId());
+        model.addAttribute("registrationEntryPoints", Context.getService(VCTModuleService.class).getAllRegistrationEntryPoints());
     }
 
     private boolean checkIfParameterValuesAreSet(HttpServletRequest request, List<String> params) {
@@ -59,10 +63,10 @@ public class HivPatientFormController {
             ClientOrPatientRegistration cOrpController = new ClientOrPatientRegistration();
 
             //TODO probably in future make these fields configurable
-            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "birthdate", "familyName", "givenName", "gender"}))) {
-                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Birthdate, Gender, Family & Given Names are required");
+            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "codeClient", "birthdate", "familyName", "givenName", "gender"}))) {
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Client Code, Birthdate, Gender, Family & Given Names are required");
             } else {
-                Patient p = cOrpController.saveHIVPatient(request);
+                Person p = cOrpController.saveVCTClient(request, true);
 
                 if (p != null)
                     request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "vcttrac.patient.hiv.saved");

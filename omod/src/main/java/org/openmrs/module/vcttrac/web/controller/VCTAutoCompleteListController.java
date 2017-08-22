@@ -13,13 +13,6 @@
  */
 package org.openmrs.module.vcttrac.web.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
@@ -43,6 +36,12 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Yves GAKUBA
@@ -210,7 +209,6 @@ public class VCTAutoCompleteListController extends SimpleFormController {
 		Location location = result.getLocation();
 		
 		try {
-			
 			if (client.getResultObs() != null) {
 				hivTestConstruct = Context.getObsService().getObs(client.getResultObs().getObsId());
 			}

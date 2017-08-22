@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
 
+import static org.openmrs.api.context.Context.getObsService;
 import static org.openmrs.api.context.Context.getPatientService;
 
 /**
@@ -193,7 +194,7 @@ public class ClientOrPatientRegistration {
      *
      * @param request
      */
-    public void saveVCTClient(HttpServletRequest request) {
+    public Person saveVCTClient(HttpServletRequest request, boolean hivPositive) {
         Person p;
         PersonService ps = Context.getPersonService();
         PersonName pn;
@@ -233,14 +234,10 @@ public class ClientOrPatientRegistration {
                     client.setCodeClient(request.getParameter("codeClient"));
                 }
             } else {
-                if (request.getParameter("existOrNew").compareTo("0") == 0) {
-                    p = setUpPerson(request);
-                    Context.getPersonService().savePerson(p);
+                p = setUpPerson(request);
+                Context.getPersonService().savePerson(p);
 
-                    log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Person created successfully !");
-                } else
-                    p = ps.getPerson(Integer.valueOf(request.getParameter("client")));
-
+                log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Person created successfully !");
                 client.setClient(p);
                 client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
                 client.setCounselingObs(null);
@@ -293,20 +290,84 @@ public class ClientOrPatientRegistration {
                 client.setDateCreated(new Date());
                 log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> " + client.getDateOfRegistration());
             }
-            VCTModuleService vms = Context.getService(VCTModuleService.class);
-            vms.saveVCTClient(client);
+            if(client != null && client.getClient() != null && hivPositive) {
+                client.setCodeClient(request.getParameter("codeClient"));
+                client.setClientDecision(1);
+                client.setCodeTest(client.getCodeClient());
+                client.setRegistrationEntryPoint(request.getParameter("reference"));
+                Context.getService(VCTModuleService.class).saveVCTClient(client);
+                saveHIVTestAsPositive(client);
+                return client.getClient();
+            } else {
+                Context.getService(VCTModuleService.class).saveVCTClient(client);
+            }
             log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Client created successfully !");
 
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Form.saved");
         } catch (ConstraintViolationException cve) {
             // cseCaught = true;
-            String msg = "The CODE CLIENT " + client.getCodeClient() + " is arleady in use.";
-            request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg);
+            //String msg = "The CODE CLIENT " + client.getCodeClient() + " is arleady in use.";
+            request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, cve.getMessage());
             cve.printStackTrace();
         } catch (Exception ex) {
             request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, Context.getMessageSourceService().getMessage("Form.not.saved") + ": " + ex.getMessage());
             ex.printStackTrace();
         }
+        return null;
+    }
+
+    private void saveHIVTestAsPositive(VCTClient client) {
+        if (client != null) {
+            Patient patient = null;
+            String hivConcept = Context.getAdministrationService().getGlobalProperty("reports.hivRapidTestConceptId");
+            String hivPositiveConcept = Context.getAdministrationService().getGlobalProperty("rwandasphstudyreports.hivPositiveConceptId");
+            Obs o = null;
+
+            if(StringUtils.isNotBlank(hivConcept) && StringUtils.isNotBlank(hivPositiveConcept)) {
+                o = createObs(Context.getConceptService().getConcept(Integer.parseInt(hivConcept)), Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)), new Date(), null);
+
+                patient = new Patient(client.getClient());
+                o.setPerson(client.getClient());
+                getObsService().saveObs(o, null);
+            }
+            if (o != null) {
+                Obs hivTestConstruct = new Obs();
+                Obs dateOfHivTest = new Obs();
+                Obs resultOfHivTest = new Obs();
+                User creator = Context.getAuthenticatedUser();
+                Date obsDatetime = o.getObsDatetime();
+                Date createdOn = (client != null) ? client.getDateCreated() : new Date();
+                Location location = client.getLocation();
+
+                initObs(client, hivTestConstruct, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getVctHivTestConstructConceptId()));
+
+                initObs(client, dateOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getHivTestDateConceptId()));
+                dateOfHivTest.setValueDatetime(obsDatetime);
+
+                initObs(client, resultOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(
+                        VCTConfigurationUtil.getResultOfHivTestConceptId()));
+                resultOfHivTest.setValueCoded(o.getValueCoded());
+                dateOfHivTest = getObsService().saveObs(dateOfHivTest, null);
+                resultOfHivTest = getObsService().saveObs(resultOfHivTest, null);
+
+                hivTestConstruct.addGroupMember(dateOfHivTest);
+                hivTestConstruct.addGroupMember(resultOfHivTest);
+                hivTestConstruct = Context.getObsService().saveObs(hivTestConstruct, null);
+                client.setResultObs(hivTestConstruct);
+
+                Context.getService(VCTModuleService.class).saveVCTClient(client);
+            }
+        }
+    }
+
+    private void initObs(VCTClient client, Obs obs, User creator, Date createdOn, Location location, Concept concept) {
+        obs.setCreator(creator);
+        obs.setDateCreated(createdOn);
+        obs.setLocation(location);
+        obs.setPerson(client.getClient());
+        obs.setConcept(concept);
+        obs.setObsDatetime(createdOn);
+
     }
 
     private PatientIdentifier setUpPatientIndentifier(HttpServletRequest request, Person p, boolean skipAddingToPatient) throws Exception {
@@ -365,7 +426,8 @@ public class ClientOrPatientRegistration {
         p.getNames().add(pn);
         p.setGender(request.getParameter("gender"));
         p.setBirthdate(Context.getDateFormat().parse(request.getParameter("birthdate")));
-
+        p.setCreator(Context.getAuthenticatedUser());
+        p.setDateCreated(new Date());
         // attributes
         createPersonAttributes(request, p);
 
@@ -375,22 +437,23 @@ public class ClientOrPatientRegistration {
         return p;
     }
 
+    /**
+     * TODO: Don't use save clear TODO
+     * @param request
+     * @return
+     * @throws ParseException
+     * @throws Exception
+     */
     public Patient saveHIVPatient(HttpServletRequest request) throws ParseException, Exception {
         Person p = setUpPerson(request);
-        String hivConcept = Context.getAdministrationService().getGlobalProperty("reports.hivRapidTestConceptId");
-        String hivPositiveConcept = Context.getAdministrationService().getGlobalProperty("rwandasphstudyreports.hivPositiveConceptId");
         Patient patient = null;
 
         PatientIdentifier pi = setUpPatientIndentifier(request, p, true);
-        if(p != null && pi != null && StringUtils.isNotBlank(hivConcept) && StringUtils.isNotBlank(hivPositiveConcept)) {
+        if(p != null && pi != null) {
             if(Context.getPatientService().getPatientIdentifiers(pi.getIdentifier(), getPatientService()
                     .getPatientIdentifierType(VCTConfigurationUtil.getNIDIdentifierTypeId())).size() == 0) {
                 Context.getPersonService().savePerson(p);
-                Obs o = createObs(Context.getConceptService().getConcept(Integer.parseInt(hivConcept)), Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)), new Date(), null);
-                patient = new Patient(p);
-
-                o.setPerson(p);
-                Context.getObsService().saveObs(o, null);
+                //saveHIVTestAsPositive(client);//TODO
                 patient.addIdentifier(pi);
                 patient = Context.getPatientService().savePatient(patient);
                 enrollPatientInProgram(patient, Context.getProgramWorkflowService().getProgram(MohTracConfigurationUtil.getHivProgramId()), new Date(), null);

@@ -107,6 +107,18 @@
                         <td><input type="text" size="18" name="codeClient" id="codeClientId" autocomplete="off"/></td>
                         <td><span id="codeClientError"></span></td>
                     </tr>
+                    <tr>
+                        <td><spring:message code="vcttrac.regEntryPoint"/></td>
+                        <td></td>
+                        <td>
+                            <select name="reference" id="reference_id">
+                                <c:forEach items="${registrationEntryPoints}" var="entryPoint">
+                                    <option value="${entryPoint.name}">${entryPoint.displayName}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
                 </table>
             </div>
             <div style="clear: both;"></div>
