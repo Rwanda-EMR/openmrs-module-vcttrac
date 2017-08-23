@@ -202,97 +202,21 @@ public class ClientOrPatientRegistration {
         VCTClient client = new VCTClient();
 
         try {
-            if (request.getParameter("clientId") != null) {
-                client = Context.getService(VCTModuleService.class)
-                        .getClientById(Integer.valueOf(request.getParameter("clientId")));
-                client.getClient().getPersonName().setFamilyName(request.getParameter("familyName").trim());
-                client.getClient().getPersonName().setGivenName(request.getParameter("givenName").trim());
-                client.getClient().getPersonName().setMiddleName(request.getParameter("middleName").trim());
-                client.getClient().setGender(request.getParameter("gender"));
-                client.getClient().setBirthdate(df.parse(request.getParameter("birthdate")));
-
-                // attributes
-                createPersonAttributes(request, client.getClient());
-
-                // address
-                createPersonAddress(request, client.getClient().getPersonAddress());
-
-                client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
-                if (request.getParameter("registrationDate") != null
-                        && request.getParameter("registrationDate").trim().compareTo("") != 0) {
-                    client.setDateOfRegistration(df.parse(request.getParameter("registrationDate")));
-                }
-
-                if (request.getParameter("location") != null
-                        && request.getParameter("location").trim().compareTo("") != 0) {
-                    client.setLocation(Context.getLocationService()
-                            .getLocation(Integer.valueOf(request.getParameter("location"))));
-                }
-
-                if (request.getParameter("codeClient") != null
-                        && request.getParameter("codeClient").trim().compareTo("") != 0) {
-                    client.setCodeClient(request.getParameter("codeClient"));
-                }
-            } else {
-                p = setUpPerson(request);
-                Context.getPersonService().savePerson(p);
-
-                log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Person created successfully !");
-                client.setClient(p);
-                client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
-                client.setCounselingObs(null);
-                client.setResultObs(null);
-                client.setCreatedBy(Context.getAuthenticatedUser());
-
-                if (request.getParameter("registrationDate") != null
-                        && request.getParameter("registrationDate").trim().compareTo("") != 0) {
-                    client.setDateOfRegistration(df.parse(request.getParameter("registrationDate")));
-                }
-
-                if (request.getParameter("registrationDate_A") != null
-                        && request.getParameter("registrationDate_A").trim().compareTo("") != 0) {
-                    client.setDateOfRegistration(df.parse(request.getParameter("registrationDate_A")));
-                }
-
-                if (request.getParameter("location") != null
-                        && request.getParameter("location").trim().compareTo("") != 0) {
-                    client.setLocation(Context.getLocationService()
-                            .getLocation(Integer.valueOf(request.getParameter("location"))));
-                }
-
-                if (request.getParameter("location_A") != null
-                        && request.getParameter("location_A").trim().compareTo("") != 0) {
-                    client.setLocation(Context.getLocationService()
-                            .getLocation(Integer.valueOf(request.getParameter("location_A"))));
-                }
-
-                if (request.getParameter("codeClient") != null
-                        && request.getParameter("codeClient").trim().compareTo("") != 0) {
-                    client.setCodeClient(request.getParameter("codeClient"));
-                }
-
-                if (request.getParameter("codeClient_A") != null
-                        && request.getParameter("codeClient_A").trim().compareTo("") != 0) {
-                    client.setCodeClient(request.getParameter("codeClient_A"));
-                }
-
-                if (request.getParameter("nid") != null && request.getParameter("nid").trim().compareTo("") != 0) {
-                    client.setNid(request.getParameter("nid"));
-                }
-
-                if (request.getParameter("input_nid") != null
-                        && request.getParameter("input_nid").trim().compareTo("") != 0) {
-                    // adding the NID to the client object
-                    client.setNid(request.getParameter("input_nid"));
-                    setUpPatientIndentifier(request, client.getClient(), false);
-                }
-
-                client.setDateCreated(new Date());
-                log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> " + client.getDateOfRegistration());
+            p = setUpPerson(request);
+            Context.getPersonService().savePerson(p);
+            client.setClient(p);
+            client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
+            client.setCounselingObs(null);
+            client.setResultObs(null);
+            client.setCreatedBy(Context.getAuthenticatedUser());
+            if (request.getParameter("location") != null && request.getParameter("location").trim().compareTo("") != 0) {
+                client.setLocation(Context.getLocationService().getLocation(Integer.valueOf(request.getParameter("location"))));
             }
+            client.setCodeClient(request.getParameter("codeClient"));
+            client.setNid(request.getParameter("nid"));
+            client.setDateCreated(new Date());
+            log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> " + client.getDateOfRegistration());
             if(client != null && client.getClient() != null && hivPositive) {
-
-
                 client.setCodeClient(request.getParameter("codeClient"));
                 client.setClientDecision(1);
                 client.setCodeTest(client.getCodeClient());
@@ -304,7 +228,6 @@ public class ClientOrPatientRegistration {
                 Context.getService(VCTModuleService.class).saveVCTClient(client);
             }
             log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Client created successfully !");
-
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Form.saved");
         } catch (ConstraintViolationException cve) {
             // cseCaught = true;
