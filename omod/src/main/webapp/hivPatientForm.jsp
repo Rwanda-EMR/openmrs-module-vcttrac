@@ -96,6 +96,12 @@
                         <td><span id="registrationDateError"></span></td>
                     </tr>
                     <tr>
+                        <td>HIV Test <spring:message code="vcttrac.date"/></td>
+                        <td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
+                        <td><input type="text" size="11" name="hivTestDate" onclick="showCalendar(this)" value="${todayDate}"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td><spring:message code="Encounter.location"/></td>
                         <td><span class="displayHelp"><img border="0" src="<openmrs:contextPath/>/moduleResources/vcttrac/images/help.gif" title="<spring:message code="vcttrac.help"/>"/></span></td>
                         <td><openmrs_tag:locationField formFieldName="location" initialValue="${locationId}"/></td>

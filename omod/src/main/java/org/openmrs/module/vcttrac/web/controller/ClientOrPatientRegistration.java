@@ -94,28 +94,28 @@ public class ClientOrPatientRegistration {
         contactPerson.setValue(request.getParameter("contactPerson"));
         contactPersonPhoneNumber.setValue(request.getParameter("contactPersonPhoneNumber"));
 
-        if (StringUtils.isNotBlank(phoneNumber.getValue())) {
-            setBasicOpenMRSDataProperties(phoneNumber);
-            p.addAttribute(phoneNumber);
-        }
-        if (StringUtils.isNotBlank(peerEducator.getValue())) {
-            setBasicOpenMRSDataProperties(peerEducator);
-            p.addAttribute(peerEducator);
-        }
-        if (StringUtils.isNotBlank(peerEducatorPhoneNumber.getValue())) {
-            setBasicOpenMRSDataProperties(peerEducatorPhoneNumber);
-            p.addAttribute(peerEducatorPhoneNumber);
-        }
-        if (StringUtils.isNotBlank(contactPerson.getValue())) {
-            setBasicOpenMRSDataProperties(contactPerson);
-            p.addAttribute(contactPerson);
-        }
-        if (StringUtils.isNotBlank(contactPersonPhoneNumber.getValue())) {
-            setBasicOpenMRSDataProperties(contactPersonPhoneNumber);
-            p.addAttribute(contactPersonPhoneNumber);
-        }
-
         try {
+            if (StringUtils.isNotBlank(phoneNumber.getValue())) {
+                setBasicOpenMRSDataProperties(phoneNumber);
+                p.addAttribute(phoneNumber);
+            }
+            if (StringUtils.isNotBlank(peerEducator.getValue())) {
+                setBasicOpenMRSDataProperties(peerEducator);
+                p.addAttribute(peerEducator);
+            }
+            if (StringUtils.isNotBlank(peerEducatorPhoneNumber.getValue())) {
+                setBasicOpenMRSDataProperties(peerEducatorPhoneNumber);
+                p.addAttribute(peerEducatorPhoneNumber);
+            }
+            if (StringUtils.isNotBlank(contactPerson.getValue())) {
+                setBasicOpenMRSDataProperties(contactPerson);
+                p.addAttribute(contactPerson);
+            }
+            if (StringUtils.isNotBlank(contactPersonPhoneNumber.getValue())) {
+                setBasicOpenMRSDataProperties(contactPersonPhoneNumber);
+                p.addAttribute(contactPersonPhoneNumber);
+            }
+
             paCs = p.getAttribute(VCTConfigurationUtil.getCivilStatusAttributeTypeId());
             pa_civilStatus = (paCs == null) ? new PersonAttribute() : paCs;
 
@@ -291,12 +291,14 @@ public class ClientOrPatientRegistration {
                 log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> " + client.getDateOfRegistration());
             }
             if(client != null && client.getClient() != null && hivPositive) {
+
+
                 client.setCodeClient(request.getParameter("codeClient"));
                 client.setClientDecision(1);
                 client.setCodeTest(client.getCodeClient());
                 client.setRegistrationEntryPoint(request.getParameter("reference"));
                 Context.getService(VCTModuleService.class).saveVCTClient(client);
-                saveHIVTestAsPositive(client);
+                saveHIVTestAsPositive(client, df.parse(request.getParameter("hivTestDate")));
                 return client.getClient();
             } else {
                 Context.getService(VCTModuleService.class).saveVCTClient(client);
@@ -306,8 +308,8 @@ public class ClientOrPatientRegistration {
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Form.saved");
         } catch (ConstraintViolationException cve) {
             // cseCaught = true;
-            //String msg = "The CODE CLIENT " + client.getCodeClient() + " is arleady in use.";
-            request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, cve.getMessage());
+            String msg = "The CODE CLIENT " + client.getCodeClient() + " is arleady in use.";
+            request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, msg + ": " + cve.getMessage());
             cve.printStackTrace();
         } catch (Exception ex) {
             request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, Context.getMessageSourceService().getMessage("Form.not.saved") + ": " + ex.getMessage());
@@ -316,47 +318,31 @@ public class ClientOrPatientRegistration {
         return null;
     }
 
-    private void saveHIVTestAsPositive(VCTClient client) {
+    private void saveHIVTestAsPositive(VCTClient client, Date testDate) {
         if (client != null) {
             Patient patient = null;
             String hivConcept = Context.getAdministrationService().getGlobalProperty("reports.hivRapidTestConceptId");
             String hivPositiveConcept = Context.getAdministrationService().getGlobalProperty("rwandasphstudyreports.hivPositiveConceptId");
-            Obs o = null;
+            Obs hivTestConstruct = new Obs();
+            Obs dateOfHivTest = new Obs();
+            Obs resultOfHivTest = new Obs();
+            User creator = Context.getAuthenticatedUser();
+            Date createdOn = (client != null) ? client.getDateCreated() : new Date();
+            Location location = client.getLocation();
 
-            if(StringUtils.isNotBlank(hivConcept) && StringUtils.isNotBlank(hivPositiveConcept)) {
-                o = createObs(Context.getConceptService().getConcept(Integer.parseInt(hivConcept)), Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)), new Date(), null);
-
-                patient = new Patient(client.getClient());
-                o.setPerson(client.getClient());
-                getObsService().saveObs(o, null);
-            }
-            if (o != null) {
-                Obs hivTestConstruct = new Obs();
-                Obs dateOfHivTest = new Obs();
-                Obs resultOfHivTest = new Obs();
-                User creator = Context.getAuthenticatedUser();
-                Date obsDatetime = o.getObsDatetime();
-                Date createdOn = (client != null) ? client.getDateCreated() : new Date();
-                Location location = client.getLocation();
-
-                initObs(client, hivTestConstruct, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getVctHivTestConstructConceptId()));
-
-                initObs(client, dateOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getHivTestDateConceptId()));
-                dateOfHivTest.setValueDatetime(obsDatetime);
-
-                initObs(client, resultOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(
+            initObs(client, hivTestConstruct, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getVctHivTestConstructConceptId()));
+            initObs(client, dateOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(VCTConfigurationUtil.getHivTestDateConceptId()));
+            dateOfHivTest.setValueDatetime(testDate != null ? testDate : createdOn);
+            initObs(client, resultOfHivTest, creator, createdOn, location, Context.getConceptService().getConcept(
                         VCTConfigurationUtil.getResultOfHivTestConceptId()));
-                resultOfHivTest.setValueCoded(o.getValueCoded());
-                dateOfHivTest = getObsService().saveObs(dateOfHivTest, null);
-                resultOfHivTest = getObsService().saveObs(resultOfHivTest, null);
-
-                hivTestConstruct.addGroupMember(dateOfHivTest);
-                hivTestConstruct.addGroupMember(resultOfHivTest);
-                hivTestConstruct = Context.getObsService().saveObs(hivTestConstruct, null);
-                client.setResultObs(hivTestConstruct);
-
-                Context.getService(VCTModuleService.class).saveVCTClient(client);
-            }
+            resultOfHivTest.setValueCoded(Context.getConceptService().getConcept(Integer.parseInt(hivPositiveConcept)));
+            dateOfHivTest = getObsService().saveObs(dateOfHivTest, null);
+            resultOfHivTest = getObsService().saveObs(resultOfHivTest, null);
+            hivTestConstruct.addGroupMember(dateOfHivTest);
+            hivTestConstruct.addGroupMember(resultOfHivTest);
+            hivTestConstruct = Context.getObsService().saveObs(hivTestConstruct, null);
+            client.setResultObs(hivTestConstruct);
+            Context.getService(VCTModuleService.class).saveVCTClient(client);
         }
     }
 
@@ -501,9 +487,9 @@ public class ClientOrPatientRegistration {
                         throw new IllegalArgumentException("Unable to convert " + value + " to a Boolean Obs value", e);
                     }
                 }
-            } else if (ConceptDatatype.DATE.equals(dt.getHl7Abbreviation())
+            } else if ((ConceptDatatype.DATE.equals(dt.getHl7Abbreviation())
                     || ConceptDatatype.TIME.equals(dt.getHl7Abbreviation())
-                    || ConceptDatatype.DATETIME.equals(dt.getHl7Abbreviation())) {
+                    || ConceptDatatype.DATETIME.equals(dt.getHl7Abbreviation()) && value instanceof  Date)) {
                 Date date = (Date) value;
                 obs.setValueDatetime(date);
             } else if ("ZZ".equals(dt.getHl7Abbreviation())) {

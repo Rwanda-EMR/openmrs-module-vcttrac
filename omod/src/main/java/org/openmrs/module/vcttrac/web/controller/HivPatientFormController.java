@@ -63,14 +63,18 @@ public class HivPatientFormController {
             ClientOrPatientRegistration cOrpController = new ClientOrPatientRegistration();
 
             //TODO probably in future make these fields configurable
-            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "codeClient", "birthdate", "familyName", "givenName", "gender"}))) {
-                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Client Code, Birthdate, Gender, Family & Given Names are required");
+            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"nid", "codeClient", "birthdate", "familyName", "givenName", "gender", "hivTestDate"}))) {
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "NID, Client Code, Birthdate, HIVTestDate, Gender, Family & Given Names are required");
             } else {
-                Person p = cOrpController.saveVCTClient(request, true);
+                if(StringUtils.isNotBlank(request.getParameter("registrationDate")) && Context.getDateFormat().parse(request.getParameter("registrationDate")).after(new Date())) {
+                    request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Registration Date can't be in the future!!!");
+                } else {
+                    Person p = cOrpController.saveVCTClient(request, true);
 
-                if (p != null)
-                    request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "vcttrac.patient.hiv.saved");
-                setupModel(model);
+                    if (p != null)
+                        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "vcttrac.patient.hiv.saved");
+                    setupModel(model);
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
