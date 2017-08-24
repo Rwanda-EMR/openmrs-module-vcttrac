@@ -205,30 +205,37 @@ public class ClientOrPatientRegistration {
             p = setUpPerson(request);
             Context.getPersonService().savePerson(p);
             client.setClient(p);
-            client.setRegistrationEntryPoint(request.getParameter("registrationEntryPoint"));
             client.setCounselingObs(null);
             client.setResultObs(null);
             client.setCreatedBy(Context.getAuthenticatedUser());
             if (request.getParameter("location") != null && request.getParameter("location").trim().compareTo("") != 0) {
                 client.setLocation(Context.getLocationService().getLocation(Integer.valueOf(request.getParameter("location"))));
             }
+            if (request.getParameter("registrationDate") != null && request.getParameter("registrationDate").trim().compareTo("") != 0) {
+                client.setDateOfRegistration(df.parse(request.getParameter("registrationDate")));
+            }
+            if (request.getParameter("location") != null && request.getParameter("location").trim().compareTo("") != 0) {
+                client.setLocation(Context.getLocationService().getLocation(Integer.valueOf(request.getParameter("location"))));
+            }
             client.setCodeClient(request.getParameter("codeClient"));
             client.setNid(request.getParameter("nid"));
+            client.setCodeClient(request.getParameter("codeClient"));
+            client.setClientDecision(1);
+            client.setCodeTest(client.getCodeClient());
+            client.setRegistrationEntryPoint(request.getParameter("reference"));
             client.setDateCreated(new Date());
             log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> " + client.getDateOfRegistration());
-            if(client != null && client.getClient() != null && hivPositive) {
-                client.setCodeClient(request.getParameter("codeClient"));
-                client.setClientDecision(1);
-                client.setCodeTest(client.getCodeClient());
-                client.setRegistrationEntryPoint(request.getParameter("reference"));
-                Context.getService(VCTModuleService.class).saveVCTClient(client);
+
+            Context.getService(VCTModuleService.class).saveVCTClient(client);
+
+            if(hivPositive) {
                 saveHIVTestAsPositive(client, df.parse(request.getParameter("hivTestDate")));
-                return client.getClient();
             } else {
                 Context.getService(VCTModuleService.class).saveVCTClient(client);
             }
             log.info(">>>>>>>VCT>>Client>>Registration>>Form>>>> Client created successfully !");
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Form.saved");
+            return client.getClient();
         } catch (ConstraintViolationException cve) {
             // cseCaught = true;
             String msg = "The CODE CLIENT " + client.getCodeClient() + " is arleady in use.";
