@@ -217,9 +217,9 @@ public class ClientOrPatientRegistration {
             if (request.getParameter("location") != null && request.getParameter("location").trim().compareTo("") != 0) {
                 client.setLocation(Context.getLocationService().getLocation(Integer.valueOf(request.getParameter("location"))));
             }
-            client.setCodeClient(request.getParameter("codeClient"));
             client.setNid(request.getParameter("nid"));
-            client.setCodeClient(request.getParameter("codeClient"));
+            if(StringUtils.isNotBlank(request.getParameter("codeClient")))
+                client.setCodeClient(request.getParameter("codeClient"));
             client.setClientDecision(1);
             client.setCodeTest(client.getCodeClient());
             client.setRegistrationEntryPoint(request.getParameter("reference"));

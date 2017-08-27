@@ -64,8 +64,8 @@ public class HivPatientFormController {
 
             //TODO probably in future make these fields configurable
             //"nid", "codeClient",  should be required or not
-            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"birthdate", "familyName", "givenName", "gender"}))) {
-                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Birthdate, Gender, Family & Given Names are required");
+            if(!checkIfParameterValuesAreSet(request, Arrays.asList(new String[] {"codeClient", "birthdate", "familyName", "givenName", "gender"}))) {
+                request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Client Code, Birthdate, Gender, Family & Given Names are required");
             } else {
                 if(StringUtils.isNotBlank(request.getParameter("registrationDate")) && Context.getDateFormat().parse(request.getParameter("registrationDate")).after(new Date())) {
                     request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Registration Date can't be in the future!!!");

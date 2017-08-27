@@ -70,7 +70,7 @@
 				<td class="rowValue ${status.count%2!=0?'even':''}">${(client.client.age<1)?'<1':client.client.age} <spring:message code="vcttrac.dashboard.yrs"/></td>
 				<openmrs:hasPrivilege privilege="View VCT Client result">
 					<td class="rowValue ${status.count%2!=0?'even':''}"><span class="${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestId)==positiveString?'lastObsValuePositive':'lastObsValue'}">${vcttag:convsetObsValueByConcept(client.resultObs, resultOfHivTestId)}</span></td>
-					<td class="rowValue ${status.count%2!=0?'even':''}"><input type="hidden" id="${status.count}" value="${client.codeTest}"/><input onclick="setCodeTestAndShowDialog(${status.count},'${client.client.gender}');" type="submit" value="<spring:message code='vcttrac.enrollment.enroll'/>"/></td>
+					<td class="rowValue ${status.count%2!=0?'even':''}"><input type="hidden" id="${status.count}" value="${client.codeTest}"/><input onclick="setCodeTestAndShowDialog(${status.count},'${client.client.gender}');jQuery('#current-client-id').val(${client.tracVctClientId});" type="submit" value="<spring:message code='vcttrac.enrollment.enroll'/>"/></td>
 				</openmrs:hasPrivilege>
 			</tr>
 		</c:forEach>
